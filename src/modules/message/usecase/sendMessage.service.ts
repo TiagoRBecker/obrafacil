@@ -36,16 +36,16 @@ Você pode visualizar no PDF em anexo.
 
 Se tiver qualquer dúvida, estou à disposição!`,
     );
-   
+
     const key = await this.orderRepo.findMessageTracking(data.key.id);
-    
+
     if (!key) {
       this.logger.log(`Criando tracking para mensagem - KeyID: ${data.key.id}`);
-      await this.orderRepo.createTrackingMessage(data.key.id,existOrderId.id);
+      await this.orderRepo.createTrackingMessage(data.key.id, existOrderId.id);
     } else {
       this.logger.warn(`Mensagem já possui tracking - KeyID: ${data.key.id}`);
     }
-    
+
     this.logger.log(`Orçamento enviado com sucesso - ID: ${orderId}`);
   }
 

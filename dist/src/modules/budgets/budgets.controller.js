@@ -17,6 +17,9 @@ const common_1 = require("@nestjs/common");
 const create_budget_dto_1 = require("./dto/create-budget.dto");
 const budget_id_param_dto_1 = require("./dto/budget-id-param.dto");
 const budgets_service_1 = require("./budgets.service");
+const admin_token_guard_1 = require("../../guards/admin-token.guard");
+const decorators_1 = require("../../../decorators");
+const types_1 = require("../../../decorators/types");
 let BudgetsController = class BudgetsController {
     constructor(budgetsService) {
         this.budgetsService = budgetsService;
@@ -40,12 +43,16 @@ let BudgetsController = class BudgetsController {
 exports.BudgetsController = BudgetsController;
 __decorate([
     (0, common_1.Post)('create'),
+    (0, decorators_1.Roles)(types_1.UserRole.ADMIN),
+    (0, decorators_1.RequirePermissions)('order:create'),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [create_budget_dto_1.CreateOrderDto]),
     __metadata("design:returntype", Promise)
 ], BudgetsController.prototype, "create", null);
 __decorate([
+    (0, decorators_1.Roles)(types_1.UserRole.ADMIN),
+    (0, decorators_1.RequirePermissions)('order:update'),
     (0, common_1.Patch)('update/:id'),
     __param(0, (0, common_1.Param)()),
     __param(1, (0, common_1.Body)()),
@@ -55,6 +62,8 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], BudgetsController.prototype, "update", null);
 __decorate([
+    (0, decorators_1.Roles)(types_1.UserRole.ADMIN),
+    (0, decorators_1.RequirePermissions)('order:delete'),
     (0, common_1.Delete)('delete/:id'),
     __param(0, (0, common_1.Param)()),
     __metadata("design:type", Function),
@@ -62,12 +71,16 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], BudgetsController.prototype, "delete", null);
 __decorate([
+    (0, decorators_1.Roles)(types_1.UserRole.ADMIN, types_1.UserRole.USER),
+    (0, decorators_1.RequirePermissions)('order:read'),
     (0, common_1.Get)('all'),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], BudgetsController.prototype, "findAll", null);
 __decorate([
+    (0, decorators_1.Roles)(types_1.UserRole.ADMIN, types_1.UserRole.USER),
+    (0, decorators_1.RequirePermissions)('order:read'),
     (0, common_1.Get)(':id'),
     __param(0, (0, common_1.Param)()),
     __metadata("design:type", Function),
@@ -75,6 +88,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], BudgetsController.prototype, "findById", null);
 exports.BudgetsController = BudgetsController = __decorate([
+    (0, common_1.UseGuards)(admin_token_guard_1.AdminTokenGuard),
     (0, common_1.Controller)('admin/budgets'),
     __metadata("design:paramtypes", [budgets_service_1.BudgetsService])
 ], BudgetsController);

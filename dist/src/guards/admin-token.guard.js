@@ -53,6 +53,7 @@ let AdminTokenGuard = class AdminTokenGuard {
             throw new common_1.UnauthorizedException('Missing authorization token.');
         }
         const payload = this.decodeTokenPayload(token);
+        console.log('Payload', payload);
         if (!payload) {
             throw new common_1.UnauthorizedException('Admin access only.');
         }
@@ -60,7 +61,7 @@ let AdminTokenGuard = class AdminTokenGuard {
         if (!userHavePermission)
             throw new common_1.UnauthorizedException('Acesso negado ');
         const userPermissions = userHavePermission?.permission?.map((rp) => rp) ?? [];
-        const hasAll = requiredPermissions.every((p) => userPermissions.includes(p));
+        const hasAll = requiredPermissions?.every((p) => userPermissions.includes(p));
         if (!hasAll)
             throw new common_1.UnauthorizedException('Acesso somente  para adminstradores ');
         request.user = userHavePermission.id;

@@ -33,26 +33,28 @@ export class AdminTokenGuard implements CanActivate {
     );
     const request = context.switchToHttp().getRequest<Request>();
     const token = this.extractBearerToken(request);
+  
 
     if (!token) {
       throw new UnauthorizedException('Missing authorization token.');
     }
 
     const payload = this.decodeTokenPayload(token);
-
+ 
     if (!payload) {
       throw new UnauthorizedException('Admin access only.');
     }
 
     const userHavePermission = await this.userRepo.findById(payload.id);
-
+  
     if (!userHavePermission) throw new UnauthorizedException('Acesso negado ');
 
     const userPermissions =
       userHavePermission?.permission?.map((rp) => rp) ?? [];
-    const hasAll = requiredPermissions.every((p) =>
+    const hasAll = requiredPermissions?.every((p) =>
       userPermissions.includes(p),
     );
+  
     if (!hasAll)
       throw new UnauthorizedException('Acesso somente  para adminstradores ');
     request.user = userHavePermission.id;

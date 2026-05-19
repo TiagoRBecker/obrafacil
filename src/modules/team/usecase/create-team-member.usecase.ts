@@ -48,8 +48,8 @@ export class CreateTeamMemberUseCase {
       const createdMember = await this.teamMemberRepository.create(member);
       this.logger.log(`Membro da equipe criado com sucesso - ID: ${createdMember.data.id}, nome: ${createdMember.data.name}`);
       return TeamMemberMapper.toResponse(createdMember);
-    } catch (error) {
-      this.logger.error(`Erro ao criar membro da equipe - email: ${input.email}, erro: ${error.message || error}`);
+    } catch (error:any) {
+      this.logger.error(`Erro ao criar membro da equipe - email: ${input.email}, erro: ${error.message as any || error}`);
       throw new BadRequestException(`Erro ao criar o  novo colaborador `);
     }
   }

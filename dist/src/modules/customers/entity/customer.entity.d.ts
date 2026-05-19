@@ -6,6 +6,10 @@ export interface CustomerEntityProps {
     service: string;
     city: string;
 }
+export interface CustomerWithOrders {
+    customer: CustomerEntity;
+    orders: any[];
+}
 export declare class CustomerEntity {
     private readonly props;
     private constructor();

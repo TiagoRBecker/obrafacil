@@ -7,4 +7,6 @@ export class CustomerResponseDto {
   updatedAt?: Date;
   service!:string
   city!:string
+  orders?:any[]
+
 }

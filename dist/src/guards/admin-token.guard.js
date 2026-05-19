@@ -53,7 +53,6 @@ let AdminTokenGuard = class AdminTokenGuard {
             throw new common_1.UnauthorizedException('Missing authorization token.');
         }
         const payload = this.decodeTokenPayload(token);
-        console.log('Payload', payload);
         if (!payload) {
             throw new common_1.UnauthorizedException('Admin access only.');
         }

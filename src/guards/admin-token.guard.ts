@@ -40,6 +40,7 @@ export class AdminTokenGuard implements CanActivate {
     }
 
     const payload = this.decodeTokenPayload(token);
+   
  
     if (!payload) {
       throw new UnauthorizedException('Admin access only.');

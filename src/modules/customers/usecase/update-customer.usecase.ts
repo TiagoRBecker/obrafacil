@@ -51,7 +51,7 @@ export class UpdateCustomerUseCase {
       );
       this.logger.log(`Cliente atualizado com sucesso - ID: ${id}`);
       return CustomerMapper.toResponse(updatedCustomer);
-    } catch (error) {
+    } catch (error:any) {
       if (error instanceof NotFoundException) throw error;
       this.logger.error(`Erro ao atualizar cliente - ID: ${id}, erro: ${error.message || error}`);
       throw new BadRequestException(`Erro ao atualizar o usuario `);

@@ -2,7 +2,18 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CustomerMapper = void 0;
 class CustomerMapper {
-    static toResponse(customer) {
+    static toResponse(data) {
+        return {
+            id: data.id,
+            name: data.name,
+            phone: data.phone,
+            address: data.address,
+            service: data.service,
+            city: data.city,
+        };
+    }
+    static toResponseWithOders(data) {
+        const { customer, orders } = data;
         return {
             id: customer.id,
             name: customer.name,
@@ -10,6 +21,7 @@ class CustomerMapper {
             address: customer.address,
             service: customer.service,
             city: customer.city,
+            orders: orders || []
         };
     }
 }

@@ -7,11 +7,15 @@ export interface CustomerEntityProps {
   city: string;
 }
 
+export interface CustomerWithOrders {
+  customer: CustomerEntity; // A entidade pura
+  orders: any[];            // As ordens atreladas
+}
 export class CustomerEntity {
   private constructor(private readonly props: CustomerEntityProps) {}
 
   static create(props: Omit<CustomerEntityProps, 'id'>): CustomerEntity {
-    return new CustomerEntity ({
+    return new CustomerEntity({
       ...props,
       name: props.name.trim(),
       phone: props.phone.trim(),
@@ -28,6 +32,7 @@ export class CustomerEntity {
       city: props.city,
     });
   }
+
 
   get id(): string | undefined {
     return this.props.id;

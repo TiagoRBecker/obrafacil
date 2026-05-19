@@ -4,7 +4,7 @@ import {
   Logger,
 } from '@nestjs/common';
 import { PrismaService } from '../../../db/prisma';
-import { CustomerEntity, CustomerEntityProps } from '../entity/customer.entity';
+import { CustomerEntity, CustomerEntityProps, CustomerWithOrders } from '../entity/customer.entity';
 import { CustomerRepositoryInterface } from './customer.repo.inteface';
 
 @Injectable()
@@ -46,20 +46,28 @@ export class CustomerRepo extends CustomerRepositoryInterface {
     }
   }
 
-  async findAll(): Promise<CustomerEntity[]> {
+  async findAll(): Promise<CustomerWithOrders[]> {
     try {
-      const customer = await this.prisma.customer.findMany();
-
-      return customer.map((c) => {
-        return CustomerEntity.toDTO({
-          id: c?.id as string,
-          name: c?.name ?? '',
-          phone: c?.phone ?? '',
-          address: c?.address ?? '',
-          service: c?.service ?? '',
-          city: c.city ?? '',
-        });
+      const customer = await this.prisma.customer.findMany({
+        include:{
+          orders:true
+        }
       });
+
+     return customer.map((c) => {
+      return {
+        // Reconstrói a entidade perfeitamente sem o campo orders nela
+        customer: CustomerEntity.toDTO({
+          id: c.id,
+          name: c.name ?? '',
+          phone: c.phone ?? '',
+          address: c.address ?? '',
+          service: c.service ?? '',
+          city: c.city ?? '',
+        }),
+        orders: c.orders ?? [] 
+      };
+    });
     } catch (error) {
       this.logger.error('Erro ao bucar os clientes', {
         error,

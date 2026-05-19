@@ -1,4 +1,4 @@
-import { CustomerEntity } from '../entity/customer.entity';
+import { CustomerEntity, CustomerWithOrders } from '../entity/customer.entity';
 import { CustomerRepositoryInterface } from './customer.repo.inteface';
 export declare class InMemoryCustomerRepository implements CustomerRepositoryInterface {
     private readonly customers;
@@ -6,6 +6,6 @@ export declare class InMemoryCustomerRepository implements CustomerRepositoryInt
     update(id: string, customer: CustomerEntity): Promise<CustomerEntity>;
     findById(id: string): Promise<CustomerEntity | null>;
     findByphone(id: string): Promise<CustomerEntity | null>;
-    findAll(): Promise<CustomerEntity[]>;
+    findAll(): Promise<CustomerWithOrders[]>;
     delete(id: string): Promise<void>;
 }

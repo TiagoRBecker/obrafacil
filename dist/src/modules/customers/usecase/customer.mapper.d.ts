@@ -1,5 +1,6 @@
 import { CustomerResponseDto } from '../dto/customer-response.dto';
-import { CustomerEntity } from '../entity/customer.entity';
+import { CustomerEntity, CustomerWithOrders } from '../entity/customer.entity';
 export declare class CustomerMapper {
-    static toResponse(customer: CustomerEntity): CustomerResponseDto;
+    static toResponse(data: CustomerEntity): CustomerResponseDto;
+    static toResponseWithOders(data: CustomerWithOrders): CustomerResponseDto;
 }

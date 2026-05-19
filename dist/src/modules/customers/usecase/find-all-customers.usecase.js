@@ -23,7 +23,7 @@ let FindAllCustomersUseCase = FindAllCustomersUseCase_1 = class FindAllCustomers
         this.logger.log('Buscando todos os clientes');
         const customers = await this.customerRepository.findAll();
         this.logger.log(`Encontrados ${customers.length} clientes`);
-        const data = customers.map(customer_mapper_1.CustomerMapper.toResponse);
+        const data = customers.map(customer_mapper_1.CustomerMapper.toResponseWithOders);
         return data;
     }
 };

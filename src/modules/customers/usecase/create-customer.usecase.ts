@@ -46,7 +46,7 @@ export class CreateCustomerUseCase {
       const createdCustomer = await this.customerRepository.create(customer);
       this.logger.log(`Cliente criado com sucesso - ID: ${createdCustomer.id}, nome: ${createdCustomer.name}`);
       return CustomerMapper.toResponse(createdCustomer);
-    } catch (error) {
+    } catch (error:any) {
       this.logger.error(`Erro ao criar cliente - telefone: ${input.phone}, erro: ${error.message || error}`);
       throw new BadRequestException(
         'Erro ao criar o usuario. Consulte a area logs para maiores informaçoes ',

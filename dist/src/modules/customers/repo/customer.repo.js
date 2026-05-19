@@ -53,16 +53,23 @@ let CustomerRepo = CustomerRepo_1 = class CustomerRepo extends customer_repo_int
     }
     async findAll() {
         try {
-            const customer = await this.prisma.customer.findMany();
+            const customer = await this.prisma.customer.findMany({
+                include: {
+                    orders: true
+                }
+            });
             return customer.map((c) => {
-                return customer_entity_1.CustomerEntity.toDTO({
-                    id: c?.id,
-                    name: c?.name ?? '',
-                    phone: c?.phone ?? '',
-                    address: c?.address ?? '',
-                    service: c?.service ?? '',
-                    city: c.city ?? '',
-                });
+                return {
+                    customer: customer_entity_1.CustomerEntity.toDTO({
+                        id: c.id,
+                        name: c.name ?? '',
+                        phone: c.phone ?? '',
+                        address: c.address ?? '',
+                        service: c.service ?? '',
+                        city: c.city ?? '',
+                    }),
+                    orders: c.orders ?? []
+                };
             });
         }
         catch (error) {

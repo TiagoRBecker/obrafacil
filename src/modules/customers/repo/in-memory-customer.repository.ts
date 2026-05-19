@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 
-import { CustomerEntity } from '../entity/customer.entity';
+import { CustomerEntity, CustomerWithOrders } from '../entity/customer.entity';
 import { CustomerRepositoryInterface } from './customer.repo.inteface';
 
 @Injectable()
@@ -24,8 +24,8 @@ export class InMemoryCustomerRepository implements CustomerRepositoryInterface {
     return this.customers.get(id) ?? null;
   }
 
-  async findAll(): Promise<CustomerEntity[]> {
-    return [...this.customers.values()];
+  async findAll(): Promise<CustomerWithOrders[]> {
+    return [...this.customers.values() as any];
   }
 
   async delete(id: string): Promise<void> {

@@ -14,7 +14,7 @@ export class FindAllCustomersUseCase {
     this.logger.log('Buscando todos os clientes');
     const customers = await this.customerRepository.findAll();
     this.logger.log(`Encontrados ${customers.length} clientes`);
-    const data  = customers.map(CustomerMapper.toResponse);
+    const data  = customers.map(CustomerMapper.toResponseWithOders);
     
     
     return data

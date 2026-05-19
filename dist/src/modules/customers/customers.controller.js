@@ -14,10 +14,13 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CustomersController = void 0;
 const common_1 = require("@nestjs/common");
+const admin_token_guard_1 = require("../../guards/admin-token.guard");
 const create_customer_dto_1 = require("./dto/create-customer.dto");
 const customer_id_param_dto_1 = require("./dto/customer-id-param.dto");
 const update_customer_dto_1 = require("./dto/update-customer.dto");
 const customers_service_1 = require("./customers.service");
+const decorators_1 = require("../../../decorators");
+const types_1 = require("../../../decorators/types");
 let CustomersController = class CustomersController {
     constructor(customersService) {
         this.customersService = customersService;
@@ -41,12 +44,16 @@ let CustomersController = class CustomersController {
 exports.CustomersController = CustomersController;
 __decorate([
     (0, common_1.Post)('create'),
+    (0, decorators_1.Roles)(types_1.UserRole.ADMIN),
+    (0, decorators_1.RequirePermissions)("customer:create"),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [create_customer_dto_1.CreateCustomerDto]),
     __metadata("design:returntype", Promise)
 ], CustomersController.prototype, "create", null);
 __decorate([
+    (0, decorators_1.Roles)(types_1.UserRole.ADMIN),
+    (0, decorators_1.RequirePermissions)("customer:update"),
     (0, common_1.Patch)('update/:id'),
     __param(0, (0, common_1.Param)()),
     __param(1, (0, common_1.Body)()),
@@ -56,6 +63,8 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], CustomersController.prototype, "update", null);
 __decorate([
+    (0, decorators_1.Roles)(types_1.UserRole.ADMIN),
+    (0, decorators_1.RequirePermissions)("customer:update"),
     (0, common_1.Delete)('delete/:id'),
     __param(0, (0, common_1.Param)()),
     __metadata("design:type", Function),
@@ -63,12 +72,16 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], CustomersController.prototype, "delete", null);
 __decorate([
+    (0, decorators_1.Roles)(types_1.UserRole.ADMIN, types_1.UserRole.USER),
+    (0, decorators_1.RequirePermissions)("customer:read"),
     (0, common_1.Get)('all'),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], CustomersController.prototype, "findAll", null);
 __decorate([
+    (0, decorators_1.Roles)(types_1.UserRole.ADMIN, types_1.UserRole.USER),
+    (0, decorators_1.RequirePermissions)("customer:read"),
     (0, common_1.Get)(':id'),
     __param(0, (0, common_1.Param)()),
     __metadata("design:type", Function),
@@ -76,6 +89,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], CustomersController.prototype, "findById", null);
 exports.CustomersController = CustomersController = __decorate([
+    (0, common_1.UseGuards)(admin_token_guard_1.AdminTokenGuard),
     (0, common_1.Controller)('admin/customers'),
     __metadata("design:paramtypes", [customers_service_1.CustomersService])
 ], CustomersController);

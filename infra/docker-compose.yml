@@ -1,0 +1,20 @@
+# docker-compose.yml
+version: "3.8"
+
+include:
+  - services/postgres.yml
+  - services/postgres-evo.yml
+  - services/redis.yml
+  - services/evolution.yml
+  - services/init.yml
+
+volumes:
+  postgres_data:
+  postgres_evo_data:
+  redis_data:
+  evolution_instances:
+
+networks:
+  internal:
+    name: ${CLIENT_SLUG}-network
+    driver: bridge

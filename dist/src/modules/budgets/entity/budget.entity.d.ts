@@ -1,0 +1,86 @@
+export interface BudgetMaterialItemProps {
+    name: string;
+    unit: string;
+    quantity: number;
+    unitPrice: number;
+}
+export interface BudgetEntityProps {
+    id: string;
+    name: string;
+    phone: string;
+    address: string;
+    observations: string;
+    title: string;
+    description: string;
+    valueHour: number;
+    estimatedHours: number;
+    numberEmployees: number;
+    typeCharge: string;
+    materials: BudgetMaterialItemProps[];
+    initDate: Date;
+    endDate: Date;
+    validityDate: Date;
+    discount: number;
+    finalObservations: string;
+    customerId: string;
+    createdAt: Date;
+    laborValue: number;
+    materialValue: number;
+    totalValue: number;
+    status?: string;
+}
+export declare class BudgetEntity {
+    private readonly props;
+    private constructor();
+    static create(props: Omit<BudgetEntityProps, 'id' | 'createdAt' | 'updateAt' | 'status'>): BudgetEntity;
+    get name(): string;
+    get phone(): string;
+    get address(): string;
+    get observations(): string;
+    get valueHour(): number;
+    get estimatedHours(): number;
+    get numberEmployees(): number;
+    get title(): string;
+    get description(): string;
+    get typeCharge(): string;
+    get materials(): BudgetMaterialItemProps[];
+    get initDate(): Date;
+    get endDate(): Date;
+    get validityDate(): Date;
+    get discount(): number | null;
+    get finalObservations(): string;
+    get totalValue(): number;
+    get materialValue(): number;
+    get laborValue(): number;
+    get id(): string;
+    get createdAt(): Date;
+    get customerId(): string;
+    get status(): string;
+    static toDTO(props: BudgetEntityProps): BudgetEntity;
+    toJSON(): {
+        id: string;
+        name: string;
+        phone: string;
+        address: string;
+        observations: string;
+        title: string;
+        description: string;
+        valueHour: number;
+        estimatedHours: number;
+        numberEmployees: number;
+        typeCharge: string;
+        materials: BudgetMaterialItemProps[];
+        initDate: Date;
+        endDate: Date;
+        validityDate: Date;
+        discount: number;
+        finalObservations: string;
+        customerId: string;
+        createdAt: Date;
+        laborValue: number;
+        materialValue: number;
+        totalValue: number;
+        status?: string | undefined;
+    };
+    private guard;
+}

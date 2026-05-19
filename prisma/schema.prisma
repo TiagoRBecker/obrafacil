@@ -1,0 +1,172 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Account {
+  id         String    @id @default(uuid()) @db.Uuid
+  name       String
+  email      String    @unique
+  password   String
+  role       Role?     @relation(fields: [roleId], references: [id])
+  roleId     String?   @db.Uuid
+  settings   Settings? @relation(fields: [settingsId], references: [id])
+  settingsId String?   @db.Uuid
+}
+
+model Customer {
+  id        String   @id @default(uuid()) @db.Uuid
+  name      String
+  phone     String   @unique
+  address   String?
+  city      String?
+  service   String?
+  orders    Order[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+}
+
+model Team {
+  id         String      @id @default(uuid()) @db.Uuid
+  name       String
+  jobTitle   String
+  email      String      @unique
+  phone      String      @unique
+  status     String      @default("FREE")
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @default(now()) @updatedAt
+  teamOrders TeamOrder[]
+}
+
+model TeamOrder {
+  id      String @id @default(uuid()) @db.Uuid
+  teamId  String @db.Uuid
+  orderId String @db.Uuid
+
+  team  Team  @relation(fields: [teamId], references: [id])
+  order Order @relation(fields: [orderId], references: [id])
+
+  @@unique([teamId, orderId])
+  @@map("team_orders")
+}
+
+model Settings {
+  id String @id @default(uuid()) @db.Uuid
+  // Vínculo único com a Organização
+
+  // Dados que aparecem no PDF
+  businessName         String? // Nome comercial para a proposta
+  specialty            String
+  phone                String
+  email                String // E-mail comercial (pode ser diferente do e-mail do admin)
+  address              String?
+  logoUrl              String?
+  proposalTerms        String? @db.Text
+  warrantyTerms        String? @db.Text
+  proposalValidityDays Int     @default(7)
+  defaultBillingUnit   String
+
+  updatedAt DateTime  @updatedAt
+  accounts  Account[]
+}
+
+model Order {
+  id String @id @default(uuid()) @db.Uuid
+
+  // Dados do Cliente/Contato
+  name         String
+  phone        String
+  address      String
+  observations String @db.Text
+
+  // Detalhes do Serviço
+  title       String
+  description String @db.Text
+  typeCharge  String
+
+  // Valores e Quantitativos
+  valueHour       Float
+  estimatedHours  Float
+  numberEmployees Int
+
+  finalObservations String @db.Text
+
+  // Datas
+  initDate     DateTime
+  endDate      DateTime
+  validityDate DateTime
+
+  // Relacionamentos e Metadados
+  materials  OrderMaterial[]
+  createdAt  DateTime        @default(now())
+  updatedAt  DateTime        @updatedAt
+  customer   Customer?       @relation(fields: [customerId], references: [id])
+  customerId String?         @db.Uuid
+
+  //Values
+
+  totalValue    Float?      @default(0)
+  materialValue Float?      @default(0)
+  discount      Float?      @default(0)
+  laborValue    Float?      @default(0)
+  teamOrders    TeamOrder[]
+  status        String?     @default("PENDENTE")
+
+  @@unique([customerId, initDate])
+  @@map("orders")
+}
+
+model MessageTracking {
+  id        Int    @id @default(autoincrement())
+  orderId   String @unique
+  messageId String @unique
+}
+
+model OrderMaterial {
+  id        String @id @default(uuid()) @db.Uuid
+  orderId   String @db.Uuid
+  name      String
+  unit      String
+  quantity  Float
+  unitPrice Float
+
+  // Relacionamento com Cascade para deletar materiais se o pedido for excluído
+  order Order @relation(fields: [orderId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([orderId])
+  @@map("order_materials")
+}
+
+model Role {
+  id          String           @id @default(uuid()) @db.Uuid
+  name        String           @unique
+  permissions RolePermission[]
+  accounts    Account[]
+}
+
+model Permission {
+  id    String           @id @default(uuid()) @db.Uuid
+  name  String           @unique
+  roles RolePermission[]
+}
+
+model RolePermission {
+  roleId       String @db.Uuid
+  permissionId String @db.Uuid
+
+  role       Role       @relation(fields: [roleId], references: [id])
+  permission Permission @relation(fields: [permissionId], references: [id])
+
+  @@id([roleId, permissionId])
+}

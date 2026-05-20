@@ -20,6 +20,7 @@ const team_module_1 = require("./modules/team/team.module");
 const whatsapp_module_1 = require("./modules/whatsapp/whatsapp.module");
 const evo_module_1 = require("./modules/evo/evo.module");
 const message_module_1 = require("./modules/message/message.module");
+const user_module_1 = require("./modules/Users/user.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -37,7 +38,8 @@ exports.AppModule = AppModule = __decorate([
             security_module_1.SecurityModule,
             whatsapp_module_1.WhatsAppModule,
             evo_module_1.EvoModule,
-            message_module_1.MessageModule
+            message_module_1.MessageModule,
+            user_module_1.UserModule
         ],
         controllers: [app_controller_1.AppController],
         providers: [

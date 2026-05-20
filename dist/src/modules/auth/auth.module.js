@@ -10,33 +10,25 @@ exports.AuthModule = void 0;
 const common_1 = require("@nestjs/common");
 const security_module_1 = require("../security/security.module");
 const auth_controller_1 = require("./auth.controller");
-const in_memory_user_repository_1 = require("./repo/in-memory-user.repository");
-const user_repository_interface_1 = require("./repo/user.repository.interface");
 const refresh_token_usecase_1 = require("./usecase/refresh-token.usecase");
 const sign_in_usecase_1 = require("./usecase/sign-in.usecase");
 const sign_up_usecase_1 = require("./usecase/sign-up.usecase");
-const user_repo_1 = require("./repo/user.repo");
 const prisma_1 = require("../../db/prisma");
+const user_module_1 = require("../Users/user.module");
 let AuthModule = class AuthModule {
 };
 exports.AuthModule = AuthModule;
 exports.AuthModule = AuthModule = __decorate([
     (0, common_1.Global)(),
     (0, common_1.Module)({
-        imports: [security_module_1.SecurityModule],
+        imports: [security_module_1.SecurityModule, user_module_1.UserModule],
         controllers: [auth_controller_1.AuthController],
         providers: [
-            {
-                provide: user_repository_interface_1.UserRepositoryInterface,
-                useClass: user_repo_1.UserRepo,
-            },
             prisma_1.PrismaService,
             sign_up_usecase_1.SignUpUseCase,
             sign_in_usecase_1.SignInUseCase,
             refresh_token_usecase_1.RefreshTokenUseCase,
-            in_memory_user_repository_1.InMemoryUserRepository,
         ],
-        exports: [user_repository_interface_1.UserRepositoryInterface]
     })
 ], AuthModule);
 //# sourceMappingURL=auth.module.js.map

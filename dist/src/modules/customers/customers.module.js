@@ -20,14 +20,14 @@ const find_customer_by_id_usecase_1 = require("./usecase/find-customer-by-id.use
 const update_customer_usecase_1 = require("./usecase/update-customer.usecase");
 const customer_repo_1 = require("./repo/customer.repo");
 const prisma_1 = require("../../db/prisma");
-const auth_module_1 = require("../auth/auth.module");
+const user_module_1 = require("../Users/user.module");
 let CustomersModule = class CustomersModule {
 };
 exports.CustomersModule = CustomersModule;
 exports.CustomersModule = CustomersModule = __decorate([
     (0, common_1.Module)({
         controllers: [customers_controller_1.CustomersController],
-        imports: [auth_module_1.AuthModule],
+        imports: [user_module_1.UserModule],
         providers: [
             customers_service_1.CustomersService,
             create_customer_usecase_1.CreateCustomerUseCase,

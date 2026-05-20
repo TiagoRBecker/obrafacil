@@ -14,6 +14,7 @@ import { AdminTokenGuard } from './guards/admin-token.guard';
 import { WhatsAppModule } from './modules/whatsapp/whatsapp.module';
 import { EvoModule } from './modules/evo/evo.module';
 import { MessageModule } from './modules/message/message.module';
+import { UserModule } from './modules/Users/user.module';
 
 
 @Module({
@@ -29,7 +30,8 @@ import { MessageModule } from './modules/message/message.module';
     SecurityModule,
     WhatsAppModule,
     EvoModule,
-    MessageModule
+    MessageModule,
+    UserModule
   ],
   controllers: [AppController],
    providers: [

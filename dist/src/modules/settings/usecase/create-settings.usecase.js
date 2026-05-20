@@ -16,7 +16,7 @@ const common_1 = require("@nestjs/common");
 const settings_entity_1 = require("../entity/settings.entity");
 const settings_repository_1 = require("../repo/settings.repository");
 const settings_mapper_1 = require("./settings.mapper");
-const user_repository_interface_1 = require("../../auth/repo/user.repository.interface");
+const user_repository_interface_1 = require("../../Users/repo/user.repository.interface");
 let CreateSettingsUseCase = CreateSettingsUseCase_1 = class CreateSettingsUseCase {
     constructor(settingsRepository, userRepo) {
         this.settingsRepository = settingsRepository;
@@ -30,10 +30,6 @@ let CreateSettingsUseCase = CreateSettingsUseCase_1 = class CreateSettingsUseCas
             this.logger.error(`Usuário não autorizado - userId: ${userId}`);
             throw new common_1.UnauthorizedException(`Não autorizado `);
         }
-        if (existBussnines.settingsId) {
-            this.logger.warn(`Usuário já possui configurações ativas - userId: ${userId}`);
-            throw new common_1.ConflictException(`Usuario ja possui  uma configuração ativa`);
-        }
         this.logger.log(`Criando configurações - nome: ${input.name}`);
         const settings = settings_entity_1.SettingsEntity.create({
             id: (0, node_crypto_1.randomUUID)(),
@@ -46,7 +42,6 @@ let CreateSettingsUseCase = CreateSettingsUseCase_1 = class CreateSettingsUseCas
         });
         const createdSettings = await this.settingsRepository.create(settings);
         this.logger.log(`Configurações criadas com sucesso - ID: ${createdSettings.id}`);
-        await this.userRepo.insertSettingsUser(createdSettings.id, userId);
         this.logger.log(`Configurações vinculadas ao usuário - userId: ${userId}, settingsId: ${createdSettings.id}`);
         return settings_mapper_1.SettingsMapper.toResponse(createdSettings);
     }

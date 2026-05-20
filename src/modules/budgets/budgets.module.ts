@@ -14,10 +14,11 @@ import { BudgetRepo } from './repo/budgets.repo';
 import { PrismaService } from '../../db/prisma';
 import { CustomersModule } from '../customers/customers.module';
 import { UpdateOrderStatusUseCase } from './usecase/update-status-order.usecase';
+import { UserModule } from '../Users/user.module';
 
 @Module({
   controllers: [BudgetsController],
-  imports:[CustomersModule],
+  imports:[CustomersModule,UserModule],
   
   providers: [
     {

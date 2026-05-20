@@ -1,7 +1,7 @@
 import { CanActivate, ExecutionContext } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { UserRepositoryInterface } from '../modules/auth/repo/user.repository.interface';
 import { Reflector } from '@nestjs/core';
+import { UserRepositoryInterface } from '../modules/Users/repo/user.repository.interface';
 export declare class AdminTokenGuard implements CanActivate {
     private readonly configService;
     private readonly userRepo;

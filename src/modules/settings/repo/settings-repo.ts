@@ -14,11 +14,12 @@ export class SettingsRepo extends SettingsRepositoryInterface {
   constructor(private readonly prisma: PrismaService) {
     super();
   }
-  async findById(id: string): Promise<SettingsEntity | null> {
+  async findById(email: string): Promise<SettingsEntity | null> {
     try {
       const data = await this.prisma.settings.findUnique({
         where: {
-          id,
+          email:email
+          
         },
       });
       return SettingsEntity.create({

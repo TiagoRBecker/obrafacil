@@ -18,8 +18,7 @@ model Account {
   password   String
   role       Role?     @relation(fields: [roleId], references: [id])
   roleId     String?   @db.Uuid
-  settings   Settings? @relation(fields: [settingsId], references: [id])
-  settingsId String?   @db.Uuid
+
 }
 
 model Customer {
@@ -66,7 +65,7 @@ model Settings {
   businessName         String? // Nome comercial para a proposta
   specialty            String
   phone                String
-  email                String // E-mail comercial (pode ser diferente do e-mail do admin)
+  email                String @unique
   address              String?
   logoUrl              String?
   proposalTerms        String? @db.Text
@@ -75,7 +74,7 @@ model Settings {
   defaultBillingUnit   String
 
   updatedAt DateTime  @updatedAt
-  accounts  Account[]
+
 }
 
 model Order {

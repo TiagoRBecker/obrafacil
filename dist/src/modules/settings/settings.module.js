@@ -18,16 +18,16 @@ const find_settings_by_id_usecase_1 = require("./usecase/find-settings-by-id.use
 const update_settings_usecase_1 = require("./usecase/update-settings.usecase");
 const settings_repo_1 = require("./repo/settings-repo");
 const prisma_1 = require("../../db/prisma");
-const auth_module_1 = require("../auth/auth.module");
-const user_repository_interface_1 = require("../auth/repo/user.repository.interface");
-const user_repo_1 = require("../auth/repo/user.repo");
+const user_repository_interface_1 = require("../Users/repo/user.repository.interface");
+const user_repo_1 = require("../Users/repo/user.repo");
+const user_module_1 = require("../Users/user.module");
 let SettingsModule = class SettingsModule {
 };
 exports.SettingsModule = SettingsModule;
 exports.SettingsModule = SettingsModule = __decorate([
     (0, common_1.Module)({
         controllers: [settings_controller_1.SettingsController],
-        imports: [auth_module_1.AuthModule],
+        imports: [user_module_1.UserModule],
         providers: [
             settings_service_1.SettingsService,
             create_settings_usecase_1.CreateSettingsUseCase,
@@ -45,6 +45,7 @@ exports.SettingsModule = SettingsModule = __decorate([
                 useClass: user_repo_1.UserRepo,
             },
         ],
+        exports: [settings_repository_1.SettingsRepositoryInterface]
     })
 ], SettingsModule);
 //# sourceMappingURL=settings.module.js.map

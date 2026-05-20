@@ -12,38 +12,23 @@ var SignInUseCase_1;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SignInUseCase = void 0;
 const common_1 = require("@nestjs/common");
-const user_repository_interface_1 = require("../repo/user.repository.interface");
-const compare_hash_usecase_1 = require("../../security/usecase/compare-hash.usecase");
 const generate_access_token_usecase_1 = require("../../security/usecase/generate-access-token.usecase");
 const generate_refresh_token_usecase_1 = require("../../security/usecase/generate-refresh-token.usecase");
+const find_user_id_usecase_1 = require("../../Users/usecase/find-user-id-usecase");
 let SignInUseCase = SignInUseCase_1 = class SignInUseCase {
-    constructor(userRepository, compareHashUseCase, generateAccessTokenUseCase, generateRefreshTokenUseCase) {
-        this.userRepository = userRepository;
-        this.compareHashUseCase = compareHashUseCase;
+    constructor(findByUser, generateAccessTokenUseCase, generateRefreshTokenUseCase) {
+        this.findByUser = findByUser;
         this.generateAccessTokenUseCase = generateAccessTokenUseCase;
         this.generateRefreshTokenUseCase = generateRefreshTokenUseCase;
         this.logger = new common_1.Logger(SignInUseCase_1.name);
     }
     async execute(input) {
         this.logger.log(`Tentativa de login para email: ${input.email}`);
-        const user = await this.userRepository.findByEmail(input.email);
-        if (!user?.email) {
-            this.logger.error(`Usuário não encontrado - email: ${input.email}`);
-            throw new common_1.UnauthorizedException('Email ou senha inválidas.');
-        }
-        const { matches } = await this.compareHashUseCase.execute({
-            value: input.password,
-            hash: user?.passwordHash,
-        });
-        if (!matches) {
-            this.logger.error(`Falha na autenticação - senha incorreta para usuário: ${input.email}`);
-            throw new common_1.UnauthorizedException('Email ou senha inválidas.');
-        }
+        const { user } = await this.findByUser.execute(input);
         const { accessToken } = this.generateAccessTokenUseCase.execute({
             id: user?.id,
             name: user?.name,
             role: user.role,
-            settingsId: user.settingsId,
         });
         const { refreshToken } = this.generateRefreshTokenUseCase.execute({
             id: user.id,
@@ -59,13 +44,6 @@ let SignInUseCase = SignInUseCase_1 = class SignInUseCase {
                 name: user.name,
                 email: user.email,
                 role: user.role,
-                seettingsId: user.settingsId,
-                seettings: {
-                    id: user?.settingsID,
-                    name: user.settingsName,
-                    logoUrl: user.settingslogoUrl,
-                    specialty: user.settingsspecialty,
-                },
             },
         };
     }
@@ -73,8 +51,7 @@ let SignInUseCase = SignInUseCase_1 = class SignInUseCase {
 exports.SignInUseCase = SignInUseCase;
 exports.SignInUseCase = SignInUseCase = SignInUseCase_1 = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [user_repository_interface_1.UserRepositoryInterface,
-        compare_hash_usecase_1.CompareHashUseCase,
+    __metadata("design:paramtypes", [find_user_id_usecase_1.FindUserByEmailUsecase,
         generate_access_token_usecase_1.GenerateAccessTokenUseCase,
         generate_refresh_token_usecase_1.GenerateRefreshTokenUseCase])
 ], SignInUseCase);

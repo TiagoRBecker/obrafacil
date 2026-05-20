@@ -72,9 +72,9 @@ export declare class BudgetMapper {
         numberEmployees: number;
         materials: {
             id: string;
+            updatedAt: Date;
             name: string;
             createdAt: Date;
-            updatedAt: Date;
             unit: string;
             quantity: number;
             unitPrice: number;

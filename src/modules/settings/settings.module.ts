@@ -10,13 +10,15 @@ import { FindSettingsByIdUseCase } from './usecase/find-settings-by-id.usecase';
 import { UpdateSettingsUseCase } from './usecase/update-settings.usecase';
 import { SettingsRepo } from './repo/settings-repo';
 import { PrismaService } from '../../db/prisma';
-import { AuthModule } from '../auth/auth.module';
-import { UserRepositoryInterface } from '../auth/repo/user.repository.interface';
-import { UserRepo } from '../auth/repo/user.repo';
+import { UserRepositoryInterface } from '../Users/repo/user.repository.interface';
+import { UserRepo } from '../Users/repo/user.repo';
+import { UserModule } from '../Users/user.module';
+
+
 
 @Module({
   controllers: [SettingsController],
-  imports: [AuthModule],
+  imports: [UserModule],
   providers: [
     SettingsService,
     CreateSettingsUseCase,
@@ -30,9 +32,10 @@ import { UserRepo } from '../auth/repo/user.repo';
       useClass: SettingsRepo,
     },
      {
-      provide: UserRepositoryInterface, // <- adiciona isso
+      provide: UserRepositoryInterface, 
       useClass: UserRepo,
     },
   ],
+  exports:[SettingsRepositoryInterface]
 })
 export class SettingsModule {}

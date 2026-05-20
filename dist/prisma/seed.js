@@ -4,6 +4,8 @@ require("dotenv/config");
 const client_1 = require("@prisma/client");
 const adapter_pg_1 = require("@prisma/adapter-pg");
 const bcrypt_1 = require("bcrypt");
+const settings_1 = require("./seed/settings");
+const rbac_1 = require("./seed/rbac");
 const databaseUrl = process.env.DATABASE_URL;
 if (!databaseUrl) {
     throw new Error('DATABASE_URL is not set; see prisma/.env');
@@ -79,7 +81,11 @@ async function main() {
         console.log(`ℹ️ Admin master já existe: ${ADMIN_EMAIL}`);
     }
 }
-main()
+async function init() {
+    await (0, settings_1.createSettings)();
+    await (0, rbac_1.createRbac)();
+}
+init()
     .then(() => {
     console.log('🌱 Seed rodado com sucesso');
 })

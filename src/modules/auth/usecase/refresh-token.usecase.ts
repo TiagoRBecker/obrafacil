@@ -2,7 +2,8 @@ import { Injectable } from '@nestjs/common';
 
 import { AccessTokenResponseDto } from '../../security/dto/access-token-response.dto';
 import { RefreshAccessTokenUseCase } from '../../security/usecase/refresh-access-token.usecase';
-import { RefreshTokenDto } from '../dto/refresh-token.dto';
+import { RefreshTokenDto } from '../../Users/dto/refresh-token.dto';
+
 
 @Injectable()
 export class RefreshTokenUseCase {

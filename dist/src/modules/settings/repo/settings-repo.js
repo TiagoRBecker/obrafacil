@@ -21,11 +21,11 @@ let SettingsRepo = SettingsRepo_1 = class SettingsRepo extends settings_reposito
         this.prisma = prisma;
         this.logger = new common_1.Logger(SettingsRepo_1.name);
     }
-    async findById(id) {
+    async findById(email) {
         try {
             const data = await this.prisma.settings.findUnique({
                 where: {
-                    id,
+                    email: email
                 },
             });
             return settings_entity_1.SettingsEntity.create({

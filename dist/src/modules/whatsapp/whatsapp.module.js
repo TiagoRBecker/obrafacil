@@ -13,13 +13,14 @@ const evo_module_1 = require("../evo/evo.module");
 const connection_service_1 = require("./usecase/connection.service");
 const update_status_webhook_service_1 = require("./usecase/update.status.webhook.service");
 const budgets_module_1 = require("../budgets/budgets.module");
+const user_module_1 = require("../Users/user.module");
 let WhatsAppModule = class WhatsAppModule {
 };
 exports.WhatsAppModule = WhatsAppModule;
 exports.WhatsAppModule = WhatsAppModule = __decorate([
     (0, common_1.Module)({
         controllers: [connection_controller_1.ConnectionController, connection_controller_1.MessageController, connection_controller_1.Webhook],
-        imports: [evo_module_1.EvoModule, budgets_module_1.BudgetsModule],
+        imports: [evo_module_1.EvoModule, budgets_module_1.BudgetsModule, user_module_1.UserModule],
         providers: [connection_service_1.ConnectionUSeCase, update_status_webhook_service_1.WebHookUseCase],
     })
 ], WhatsAppModule);

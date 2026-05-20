@@ -36,9 +36,9 @@ exports.AdminTokenGuard = void 0;
 const common_1 = require("@nestjs/common");
 const config_1 = require("@nestjs/config");
 const jwt = __importStar(require("jsonwebtoken"));
-const user_repository_interface_1 = require("../modules/auth/repo/user.repository.interface");
 const core_1 = require("@nestjs/core");
 const decorators_1 = require("../../decorators");
+const user_repository_interface_1 = require("../modules/Users/repo/user.repository.interface");
 let AdminTokenGuard = class AdminTokenGuard {
     constructor(configService, userRepo, reflector) {
         this.configService = configService;

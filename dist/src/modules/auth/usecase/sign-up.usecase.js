@@ -12,42 +12,23 @@ var SignUpUseCase_1;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SignUpUseCase = void 0;
 const common_1 = require("@nestjs/common");
-const user_entity_1 = require("../entity/user.entity");
-const user_repository_interface_1 = require("../repo/user.repository.interface");
 const generate_hash_usecase_1 = require("../../security/usecase/generate-hash.usecase");
+const create_account_usecase_1 = require("../../Users/usecase/create-account-usecase");
 let SignUpUseCase = SignUpUseCase_1 = class SignUpUseCase {
-    constructor(userRepository, generateHashUseCase) {
-        this.userRepository = userRepository;
+    constructor(createAccountUseCase, generateHashUseCase) {
+        this.createAccountUseCase = createAccountUseCase;
         this.generateHashUseCase = generateHashUseCase;
         this.logger = new common_1.Logger(SignUpUseCase_1.name);
     }
     async execute(input) {
-        this.logger.log(`Iniciando cadastro de novo usuário - email: ${input.email}`);
-        const existingUser = await this.userRepository.findByEmail(input.email);
-        if (existingUser?.email) {
-            this.logger.error(`Email já cadastrado no sistema: ${input.email}`);
-            throw new common_1.BadRequestException('Email is already in use.');
-        }
-        this.logger.log(`Gerando hash da senha para: ${input.email}`);
-        const passwordHash = await this.generateHashUseCase.execute({
-            value: input.password,
-        });
-        const user = user_entity_1.UserEntity.create({
-            name: input.name,
-            email: input.email,
-            role: input.role,
-            passwordHash,
-        });
-        const createdUser = await this.userRepository.create(user);
-        this.logger.log(`Usuário cadastrado com sucesso - email: ${createdUser.email}, id: ${createdUser.id}`);
+        const { user } = await this.createAccountUseCase.execute(input);
         return {
             user: {
-                id: createdUser.id,
-                name: createdUser.name,
-                email: createdUser.email,
-                role: createdUser.role,
-                permission: createdUser.permission,
-                seettingsId: createdUser.settingsId
+                id: user.id,
+                name: user.name,
+                email: user.email,
+                role: user.role,
+                permission: user.permission,
             },
         };
     }
@@ -55,7 +36,7 @@ let SignUpUseCase = SignUpUseCase_1 = class SignUpUseCase {
 exports.SignUpUseCase = SignUpUseCase;
 exports.SignUpUseCase = SignUpUseCase = SignUpUseCase_1 = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [user_repository_interface_1.UserRepositoryInterface,
+    __metadata("design:paramtypes", [create_account_usecase_1.CreateAccountUseCase,
         generate_hash_usecase_1.GenerateHashUseCase])
 ], SignUpUseCase);
 //# sourceMappingURL=sign-up.usecase.js.map

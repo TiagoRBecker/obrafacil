@@ -15,12 +15,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthController = void 0;
 const common_1 = require("@nestjs/common");
 const access_token_response_dto_1 = require("../security/dto/access-token-response.dto");
-const refresh_token_dto_1 = require("./dto/refresh-token.dto");
-const sign_in_dto_1 = require("./dto/sign-in.dto");
-const sign_up_dto_1 = require("./dto/sign-up.dto");
 const sign_in_usecase_1 = require("./usecase/sign-in.usecase");
 const sign_up_usecase_1 = require("./usecase/sign-up.usecase");
 const refresh_token_usecase_1 = require("./usecase/refresh-token.usecase");
+const sign_up_dto_1 = require("../Users/dto/sign-up.dto");
+const sign_in_dto_1 = require("../Users/dto/sign-in.dto");
 let AuthController = class AuthController {
     constructor(signinUseCase, signUpUseCase, refreshTokenUseCase) {
         this.signinUseCase = signinUseCase;
@@ -56,7 +55,7 @@ __decorate([
     (0, common_1.Post)('refreshtoken'),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [refresh_token_dto_1.RefreshTokenDto]),
+    __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", access_token_response_dto_1.AccessTokenResponseDto)
 ], AuthController.prototype, "refreshToken", null);
 exports.AuthController = AuthController = __decorate([

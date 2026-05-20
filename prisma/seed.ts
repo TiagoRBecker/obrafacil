@@ -2,6 +2,8 @@ import 'dotenv/config';
 import { PrismaClient } from '@prisma/client';
 import { PrismaPg } from '@prisma/adapter-pg';
 import { hash } from 'bcrypt';
+import { createSettings } from './seed/settings';
+import { createRbac } from './seed/rbac';
 
 const databaseUrl = process.env.DATABASE_URL;
 
@@ -15,6 +17,8 @@ const prisma = new PrismaClient({
 
 const ADMIN_EMAIL = process.env.ADMIN_EMAIL || 'admin@admin.com';
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'admin123';
+
+
 
 type Permission = { name: string };
 
@@ -106,7 +110,22 @@ async function main() {
   }
 }
 
+/*
 main()
+  .then(() => {
+    console.log('🌱 Seed rodado com sucesso');
+  })
+  .catch((e) => {
+    console.error(e);
+    process.exit(1);
+  })
+  .finally(() => prisma.$disconnect());
+  */
+ async function init (){
+  await createSettings()
+  await createRbac()
+ }
+init()
   .then(() => {
     console.log('🌱 Seed rodado com sucesso');
   })

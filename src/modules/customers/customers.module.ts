@@ -13,11 +13,12 @@ import { UpdateCustomerUseCase } from './usecase/update-customer.usecase';
 import { CustomerRepo } from './repo/customer.repo';
 import { PrismaService } from '../../db/prisma';
 import { AuthModule } from '../auth/auth.module';
+import { UserModule } from '../Users/user.module';
 
 @Module({
  
   controllers: [CustomersController],
-   imports: [AuthModule],
+   imports: [UserModule],
   providers: [
     CustomersService,
     CreateCustomerUseCase,

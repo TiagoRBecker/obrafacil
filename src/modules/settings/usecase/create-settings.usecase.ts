@@ -7,7 +7,8 @@ import { UpsertSettingsDto } from '../dto/upsert-settings.dto';
 import { SettingsEntity } from '../entity/settings.entity';
 import { SettingsRepositoryInterface } from '../repo/settings.repository';
 import { SettingsMapper } from './settings.mapper';
-import { UserRepositoryInterface } from '../../auth/repo/user.repository.interface';
+import { UserRepositoryInterface } from '../../Users/repo/user.repository.interface';
+
 
 @Injectable()
 export class CreateSettingsUseCase {
@@ -30,10 +31,7 @@ export class CreateSettingsUseCase {
       throw new UnauthorizedException(`Não autorizado `)
     }
     
-    if(existBussnines.settingsId) {
-      this.logger.warn(`Usuário já possui configurações ativas - userId: ${userId}`);
-      throw new ConflictException(`Usuario ja possui  uma configuração ativa`)
-    }
+  
     
     this.logger.log(`Criando configurações - nome: ${input.name}`);
     const settings = SettingsEntity.create({
@@ -49,7 +47,7 @@ export class CreateSettingsUseCase {
     const createdSettings = await this.settingsRepository.create(settings);
     this.logger.log(`Configurações criadas com sucesso - ID: ${createdSettings.id}`);
 
-    await this.userRepo.insertSettingsUser(createdSettings.id, userId);
+
     this.logger.log(`Configurações vinculadas ao usuário - userId: ${userId}, settingsId: ${createdSettings.id}`);
     
     return SettingsMapper.toResponse(createdSettings);

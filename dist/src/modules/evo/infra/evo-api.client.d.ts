@@ -8,7 +8,10 @@ export declare class EvoApiClient implements ConnectionService, SendMessageServi
     private get baseUrl();
     private get headers();
     private get instanceName();
-    connect(): Promise<any>;
+    private get webhookUrl();
+    connect(instanceName: string): Promise<any>;
+    create(instanceName: string): Promise<any>;
+    getInstance(): Promise<any>;
     sendMessage(to: string, message: string): Promise<any>;
     sendMedia(to: string, mediaBase64: string, fileName: string, caption?: string): Promise<any>;
 }

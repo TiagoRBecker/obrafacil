@@ -1,3 +1,3 @@
 export interface ConnectionService {
-  connect(): Promise<any>;
+  connect(instanceName:string): Promise<any>;
 }

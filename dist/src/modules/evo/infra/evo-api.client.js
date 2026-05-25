@@ -28,14 +28,69 @@ let EvoApiClient = EvoApiClient_1 = class EvoApiClient {
         };
     }
     get instanceName() {
-        return this.configService.get('evo.istanceName');
+        return this.configService.get('evo.instanceName');
     }
-    async connect() {
-        this.logger.log(`Iniciando conexão com instância: ${this.instanceName}`);
-        const res = await fetch(`${this.baseUrl}/instances/connect/${this.instanceName}`, {
-            method: 'POST',
+    get webhookUrl() {
+        return this.configService.get('evo.webhook');
+    }
+    async connect(instanceName) {
+        this.logger.log(`Iniciando conexão com instância: ${instanceName}`);
+        const res = await fetch(`${this.baseUrl}/instance/connect/${instanceName}`, {
+            method: 'GET',
             headers: this.headers,
         });
+        if (!res.ok) {
+            console.log(res.ok);
+            this.logger.error(`Falha ao conectar o numero na APi: ${res.status}`);
+            throw new common_1.BadRequestException('Erro ao conectar na  API');
+        }
+        const data = await res.json();
+        this.logger.log(`Conexão com Evo API estabelecida com sucesso`);
+        return data;
+    }
+    async create(instanceName) {
+        console.log("name", instanceName);
+        const res = await fetch(`${this.baseUrl}/instance/create`, {
+            method: 'POST',
+            headers: this.headers,
+            body: JSON.stringify({
+                instanceName: instanceName,
+                token: instanceName,
+                integration: 'WHATSAPP-BAILEYS',
+                qrcode: false,
+                settings: {
+                    groupsIgnore: true,
+                    alwaysOnline: false,
+                    readMessages: false,
+                    readStatus: false,
+                },
+                webhook: {
+                    enabled: true,
+                    url: this.webhookUrl,
+                    byEvents: false,
+                    base64: false,
+                    headers: {
+                        'x-webhook-secret': this.configService.get('evo.apiKey'),
+                    },
+                    events: ['QRCODE_UPDATED', 'CONNECTION_UPDATE', 'MESSAGES_UPSERT'],
+                },
+            }),
+        });
+        if (!res.ok) {
+            this.logger.error(`Falha ao conectar na Evo API - status: ${res.status}`);
+            throw new common_1.BadRequestException('Erro ao conectar na Evo API');
+        }
+        const data = await res.json();
+        this.logger.log(`Instancia criada com sucesso`);
+        return data;
+    }
+    async getInstance() {
+        this.logger.log(`Verificando  a instancia se ja existe: ${this.instanceName}`);
+        const res = await fetch(`${this.baseUrl}/instance/fetchInstances`, {
+            method: 'GET',
+            headers: this.headers,
+        });
+        console.log(res);
         if (!res.ok) {
             this.logger.error(`Falha ao conectar na Evo API - status: ${res.status}`);
             throw new common_1.BadRequestException('Erro ao conectar na Evo API');

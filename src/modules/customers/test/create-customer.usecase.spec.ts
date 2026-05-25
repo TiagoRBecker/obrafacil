@@ -1,5 +1,5 @@
 import { CustomerEntity } from '../entity/customer.entity';
-import { CustomerRepository } from '../repo/customer.repo.inteface';
+import { CustomerRepositoryInterface as CustomerRepository } from '../repo/customer-repository.interface';
 import { CreateCustomerUseCase } from '../usecase/create-customer.usecase';
 
 type CustomerRepositoryMock = jest.Mocked<CustomerRepository>;

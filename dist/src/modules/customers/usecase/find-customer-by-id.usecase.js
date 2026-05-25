@@ -12,7 +12,7 @@ var FindCustomerByIdUseCase_1;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.FindCustomerByIdUseCase = void 0;
 const common_1 = require("@nestjs/common");
-const customer_repo_inteface_1 = require("../repo/customer.repo.inteface");
+const customer_repository_interface_1 = require("../repo/customer-repository.interface");
 const customer_mapper_1 = require("./customer.mapper");
 let FindCustomerByIdUseCase = FindCustomerByIdUseCase_1 = class FindCustomerByIdUseCase {
     constructor(customerRepository) {
@@ -33,6 +33,6 @@ let FindCustomerByIdUseCase = FindCustomerByIdUseCase_1 = class FindCustomerById
 exports.FindCustomerByIdUseCase = FindCustomerByIdUseCase;
 exports.FindCustomerByIdUseCase = FindCustomerByIdUseCase = FindCustomerByIdUseCase_1 = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [customer_repo_inteface_1.CustomerRepositoryInterface])
+    __metadata("design:paramtypes", [customer_repository_interface_1.CustomerRepositoryInterface])
 ], FindCustomerByIdUseCase);
 //# sourceMappingURL=find-customer-by-id.usecase.js.map

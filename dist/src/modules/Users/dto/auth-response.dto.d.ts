@@ -9,5 +9,6 @@ export declare class AuthResponseDto {
         permission?: string[];
         companyName?: string;
         logoUrl?: string;
+        specialty?: string;
     };
 }

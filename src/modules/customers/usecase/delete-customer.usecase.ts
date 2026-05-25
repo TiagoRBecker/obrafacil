@@ -1,7 +1,7 @@
 import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 
 import { DeleteCustomerResponseDto } from '../dto/delete-customer-response.dto';
-import { CustomerRepositoryInterface } from '../repo/customer.repo.inteface';
+import { CustomerRepositoryInterface } from '../repo/customer-repository.interface';
 
 @Injectable()
 export class DeleteCustomerUseCase {

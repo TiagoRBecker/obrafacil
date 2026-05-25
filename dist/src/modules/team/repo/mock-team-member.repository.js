@@ -73,10 +73,9 @@ let MockTeamMemberRepository = class MockTeamMemberRepository {
         }
         return null;
     }
-    async findByPhone(email) {
-        const normalizedEmail = email.toLowerCase();
+    async findByPhone(phone) {
         for (const member of this.members.values()) {
-            if (member.data.email === normalizedEmail) {
+            if (member.data.phone === phone) {
                 return member;
             }
         }

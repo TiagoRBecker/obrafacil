@@ -25,8 +25,8 @@ export class CreateSettingsUseCase {
   ): Promise<SettingsResponseDto> {
     this.logger.log(`Iniciando criação de configurações para usuário - userId: ${userId}`);
     
-    const existBussnines = await this.userRepo.findById(userId)
-    if(!existBussnines) {
+    const existingBusiness = await this.userRepo.findById(userId)
+    if(!existingBusiness) {
       this.logger.error(`Usuário não autorizado - userId: ${userId}`);
       throw new UnauthorizedException(`Não autorizado `)
     }

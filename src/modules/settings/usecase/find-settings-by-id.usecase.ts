@@ -15,8 +15,8 @@ export class FindSettingsByIdUseCase {
   async execute(id: string): Promise<SettingsResponseDto> {
     this.logger.log(`Buscando configurações para usuário - ID: ${id}`);
     
-    const exustUser = await this.userRepo.findById(id)
-    if(!exustUser) {
+    const existingUser = await this.userRepo.findById(id)
+    if(!existingUser) {
       this.logger.error(`Usuário não encontrado ou não autorizado - ID: ${id}`);
       throw new UnauthorizedException(`Nao autorizado ou nao encontrado`)
     }

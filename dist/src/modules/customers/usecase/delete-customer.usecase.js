@@ -12,7 +12,7 @@ var DeleteCustomerUseCase_1;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.DeleteCustomerUseCase = void 0;
 const common_1 = require("@nestjs/common");
-const customer_repo_inteface_1 = require("../repo/customer.repo.inteface");
+const customer_repository_interface_1 = require("../repo/customer-repository.interface");
 let DeleteCustomerUseCase = DeleteCustomerUseCase_1 = class DeleteCustomerUseCase {
     constructor(customerRepository) {
         this.customerRepository = customerRepository;
@@ -36,6 +36,6 @@ let DeleteCustomerUseCase = DeleteCustomerUseCase_1 = class DeleteCustomerUseCas
 exports.DeleteCustomerUseCase = DeleteCustomerUseCase;
 exports.DeleteCustomerUseCase = DeleteCustomerUseCase = DeleteCustomerUseCase_1 = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [customer_repo_inteface_1.CustomerRepositoryInterface])
+    __metadata("design:paramtypes", [customer_repository_interface_1.CustomerRepositoryInterface])
 ], DeleteCustomerUseCase);
 //# sourceMappingURL=delete-customer.usecase.js.map

@@ -6,7 +6,7 @@ export declare class InMemoryTeamMemberRepository implements TeamMemberRepositor
     update(id: string, member: TeamMemberEntity): Promise<TeamMemberEntity>;
     findById(id: string): Promise<TeamMemberEntity | null>;
     findByEmail(email: string): Promise<TeamMemberEntity | null>;
-    findByPhone(email: string): Promise<TeamMemberEntity | null>;
+    findByPhone(phone: string): Promise<TeamMemberEntity | null>;
     findAll(): Promise<TeamMemberEntity[]>;
     delete(id: string): Promise<void>;
 }

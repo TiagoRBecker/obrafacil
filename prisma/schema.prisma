@@ -12,13 +12,12 @@ datasource db {
 }
 
 model Account {
-  id         String    @id @default(uuid()) @db.Uuid
-  name       String
-  email      String    @unique
-  password   String
-  role       Role?     @relation(fields: [roleId], references: [id])
-  roleId     String?   @db.Uuid
-
+  id       String  @id @default(uuid()) @db.Uuid
+  name     String
+  email    String  @unique
+  password String
+  role     Role?   @relation(fields: [roleId], references: [id])
+  roleId   String? @db.Uuid
 }
 
 model Customer {
@@ -45,6 +44,14 @@ model Team {
   teamOrders TeamOrder[]
 }
 
+model WhatsAppSession {
+  id        String   @id @default(cuid())
+  instance  String   @unique
+  status    String
+  qrCode    String?
+  updatedAt DateTime @updatedAt
+}
+
 model TeamOrder {
   id      String @id @default(uuid()) @db.Uuid
   teamId  String @db.Uuid
@@ -65,7 +72,7 @@ model Settings {
   businessName         String? // Nome comercial para a proposta
   specialty            String
   phone                String
-  email                String @unique
+  email                String  @unique
   address              String?
   logoUrl              String?
   proposalTerms        String? @db.Text
@@ -73,8 +80,7 @@ model Settings {
   proposalValidityDays Int     @default(7)
   defaultBillingUnit   String
 
-  updatedAt DateTime  @updatedAt
-
+  updatedAt DateTime @updatedAt
 }
 
 model Order {

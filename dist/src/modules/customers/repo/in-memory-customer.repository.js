@@ -23,8 +23,13 @@ let InMemoryCustomerRepository = class InMemoryCustomerRepository {
     async findById(id) {
         return this.customers.get(id) ?? null;
     }
-    async findByphone(id) {
-        return this.customers.get(id) ?? null;
+    async findByPhone(phone) {
+        for (const customer of this.customers.values()) {
+            if (customer.phone === phone) {
+                return customer;
+            }
+        }
+        return null;
     }
     async findAll() {
         return [...this.customers.values()];

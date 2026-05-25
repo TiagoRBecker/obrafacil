@@ -8,20 +8,41 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.WhatsAppModule = void 0;
 const common_1 = require("@nestjs/common");
-const connection_controller_1 = require("./controllers/connection.controller");
+const controllers_1 = require("./controllers");
 const evo_module_1 = require("../evo/evo.module");
-const connection_service_1 = require("./usecase/connection.service");
-const update_status_webhook_service_1 = require("./usecase/update.status.webhook.service");
 const budgets_module_1 = require("../budgets/budgets.module");
 const user_module_1 = require("../Users/user.module");
+const webhook_guard_1 = require("../../guards/webhook.guard");
+const webhook_usecase_1 = require("./usecase/webhook.usecase");
+const create_instance_usecase_1 = require("./usecase/create-instance-usecase");
+const connection_instance_usecase_1 = require("./usecase/connection-instance.usecase");
+const event_dispatcher_usecase_1 = require("./usecase/event-dispatcher.usecase");
+const update_status_connection_usecase_1 = require("./usecase/update-status-connection-usecase");
+const whatsapp_repo_interface_1 = require("./repo/whatsapp-repo-interface");
+const whatsapp_repo_1 = require("./repo/whatsapp-repo");
+const prisma_1 = require("../../db/prisma");
+const findByConnection_usecase_1 = require("./usecase/findByConnection-usecase");
 let WhatsAppModule = class WhatsAppModule {
 };
 exports.WhatsAppModule = WhatsAppModule;
 exports.WhatsAppModule = WhatsAppModule = __decorate([
     (0, common_1.Module)({
-        controllers: [connection_controller_1.ConnectionController, connection_controller_1.MessageController, connection_controller_1.Webhook],
+        controllers: [...controllers_1.WhatsAppController],
         imports: [evo_module_1.EvoModule, budgets_module_1.BudgetsModule, user_module_1.UserModule],
-        providers: [connection_service_1.ConnectionUSeCase, update_status_webhook_service_1.WebHookUseCase],
+        providers: [
+            prisma_1.PrismaService,
+            connection_instance_usecase_1.ConnectionUseCase,
+            webhook_usecase_1.WebHookUseCase,
+            create_instance_usecase_1.CreateInstanceNameUseCase,
+            event_dispatcher_usecase_1.EventDispatcherService,
+            update_status_connection_usecase_1.UpdateStatusConnectionUseCase,
+            findByConnection_usecase_1.GetConnectionUseCase,
+            webhook_guard_1.WebhookGuard,
+            {
+                provide: whatsapp_repo_interface_1.WhatsAppRepositoryInterface,
+                useClass: whatsapp_repo_1.WhatsAppRepo,
+            },
+        ],
     })
 ], WhatsAppModule);
 //# sourceMappingURL=whatsapp.module.js.map

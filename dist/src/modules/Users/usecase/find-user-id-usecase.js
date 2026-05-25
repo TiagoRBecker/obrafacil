@@ -14,10 +14,12 @@ exports.FindUserByEmailUsecase = void 0;
 const common_1 = require("@nestjs/common");
 const user_repository_interface_1 = require("../repo/user.repository.interface");
 const compare_hash_usecase_1 = require("../../security/usecase/compare-hash.usecase");
+const settings_repository_1 = require("../../settings/repo/settings.repository");
 let FindUserByEmailUsecase = FindUserByEmailUsecase_1 = class FindUserByEmailUsecase {
-    constructor(userRepository, compareHashUseCase) {
+    constructor(userRepository, compareHashUseCase, settingsCompany) {
         this.userRepository = userRepository;
         this.compareHashUseCase = compareHashUseCase;
+        this.settingsCompany = settingsCompany;
         this.logger = new common_1.Logger(FindUserByEmailUsecase_1.name);
     }
     async execute(input) {
@@ -36,12 +38,16 @@ let FindUserByEmailUsecase = FindUserByEmailUsecase_1 = class FindUserByEmailUse
             throw new common_1.UnauthorizedException('Email ou senha inválidas.');
         }
         this.logger.log(`Login bem-sucedido - usuário: ${user.email}`);
+        const settings = await this.settingsCompany.findById(process.env.EMAIL);
         return {
             user: {
                 id: user.id,
                 name: user.name,
                 email: user.email,
                 role: user.role,
+                companyName: settings?.name,
+                specialty: settings?.specialty,
+                logoUrl: settings?.logoUrl,
             },
         };
     }
@@ -50,6 +56,7 @@ exports.FindUserByEmailUsecase = FindUserByEmailUsecase;
 exports.FindUserByEmailUsecase = FindUserByEmailUsecase = FindUserByEmailUsecase_1 = __decorate([
     (0, common_1.Injectable)(),
     __metadata("design:paramtypes", [user_repository_interface_1.UserRepositoryInterface,
-        compare_hash_usecase_1.CompareHashUseCase])
+        compare_hash_usecase_1.CompareHashUseCase,
+        settings_repository_1.SettingsRepositoryInterface])
 ], FindUserByEmailUsecase);
 //# sourceMappingURL=find-user-id-usecase.js.map

@@ -13,7 +13,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.UpdateCustomerUseCase = void 0;
 const common_1 = require("@nestjs/common");
 const customer_entity_1 = require("../entity/customer.entity");
-const customer_repo_inteface_1 = require("../repo/customer.repo.inteface");
+const customer_repository_interface_1 = require("../repo/customer-repository.interface");
 const customer_mapper_1 = require("./customer.mapper");
 let UpdateCustomerUseCase = UpdateCustomerUseCase_1 = class UpdateCustomerUseCase {
     constructor(customerRepository) {
@@ -53,6 +53,6 @@ let UpdateCustomerUseCase = UpdateCustomerUseCase_1 = class UpdateCustomerUseCas
 exports.UpdateCustomerUseCase = UpdateCustomerUseCase;
 exports.UpdateCustomerUseCase = UpdateCustomerUseCase = UpdateCustomerUseCase_1 = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [customer_repo_inteface_1.CustomerRepositoryInterface])
+    __metadata("design:paramtypes", [customer_repository_interface_1.CustomerRepositoryInterface])
 ], UpdateCustomerUseCase);
 //# sourceMappingURL=update-customer.usecase.js.map

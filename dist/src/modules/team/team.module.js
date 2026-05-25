@@ -11,7 +11,7 @@ const common_1 = require("@nestjs/common");
 const admin_token_guard_1 = require("../../guards/admin-token.guard");
 const mock_team_member_repository_1 = require("./repo/mock-team-member.repository");
 const team_member_repository_1 = require("./repo/team-member.repository");
-const team_controller_1 = require("./team.controller");
+const controllers_1 = require("./controllers");
 const team_service_1 = require("./team.service");
 const create_team_member_usecase_1 = require("./usecase/create-team-member.usecase");
 const delete_team_member_usecase_1 = require("./usecase/delete-team-member.usecase");
@@ -26,7 +26,7 @@ let TeamModule = class TeamModule {
 exports.TeamModule = TeamModule;
 exports.TeamModule = TeamModule = __decorate([
     (0, common_1.Module)({
-        controllers: [team_controller_1.TeamController],
+        controllers: [...controllers_1.TeamController],
         imports: [user_module_1.UserModule],
         providers: [
             team_service_1.TeamService,

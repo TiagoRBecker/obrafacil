@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
-import { SenMessageController } from './controller/message.controller';
+import { SendMessageController } from './controller/message.controller';
 import { AdminTokenGuard } from '../../guards/admin-token.guard';
-import { SendMessageUseCase } from './usecase/sendMessage.service';
+import { SendMessageUseCase } from './usecase/send-message.usecase';
 import { BudgetsModule } from '../budgets/budgets.module';
 import { EvoModule } from '../evo/evo.module';
 import { UserModule } from '../Users/user.module';
@@ -9,7 +9,7 @@ import { UserModule } from '../Users/user.module';
 
 
 @Module({
-  controllers: [SenMessageController],
+  controllers: [SendMessageController],
   imports: [BudgetsModule,EvoModule,UserModule],
   providers: [SendMessageUseCase, AdminTokenGuard],
 })

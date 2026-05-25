@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 
 import { CustomerEntity, CustomerWithOrders } from '../entity/customer.entity';
-import { CustomerRepositoryInterface } from './customer.repo.inteface';
+import { CustomerRepositoryInterface } from './customer-repository.interface';
 
 @Injectable()
 export class InMemoryCustomerRepository implements CustomerRepositoryInterface {
@@ -20,8 +20,13 @@ export class InMemoryCustomerRepository implements CustomerRepositoryInterface {
   async findById(id: string): Promise<CustomerEntity | null> {
     return this.customers.get(id) ?? null;
   }
-  async findByphone(id: string): Promise<CustomerEntity | null> {
-    return this.customers.get(id) ?? null;
+  async findByPhone(phone: string): Promise<CustomerEntity | null> {
+    for (const customer of this.customers.values()) {
+      if (customer.phone === phone) {
+        return customer;
+      }
+    }
+    return null;
   }
 
   async findAll(): Promise<CustomerWithOrders[]> {

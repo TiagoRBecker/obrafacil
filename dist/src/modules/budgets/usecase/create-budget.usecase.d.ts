@@ -1,7 +1,7 @@
 import { CreateOrderDto } from '../dto/create-budget.dto';
 import { BudgetEntity } from '../entity/budget.entity';
 import { BudgetRepositoryInterface } from '../repo/budget.repository.interface';
-import { CustomerRepositoryInterface } from '../../customers/repo/customer.repo.inteface';
+import { CustomerRepositoryInterface } from '../../customers/repo/customer-repository.interface';
 export declare class CreateBudgetUseCase {
     private readonly budgetRepository;
     private readonly customerRepo;

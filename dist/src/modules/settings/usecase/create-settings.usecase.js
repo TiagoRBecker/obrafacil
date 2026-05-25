@@ -25,8 +25,8 @@ let CreateSettingsUseCase = CreateSettingsUseCase_1 = class CreateSettingsUseCas
     }
     async execute(input, userId) {
         this.logger.log(`Iniciando criação de configurações para usuário - userId: ${userId}`);
-        const existBussnines = await this.userRepo.findById(userId);
-        if (!existBussnines) {
+        const existingBusiness = await this.userRepo.findById(userId);
+        if (!existingBusiness) {
             this.logger.error(`Usuário não autorizado - userId: ${userId}`);
             throw new common_1.UnauthorizedException(`Não autorizado `);
         }

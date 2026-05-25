@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
 
 import { AdminTokenGuard } from '../../guards/admin-token.guard';
-import { CustomersController } from './customers.controller';
+import { CustomersController } from './controllers';
 import { CustomersService } from './customers.service';
 import { MockCustomerRepository } from './repo/mock-customer.repository';
-import { CustomerRepositoryInterface } from './repo/customer.repo.inteface';
+import { CustomerRepositoryInterface } from './repo/customer-repository.interface';
 import { CreateCustomerUseCase } from './usecase/create-customer.usecase';
 import { DeleteCustomerUseCase } from './usecase/delete-customer.usecase';
 import { FindAllCustomersUseCase } from './usecase/find-all-customers.usecase';
@@ -17,7 +17,7 @@ import { UserModule } from '../Users/user.module';
 
 @Module({
  
-  controllers: [CustomersController],
+  controllers: [...CustomersController],
    imports: [UserModule],
   providers: [
     CustomersService,

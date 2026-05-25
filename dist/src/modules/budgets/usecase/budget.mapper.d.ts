@@ -75,10 +75,10 @@ export declare class BudgetMapper {
             updatedAt: Date;
             name: string;
             createdAt: Date;
+            orderId: string;
             unit: string;
             quantity: number;
             unitPrice: number;
-            orderId: string;
         }[];
         finalObservations: string;
         totalValue: number;

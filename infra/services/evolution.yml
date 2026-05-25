@@ -14,7 +14,6 @@ services:
       SERVER_URL: ${SERVER_URL}
       AUTHENTICATION_TYPE: apikey
       AUTHENTICATION_API_KEY: ${API_KEY}
-      WEBHOOK_URL: http://host.docker.internal:3003/webhook/message
       CACHE_REDIS_ENABLED: "true"
       CACHE_REDIS_URI: redis://:${REDIS_PASSWORD}@redis:6379
       CACHE_REDIS_PREFIX_KEY: ${CLIENT_SLUG}
@@ -22,10 +21,11 @@ services:
       CACHE_LOCAL_ENABLED: "false"
       DATABASE_ENABLED: "true"
       DATABASE_PROVIDER: postgresql
+      DATABASE_URL: "postgresql://evo:evo123@postgres_evo:5432/evolution?schema=public"
       DATABASE_CONNECTION_URI: "postgresql://evo:evo123@postgres_evo:5432/evolution?schema=public"
       DATABASE_CONNECTION_CLIENT_NAME: "evolution_api"
       CONFIG_SESSION_PHONE_VERSION: "2.3000.1023204200"
-      QRCODE_LIMIT: "30"
+      QRCODE_LIMIT: "240"
       LOG_LEVEL: ERROR
       LOG_COLOR: "false"
       DEL_INSTANCE: "false"

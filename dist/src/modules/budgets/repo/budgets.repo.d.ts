@@ -3,7 +3,6 @@ import { BudgetRepositoryInterface } from './budget.repository.interface';
 import { PrismaService } from '../../../db/prisma';
 export declare class BudgetRepo extends BudgetRepositoryInterface {
     private readonly prisma;
-    private readonly logger;
     constructor(prisma: PrismaService);
     create(budget: BudgetEntity): Promise<BudgetEntity>;
     findAll(): Promise<BudgetEntity[]>;

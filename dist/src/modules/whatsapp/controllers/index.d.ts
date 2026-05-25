@@ -1,7 +1,5 @@
-import { ConnectInstanceController } from './connect.instance.controller';
-import { ConnectionStateController } from './connectionState.controller';
 import { ConnectionWhatsAppController } from './connection.controller';
-import { CreateInstanceController } from './create.instance.controller';
+import { GetConnectionWhatsAppController } from './find.connectio.controller';
 import { SendMediaController } from './message.controller';
 import { WebhookController } from './webhook.controller';
-export declare const WhatsAppController: (typeof ConnectionWhatsAppController | typeof CreateInstanceController | typeof ConnectInstanceController | typeof ConnectionStateController | typeof SendMediaController | typeof WebhookController)[];
+export declare const WhatsAppController: (typeof ConnectionWhatsAppController | typeof GetConnectionWhatsAppController | typeof SendMediaController | typeof WebhookController)[];

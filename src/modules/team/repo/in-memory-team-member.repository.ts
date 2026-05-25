@@ -32,11 +32,9 @@ export class InMemoryTeamMemberRepository implements TeamMemberRepositoryInterfa
 
     return null;
   }
-  async findByPhone(email: string): Promise<TeamMemberEntity | null> {
-    const normalizedEmail = email.toLowerCase();
-
+  async findByPhone(phone: string): Promise<TeamMemberEntity | null> {
     for (const member of this.members.values()) {
-      if (member.data.email === normalizedEmail) {
+      if (member.data.phone === phone) {
         return member;
       }
     }

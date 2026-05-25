@@ -6,9 +6,11 @@ import { InMemoryUserRepository } from './repo/in-memory-user.repository';
 import { UserRepo } from './repo/user.repo';
 import { CreateAccountUseCase } from './usecase/create-account-usecase';
 import { FindUserByEmailUsecase } from './usecase/find-user-id-usecase';
+import { SettingsModule } from '../settings/settings.module';
+import { SharedModule } from '../Shared/shared.module';
 
 @Module({
-  imports: [SecurityModule],
+  imports: [SecurityModule,SharedModule],
 
   providers: [
     {

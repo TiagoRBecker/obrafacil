@@ -7,7 +7,7 @@ export declare abstract class BudgetRepositoryInterface {
     abstract findByCustomerAndStartDate(customerId: string, date: string): Promise<BudgetEntity | null>;
     abstract findAll(): Promise<BudgetEntity[]>;
     abstract delete(id: string): Promise<void>;
-    abstract createTrackingMessage(messageId: string, orerId: string): Promise<void>;
+    abstract createTrackingMessage(messageId: string, orderId: string): Promise<void>;
     abstract findMessageTracking(messageId: string): Promise<{
         id: number;
         orderId: string;

@@ -5,6 +5,7 @@ const core_1 = require("@nestjs/core");
 const app_module_1 = require("./app.module");
 async function bootstrap() {
     const app = await core_1.NestFactory.create(app_module_1.AppModule);
+    app.set('trust proxy', true);
     app.enableCors({
         origin: '*',
         methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
@@ -16,7 +17,13 @@ async function bootstrap() {
         forbidNonWhitelisted: true,
         transform: true,
     }));
-    await app.listen(3003).then((p) => console.log(`Server is running on port ${p.address().port}`)).catch((e) => console.error(e));
+    await app.listen(3003)
+        .then(async () => {
+        const url = await app.getUrl();
+        const addressInfo = app.getHttpServer().address();
+        console.log(`Server is running on ${url}`);
+    })
+        .catch((e) => console.error(e));
 }
 bootstrap();
 //# sourceMappingURL=main.js.map

@@ -40,6 +40,9 @@ export class SignInUseCase {
         name: user.name,
         email: user.email,
         role: user.role,
+        companyName: user?.name,
+        specialty: user?.specialty,
+        logoUrl: user?.logoUrl,
       },
     };
   }

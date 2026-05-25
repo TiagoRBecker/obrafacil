@@ -14,7 +14,7 @@ exports.UpdateBudgetUseCase = void 0;
 const common_1 = require("@nestjs/common");
 const budget_entity_1 = require("../entity/budget.entity");
 const budget_repository_interface_1 = require("../repo/budget.repository.interface");
-const customer_repo_inteface_1 = require("../../customers/repo/customer.repo.inteface");
+const customer_repository_interface_1 = require("../../customers/repo/customer-repository.interface");
 let UpdateBudgetUseCase = UpdateBudgetUseCase_1 = class UpdateBudgetUseCase {
     constructor(budgetRepository, customerRepo) {
         this.budgetRepository = budgetRepository;
@@ -73,6 +73,6 @@ exports.UpdateBudgetUseCase = UpdateBudgetUseCase;
 exports.UpdateBudgetUseCase = UpdateBudgetUseCase = UpdateBudgetUseCase_1 = __decorate([
     (0, common_1.Injectable)(),
     __metadata("design:paramtypes", [budget_repository_interface_1.BudgetRepositoryInterface,
-        customer_repo_inteface_1.CustomerRepositoryInterface])
+        customer_repository_interface_1.CustomerRepositoryInterface])
 ], UpdateBudgetUseCase);
 //# sourceMappingURL=update-budget.usecase.js.map

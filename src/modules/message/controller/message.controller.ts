@@ -10,11 +10,11 @@ import {
 } from '@nestjs/common';
 import { AdminTokenGuard } from '../../../guards/admin-token.guard';
 import { RequirePermissions } from '../../../../decorators';
-import { SendMessageUseCase } from '../usecase/sendMessage.service';
+import { SendMessageUseCase } from '../usecase/send-message.usecase';
 
 @Controller('admin/send')
 @UseGuards(AdminTokenGuard)
-export class SenMessageController {
+export class SendMessageController {
   constructor(private readonly sendMessage: SendMessageUseCase) {}
   @RequirePermissions('order:create')
   @Post('/message')

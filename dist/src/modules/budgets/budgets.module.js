@@ -9,7 +9,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.BudgetsModule = void 0;
 const common_1 = require("@nestjs/common");
 const admin_token_guard_1 = require("../../guards/admin-token.guard");
-const budgets_controller_1 = require("./budgets.controller");
 const budgets_service_1 = require("./budgets.service");
 const mock_budget_repository_1 = require("./repo/mock-budget.repository");
 const budget_repository_interface_1 = require("./repo/budget.repository.interface");
@@ -23,12 +22,13 @@ const prisma_1 = require("../../db/prisma");
 const customers_module_1 = require("../customers/customers.module");
 const update_status_order_usecase_1 = require("./usecase/update-status-order.usecase");
 const user_module_1 = require("../Users/user.module");
+const controllers_1 = require("./controllers");
 let BudgetsModule = class BudgetsModule {
 };
 exports.BudgetsModule = BudgetsModule;
 exports.BudgetsModule = BudgetsModule = __decorate([
     (0, common_1.Module)({
-        controllers: [budgets_controller_1.BudgetsController],
+        controllers: [...controllers_1.BudgetsController],
         imports: [customers_module_1.CustomersModule, user_module_1.UserModule],
         providers: [
             {

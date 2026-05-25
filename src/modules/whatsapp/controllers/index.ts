@@ -1,15 +1,12 @@
-import { ConnectInstanceController } from './connect.instance.controller';
-import { ConnectionStateController } from './connectionState.controller';
+
 import { ConnectionWhatsAppController } from './connection.controller';
-import { CreateInstanceController } from './create.instance.controller';
+import { GetConnectionWhatsAppController } from './find.connectio.controller';
 import { SendMediaController } from './message.controller';
 import { WebhookController } from './webhook.controller';
 
 export const WhatsAppController = [
-  ConnectionWhatsAppController,
-  CreateInstanceController,
-  ConnectInstanceController,
-  ConnectionStateController,
+   ConnectionWhatsAppController,
+   GetConnectionWhatsAppController,
   SendMediaController,
   WebhookController,
 ];

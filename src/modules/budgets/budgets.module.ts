@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 
 import { AdminTokenGuard } from '../../guards/admin-token.guard';
-import { BudgetsController } from './budgets.controller';
+
 import { BudgetsService } from './budgets.service';
 import { MockBudgetRepository } from './repo/mock-budget.repository';
 import { BudgetRepositoryInterface } from './repo/budget.repository.interface';
@@ -15,9 +15,10 @@ import { PrismaService } from '../../db/prisma';
 import { CustomersModule } from '../customers/customers.module';
 import { UpdateOrderStatusUseCase } from './usecase/update-status-order.usecase';
 import { UserModule } from '../Users/user.module';
+import { BudgetsController } from './controllers';
 
 @Module({
-  controllers: [BudgetsController],
+  controllers: [...BudgetsController],
   imports:[CustomersModule,UserModule],
   
   providers: [

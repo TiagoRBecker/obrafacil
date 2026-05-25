@@ -12,7 +12,7 @@ class CustomerMapper {
             city: data.city,
         };
     }
-    static toResponseWithOders(data) {
+    static toResponseWithOrders(data) {
         const { customer, orders } = data;
         return {
             id: customer.id,

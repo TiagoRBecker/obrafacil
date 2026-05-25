@@ -1,12 +1,12 @@
 # docker-compose.yml
-version: "3.8"
+
 
 include:
   - services/postgres.yml
   - services/postgres-evo.yml
   - services/redis.yml
   - services/evolution.yml
-  - services/init.yml
+  
 
 volumes:
   postgres_data:

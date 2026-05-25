@@ -49,7 +49,6 @@ let EvoApiClient = EvoApiClient_1 = class EvoApiClient {
         return data;
     }
     async create(instanceName) {
-        console.log("name", instanceName);
         const res = await fetch(`${this.baseUrl}/instance/create`, {
             method: 'POST',
             headers: this.headers,

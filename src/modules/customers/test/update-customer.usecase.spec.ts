@@ -1,7 +1,7 @@
 import { NotFoundException } from '@nestjs/common';
 
 import { CustomerEntity } from '../entity/customer.entity';
-import { CustomerRepository } from '../repo/customer.repo.inteface';
+import { CustomerRepositoryInterface as CustomerRepository } from '../repo/customer-repository.interface';
 import { UpdateCustomerUseCase } from '../usecase/update-customer.usecase';
 
 type CustomerRepositoryMock = jest.Mocked<CustomerRepository>;

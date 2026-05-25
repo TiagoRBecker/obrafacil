@@ -8,7 +8,7 @@ import {
 import { CustomerResponseDto } from '../dto/customer-response.dto';
 import { UpdateCustomerDto } from '../dto/update-customer.dto';
 import { CustomerEntity } from '../entity/customer.entity';
-import { CustomerRepositoryInterface } from '../repo/customer.repo.inteface';
+import { CustomerRepositoryInterface } from '../repo/customer-repository.interface';
 import { CustomerMapper } from './customer.mapper';
 
 @Injectable()

@@ -19,17 +19,16 @@ let ConnectionWhatsAppController = class ConnectionWhatsAppController {
     constructor(connectionService) {
         this.connectionService = connectionService;
     }
-    connection(req, body) {
+    connection(body) {
         return this.connectionService.execute(body.instanceName);
     }
 };
 exports.ConnectionWhatsAppController = ConnectionWhatsAppController;
 __decorate([
-    (0, common_1.Post)('connection'),
-    __param(0, (0, common_1.Req)()),
-    __param(1, (0, common_1.Body)()),
+    (0, common_1.Post)('create/connection'),
+    __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object, Object]),
+    __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", void 0)
 ], ConnectionWhatsAppController.prototype, "connection", null);
 exports.ConnectionWhatsAppController = ConnectionWhatsAppController = __decorate([

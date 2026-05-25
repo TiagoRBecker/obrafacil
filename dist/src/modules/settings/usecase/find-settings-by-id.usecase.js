@@ -23,8 +23,8 @@ let FindSettingsByIdUseCase = FindSettingsByIdUseCase_1 = class FindSettingsById
     }
     async execute(id) {
         this.logger.log(`Buscando configurações para usuário - ID: ${id}`);
-        const exustUser = await this.userRepo.findById(id);
-        if (!exustUser) {
+        const existingUser = await this.userRepo.findById(id);
+        if (!existingUser) {
             this.logger.error(`Usuário não encontrado ou não autorizado - ID: ${id}`);
             throw new common_1.UnauthorizedException(`Nao autorizado ou nao encontrado`);
         }

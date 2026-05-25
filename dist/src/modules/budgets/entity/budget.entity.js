@@ -130,7 +130,7 @@ class BudgetEntity {
             if (props.totalValue < 0)
                 throw new Error('O valor total não pode ser menor que 0 ');
             if (props.materialValue < 0)
-                throw new Error('O valor dos materaias  não pode menor que 0 ');
+                throw new Error('O valor dos materiais não pode ser menor que 0 ');
         }
     }
 }

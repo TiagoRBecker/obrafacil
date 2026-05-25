@@ -9,10 +9,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.CustomersModule = void 0;
 const common_1 = require("@nestjs/common");
 const admin_token_guard_1 = require("../../guards/admin-token.guard");
-const customers_controller_1 = require("./customers.controller");
+const controllers_1 = require("./controllers");
 const customers_service_1 = require("./customers.service");
 const mock_customer_repository_1 = require("./repo/mock-customer.repository");
-const customer_repo_inteface_1 = require("./repo/customer.repo.inteface");
+const customer_repository_interface_1 = require("./repo/customer-repository.interface");
 const create_customer_usecase_1 = require("./usecase/create-customer.usecase");
 const delete_customer_usecase_1 = require("./usecase/delete-customer.usecase");
 const find_all_customers_usecase_1 = require("./usecase/find-all-customers.usecase");
@@ -26,7 +26,7 @@ let CustomersModule = class CustomersModule {
 exports.CustomersModule = CustomersModule;
 exports.CustomersModule = CustomersModule = __decorate([
     (0, common_1.Module)({
-        controllers: [customers_controller_1.CustomersController],
+        controllers: [...controllers_1.CustomersController],
         imports: [user_module_1.UserModule],
         providers: [
             customers_service_1.CustomersService,
@@ -39,11 +39,11 @@ exports.CustomersModule = CustomersModule = __decorate([
             mock_customer_repository_1.MockCustomerRepository,
             prisma_1.PrismaService,
             {
-                provide: customer_repo_inteface_1.CustomerRepositoryInterface,
+                provide: customer_repository_interface_1.CustomerRepositoryInterface,
                 useClass: customer_repo_1.CustomerRepo,
             },
         ],
-        exports: [customer_repo_inteface_1.CustomerRepositoryInterface]
+        exports: [customer_repository_interface_1.CustomerRepositoryInterface]
     })
 ], CustomersModule);
 //# sourceMappingURL=customers.module.js.map

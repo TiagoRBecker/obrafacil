@@ -14,7 +14,7 @@ export class CustomerMapper {
       
     };
   }
-  static toResponseWithOders(data: CustomerWithOrders): CustomerResponseDto {
+  static toResponseWithOrders(data: CustomerWithOrders): CustomerResponseDto {
     const { customer, orders } = data;
     return {
       id: customer.id as string,

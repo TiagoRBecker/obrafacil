@@ -13,8 +13,9 @@ export class ConnectionWhatsAppController {
     private readonly connectionService: ConnectionUseCase,
   ) {}
 
-  @Post('connection')
-  connection(@Req() req: any, @Body() body: { instanceName: string }) {
+  @Post('create/connection')
+  connection(@Body() body: { instanceName: string }) {
+  
     return this.connectionService.execute(body.instanceName);
   }
 }

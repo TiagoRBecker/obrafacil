@@ -12,12 +12,12 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.SenMessageController = void 0;
+exports.SendMessageController = void 0;
 const common_1 = require("@nestjs/common");
 const admin_token_guard_1 = require("../../../guards/admin-token.guard");
 const decorators_1 = require("../../../../decorators");
-const sendMessage_service_1 = require("../usecase/sendMessage.service");
-let SenMessageController = class SenMessageController {
+const send_message_usecase_1 = require("../usecase/send-message.usecase");
+let SendMessageController = class SendMessageController {
     constructor(sendMessage) {
         this.sendMessage = sendMessage;
     }
@@ -25,7 +25,7 @@ let SenMessageController = class SenMessageController {
         return this.sendMessage.execute(body.id);
     }
 };
-exports.SenMessageController = SenMessageController;
+exports.SendMessageController = SendMessageController;
 __decorate([
     (0, decorators_1.RequirePermissions)('order:create'),
     (0, common_1.Post)('/message'),
@@ -33,10 +33,10 @@ __decorate([
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", void 0)
-], SenMessageController.prototype, "create", null);
-exports.SenMessageController = SenMessageController = __decorate([
+], SendMessageController.prototype, "create", null);
+exports.SendMessageController = SendMessageController = __decorate([
     (0, common_1.Controller)('admin/send'),
     (0, common_1.UseGuards)(admin_token_guard_1.AdminTokenGuard),
-    __metadata("design:paramtypes", [sendMessage_service_1.SendMessageUseCase])
-], SenMessageController);
+    __metadata("design:paramtypes", [send_message_usecase_1.SendMessageUseCase])
+], SendMessageController);
 //# sourceMappingURL=message.controller.js.map

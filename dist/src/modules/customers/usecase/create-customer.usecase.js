@@ -13,7 +13,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.CreateCustomerUseCase = void 0;
 const common_1 = require("@nestjs/common");
 const customer_entity_1 = require("../entity/customer.entity");
-const customer_repo_inteface_1 = require("../repo/customer.repo.inteface");
+const customer_repository_interface_1 = require("../repo/customer-repository.interface");
 const customer_mapper_1 = require("./customer.mapper");
 let CreateCustomerUseCase = CreateCustomerUseCase_1 = class CreateCustomerUseCase {
     constructor(customerRepository) {
@@ -22,7 +22,7 @@ let CreateCustomerUseCase = CreateCustomerUseCase_1 = class CreateCustomerUseCas
     }
     async execute(input) {
         this.logger.log(`Iniciando criação de cliente - telefone: ${input.phone}`);
-        const existCustomer = await this.customerRepository.findByphone(input.phone);
+        const existCustomer = await this.customerRepository.findByPhone(input.phone);
         if (existCustomer?.phone) {
             this.logger.warn(`Conflito: telefone já cadastrado - ${input.phone}`);
             throw new common_1.ConflictException('Já existe um usuario com o numero de telefone cadastrado');
@@ -49,6 +49,6 @@ let CreateCustomerUseCase = CreateCustomerUseCase_1 = class CreateCustomerUseCas
 exports.CreateCustomerUseCase = CreateCustomerUseCase;
 exports.CreateCustomerUseCase = CreateCustomerUseCase = CreateCustomerUseCase_1 = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [customer_repo_inteface_1.CustomerRepositoryInterface])
+    __metadata("design:paramtypes", [customer_repository_interface_1.CustomerRepositoryInterface])
 ], CreateCustomerUseCase);
 //# sourceMappingURL=create-customer.usecase.js.map

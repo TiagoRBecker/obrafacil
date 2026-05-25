@@ -13,7 +13,7 @@ export abstract class BudgetRepositoryInterface {
   abstract delete(id: string): Promise<void>;
   abstract createTrackingMessage(
     messageId: string,
-    orerId: string,
+    orderId: string,
   ): Promise<void>;
   abstract findMessageTracking(
     messageId: string,

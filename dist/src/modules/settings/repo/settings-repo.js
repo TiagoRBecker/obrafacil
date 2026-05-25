@@ -8,87 +8,82 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var SettingsRepo_1;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SettingsRepo = void 0;
 const common_1 = require("@nestjs/common");
 const prisma_1 = require("../../../db/prisma");
 const settings_entity_1 = require("../entity/settings.entity");
 const settings_repository_1 = require("./settings.repository");
-let SettingsRepo = SettingsRepo_1 = class SettingsRepo extends settings_repository_1.SettingsRepositoryInterface {
+let SettingsRepo = class SettingsRepo extends settings_repository_1.SettingsRepositoryInterface {
     constructor(prisma) {
         super();
         this.prisma = prisma;
-        this.logger = new common_1.Logger(SettingsRepo_1.name);
     }
     async findById(email) {
-        try {
-            const data = await this.prisma.settings.findUnique({
-                where: {
-                    email: email
-                },
-            });
-            return settings_entity_1.SettingsEntity.create({
-                email: data?.email,
-                id: data?.id,
-                name: data?.businessName,
-                phone: data?.phone,
-                specialty: data?.specialty,
-                address: data?.address,
-                logoUrl: data?.logoUrl,
-            });
-        }
-        catch (error) {
-            this.logger.error('Erro ao criar ', {
-                error,
-                operation: 'CREATE',
-                entity: 'SettingsEntity',
-            });
-            throw new common_1.InternalServerErrorException(`Não foi possível criar  o cliente. Tente novamente.`);
-        }
+        const data = await this.prisma.settings.findUnique({
+            where: { email },
+        });
+        if (!data)
+            return null;
+        return settings_entity_1.SettingsEntity.create({
+            email: data.email,
+            id: data.id,
+            name: data.businessName ?? '',
+            phone: data.phone,
+            specialty: data.specialty,
+            address: data.address ?? '',
+            logoUrl: data.logoUrl ?? '',
+        });
     }
     async create(settings) {
-        const { address, email, logoUrl, name, phone, specialty } = settings;
-        try {
-            const data = await this.prisma.settings.create({
-                data: {
-                    email,
-                    businessName: name,
-                    phone,
-                    specialty,
-                    address,
-                    logoUrl,
-                    defaultBillingUnit: '',
-                    proposalValidityDays: 7,
-                    proposalTerms: '',
-                    warrantyTerms: '',
-                },
-            });
-            return settings_entity_1.SettingsEntity.create({
-                email: data.email,
-                id: data.id,
-                name: data.businessName,
-                phone: data.phone,
-                specialty: data.specialty,
-                address: data.address,
-                logoUrl: data.logoUrl,
-            });
-        }
-        catch (error) {
-            this.logger.error('Erro ao criar ', {
-                error,
-                operation: 'CREATE',
-                entity: 'SettingsEntity',
-            });
-            throw new common_1.InternalServerErrorException(`Não foi possível criar  o cliente. Tente novamente.`);
-        }
+        const data = await this.prisma.settings.create({
+            data: {
+                email: settings.email,
+                businessName: settings.name,
+                phone: settings.phone,
+                specialty: settings.specialty,
+                address: settings.address,
+                logoUrl: settings.logoUrl,
+                defaultBillingUnit: '',
+                proposalValidityDays: 7,
+                proposalTerms: '',
+                warrantyTerms: '',
+            },
+        });
+        return settings_entity_1.SettingsEntity.create({
+            email: data.email,
+            id: data.id,
+            name: data.businessName ?? '',
+            phone: data.phone,
+            specialty: data.specialty,
+            address: data.address ?? '',
+            logoUrl: data.logoUrl ?? '',
+        });
     }
     async update(settings) {
-        throw '';
+        const data = await this.prisma.settings.update({
+            where: { id: settings.id },
+            data: {
+                businessName: settings.name,
+                phone: settings.phone,
+                specialty: settings.specialty,
+                address: settings.address,
+                logoUrl: settings.logoUrl,
+            },
+        });
+        return settings_entity_1.SettingsEntity.create({
+            email: data.email,
+            id: data.id,
+            name: data.businessName ?? '',
+            phone: data.phone,
+            specialty: data.specialty,
+            address: data.address ?? '',
+            logoUrl: data.logoUrl ?? '',
+        });
     }
 };
 exports.SettingsRepo = SettingsRepo;
-exports.SettingsRepo = SettingsRepo = SettingsRepo_1 = __decorate([
+exports.SettingsRepo = SettingsRepo = __decorate([
     (0, common_1.Injectable)(),
     __metadata("design:paramtypes", [prisma_1.PrismaService])
 ], SettingsRepo);

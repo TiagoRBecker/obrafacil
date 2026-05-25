@@ -12,7 +12,7 @@ var FindAllCustomersUseCase_1;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.FindAllCustomersUseCase = void 0;
 const common_1 = require("@nestjs/common");
-const customer_repo_inteface_1 = require("../repo/customer.repo.inteface");
+const customer_repository_interface_1 = require("../repo/customer-repository.interface");
 const customer_mapper_1 = require("./customer.mapper");
 let FindAllCustomersUseCase = FindAllCustomersUseCase_1 = class FindAllCustomersUseCase {
     constructor(customerRepository) {
@@ -23,13 +23,13 @@ let FindAllCustomersUseCase = FindAllCustomersUseCase_1 = class FindAllCustomers
         this.logger.log('Buscando todos os clientes');
         const customers = await this.customerRepository.findAll();
         this.logger.log(`Encontrados ${customers.length} clientes`);
-        const data = customers.map(customer_mapper_1.CustomerMapper.toResponseWithOders);
+        const data = customers.map(customer_mapper_1.CustomerMapper.toResponseWithOrders);
         return data;
     }
 };
 exports.FindAllCustomersUseCase = FindAllCustomersUseCase;
 exports.FindAllCustomersUseCase = FindAllCustomersUseCase = FindAllCustomersUseCase_1 = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [customer_repo_inteface_1.CustomerRepositoryInterface])
+    __metadata("design:paramtypes", [customer_repository_interface_1.CustomerRepositoryInterface])
 ], FindAllCustomersUseCase);
 //# sourceMappingURL=find-all-customers.usecase.js.map

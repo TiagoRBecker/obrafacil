@@ -1,5 +1,5 @@
-import { SendMessageUseCase } from '../usecase/sendMessage.service';
-export declare class SenMessageController {
+import { SendMessageUseCase } from '../usecase/send-message.usecase';
+export declare class SendMessageController {
     private readonly sendMessage;
     constructor(sendMessage: SendMessageUseCase);
     create(body: {

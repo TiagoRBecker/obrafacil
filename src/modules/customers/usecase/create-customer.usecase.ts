@@ -10,7 +10,7 @@ import {
 import { CreateCustomerDto } from '../dto/create-customer.dto';
 import { CustomerResponseDto } from '../dto/customer-response.dto';
 import { CustomerEntity } from '../entity/customer.entity';
-import { CustomerRepositoryInterface } from '../repo/customer.repo.inteface';
+import { CustomerRepositoryInterface } from '../repo/customer-repository.interface';
 import { CustomerMapper } from './customer.mapper';
 
 @Injectable()
@@ -24,7 +24,7 @@ export class CreateCustomerUseCase {
   async execute(input: CreateCustomerDto): Promise<CustomerResponseDto> {
     this.logger.log(`Iniciando criação de cliente - telefone: ${input.phone}`);
     
-    const existCustomer = await this.customerRepository.findByphone(input.phone);
+    const existCustomer = await this.customerRepository.findByPhone(input.phone);
 
     if (existCustomer?.phone) {
       this.logger.warn(`Conflito: telefone já cadastrado - ${input.phone}`);

@@ -3,7 +3,7 @@ import { Module } from '@nestjs/common';
 import { AdminTokenGuard } from '../../guards/admin-token.guard';
 import { MockTeamMemberRepository } from './repo/mock-team-member.repository';
 import { TeamMemberRepositoryInterface } from './repo/team-member.repository';
-import { TeamController } from './team.controller';
+import { TeamController } from './controllers';
 import { TeamService } from './team.service';
 import { CreateTeamMemberUseCase } from './usecase/create-team-member.usecase';
 import { DeleteTeamMemberUseCase } from './usecase/delete-team-member.usecase';
@@ -15,7 +15,7 @@ import { PrismaService } from '../../db/prisma';
 import { UserModule } from '../Users/user.module';
 
 @Module({
-  controllers: [TeamController],
+  controllers: [...TeamController],
    imports: [UserModule],
   providers: [
     TeamService,

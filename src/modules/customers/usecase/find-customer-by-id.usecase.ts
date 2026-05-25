@@ -1,7 +1,7 @@
 import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 
 import { CustomerResponseDto } from '../dto/customer-response.dto';
-import { CustomerRepositoryInterface } from '../repo/customer.repo.inteface';
+import { CustomerRepositoryInterface } from '../repo/customer-repository.interface';
 import { CustomerMapper } from './customer.mapper';
 
 @Injectable()

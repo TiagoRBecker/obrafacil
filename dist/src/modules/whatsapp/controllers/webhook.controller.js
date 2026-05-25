@@ -15,7 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.WebhookController = void 0;
 const common_1 = require("@nestjs/common");
 const event_dispatcher_usecase_1 = require("../usecase/event-dispatcher.usecase");
-const webhook_guard_1 = require("../guards/webhook.guard");
+const webhook_guard_1 = require("../../../guards/webhook.guard");
 let WebhookController = class WebhookController {
     constructor(eventWebhook) {
         this.eventWebhook = eventWebhook;

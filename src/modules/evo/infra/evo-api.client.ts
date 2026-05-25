@@ -49,7 +49,7 @@ export class EvoApiClient implements ConnectionService, SendMessageService {
   }
   async create(instanceName: string): Promise<any> {
 
-     console.log("name", instanceName)
+     
     const res = await fetch(
       `${this.baseUrl}/instance/create`,
       {

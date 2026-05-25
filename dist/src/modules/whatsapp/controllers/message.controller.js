@@ -12,28 +12,32 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ConnectionWhatsAppController = void 0;
+exports.SendMediaController = void 0;
 const common_1 = require("@nestjs/common");
-const connection_instance_usecase_1 = require("../usecase/connection-instance.usecase");
-let ConnectionWhatsAppController = class ConnectionWhatsAppController {
-    constructor(connectionService) {
-        this.connectionService = connectionService;
-    }
-    connection(req, body) {
-        return this.connectionService.execute(body.instanceName);
+const admin_token_guard_1 = require("../../../guards/admin-token.guard");
+const decorators_1 = require("../../../../decorators");
+let SendMediaController = class SendMediaController {
+    sendMedia(instanceName, body) {
+        return {
+            message: 'Enviar orçamento',
+            instanceName,
+            mediaUrl: body.mediaUrl,
+            caption: body.caption,
+        };
     }
 };
-exports.ConnectionWhatsAppController = ConnectionWhatsAppController;
+exports.SendMediaController = SendMediaController;
 __decorate([
-    (0, common_1.Post)('connection'),
-    __param(0, (0, common_1.Req)()),
+    (0, decorators_1.RequirePermissions)('settings:create'),
+    (0, common_1.Post)('sendMedia/:instanceName'),
+    __param(0, (0, common_1.Param)('instanceName')),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object, Object]),
+    __metadata("design:paramtypes", [String, Object]),
     __metadata("design:returntype", void 0)
-], ConnectionWhatsAppController.prototype, "connection", null);
-exports.ConnectionWhatsAppController = ConnectionWhatsAppController = __decorate([
-    (0, common_1.Controller)('instance'),
-    __metadata("design:paramtypes", [connection_instance_usecase_1.ConnectionUseCase])
-], ConnectionWhatsAppController);
-//# sourceMappingURL=connection.controller.js.map
+], SendMediaController.prototype, "sendMedia", null);
+exports.SendMediaController = SendMediaController = __decorate([
+    (0, common_1.Controller)('message'),
+    (0, common_1.UseGuards)(admin_token_guard_1.AdminTokenGuard)
+], SendMediaController);
+//# sourceMappingURL=message.controller.js.map

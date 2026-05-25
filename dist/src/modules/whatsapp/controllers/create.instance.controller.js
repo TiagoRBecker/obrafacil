@@ -12,28 +12,28 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ConnectionWhatsAppController = void 0;
+exports.CreateInstanceController = void 0;
 const common_1 = require("@nestjs/common");
-const connection_instance_usecase_1 = require("../usecase/connection-instance.usecase");
-let ConnectionWhatsAppController = class ConnectionWhatsAppController {
-    constructor(connectionService) {
-        this.connectionService = connectionService;
+const create_instance_usecase_1 = require("../usecase/create-instance-usecase");
+let CreateInstanceController = class CreateInstanceController {
+    constructor(createInstanceUseCase) {
+        this.createInstanceUseCase = createInstanceUseCase;
     }
-    connection(req, body) {
-        return this.connectionService.execute(body.instanceName);
+    create(req, body) {
+        return this.createInstanceUseCase.execute(body.instanceName);
     }
 };
-exports.ConnectionWhatsAppController = ConnectionWhatsAppController;
+exports.CreateInstanceController = CreateInstanceController;
 __decorate([
-    (0, common_1.Post)('connection'),
+    (0, common_1.Post)('create'),
     __param(0, (0, common_1.Req)()),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object, Object]),
     __metadata("design:returntype", void 0)
-], ConnectionWhatsAppController.prototype, "connection", null);
-exports.ConnectionWhatsAppController = ConnectionWhatsAppController = __decorate([
+], CreateInstanceController.prototype, "create", null);
+exports.CreateInstanceController = CreateInstanceController = __decorate([
     (0, common_1.Controller)('instance'),
-    __metadata("design:paramtypes", [connection_instance_usecase_1.ConnectionUseCase])
-], ConnectionWhatsAppController);
-//# sourceMappingURL=connection.controller.js.map
+    __metadata("design:paramtypes", [create_instance_usecase_1.CreateInstanceNameUseCase])
+], CreateInstanceController);
+//# sourceMappingURL=create.instance.controller.js.map

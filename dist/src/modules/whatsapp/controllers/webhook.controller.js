@@ -12,28 +12,29 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ConnectionWhatsAppController = void 0;
+exports.WebhookController = void 0;
 const common_1 = require("@nestjs/common");
-const connection_instance_usecase_1 = require("../usecase/connection-instance.usecase");
-let ConnectionWhatsAppController = class ConnectionWhatsAppController {
-    constructor(connectionService) {
-        this.connectionService = connectionService;
+const event_dispatcher_usecase_1 = require("../usecase/event-dispatcher.usecase");
+const webhook_guard_1 = require("../guards/webhook.guard");
+let WebhookController = class WebhookController {
+    constructor(eventWebhook) {
+        this.eventWebhook = eventWebhook;
     }
-    connection(req, body) {
-        return this.connectionService.execute(body.instanceName);
+    sendMedia(body) {
+        return this.eventWebhook.execute(body);
     }
 };
-exports.ConnectionWhatsAppController = ConnectionWhatsAppController;
+exports.WebhookController = WebhookController;
 __decorate([
-    (0, common_1.Post)('connection'),
-    __param(0, (0, common_1.Req)()),
-    __param(1, (0, common_1.Body)()),
+    (0, common_1.Post)('/message/connection-update'),
+    (0, common_1.UseGuards)(webhook_guard_1.WebhookGuard),
+    __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object, Object]),
+    __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", void 0)
-], ConnectionWhatsAppController.prototype, "connection", null);
-exports.ConnectionWhatsAppController = ConnectionWhatsAppController = __decorate([
-    (0, common_1.Controller)('instance'),
-    __metadata("design:paramtypes", [connection_instance_usecase_1.ConnectionUseCase])
-], ConnectionWhatsAppController);
-//# sourceMappingURL=connection.controller.js.map
+], WebhookController.prototype, "sendMedia", null);
+exports.WebhookController = WebhookController = __decorate([
+    (0, common_1.Controller)('webhook'),
+    __metadata("design:paramtypes", [event_dispatcher_usecase_1.EventDispatcherService])
+], WebhookController);
+//# sourceMappingURL=webhook.controller.js.map

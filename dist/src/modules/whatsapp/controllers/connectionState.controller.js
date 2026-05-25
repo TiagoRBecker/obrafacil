@@ -12,28 +12,24 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ConnectionWhatsAppController = void 0;
+exports.ConnectionStateController = void 0;
 const common_1 = require("@nestjs/common");
-const connection_instance_usecase_1 = require("../usecase/connection-instance.usecase");
-let ConnectionWhatsAppController = class ConnectionWhatsAppController {
-    constructor(connectionService) {
-        this.connectionService = connectionService;
-    }
-    connection(req, body) {
-        return this.connectionService.execute(body.instanceName);
+const decorators_1 = require("../../../../decorators");
+let ConnectionStateController = class ConnectionStateController {
+    connectionState(instanceName) {
+        return { message: 'Status conexão', instanceName };
     }
 };
-exports.ConnectionWhatsAppController = ConnectionWhatsAppController;
+exports.ConnectionStateController = ConnectionStateController;
 __decorate([
-    (0, common_1.Post)('connection'),
-    __param(0, (0, common_1.Req)()),
-    __param(1, (0, common_1.Body)()),
+    (0, decorators_1.RequirePermissions)('settings:read'),
+    (0, common_1.Get)('connectionState/:instanceName'),
+    __param(0, (0, common_1.Param)('instanceName')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object, Object]),
+    __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
-], ConnectionWhatsAppController.prototype, "connection", null);
-exports.ConnectionWhatsAppController = ConnectionWhatsAppController = __decorate([
-    (0, common_1.Controller)('instance'),
-    __metadata("design:paramtypes", [connection_instance_usecase_1.ConnectionUseCase])
-], ConnectionWhatsAppController);
-//# sourceMappingURL=connection.controller.js.map
+], ConnectionStateController.prototype, "connectionState", null);
+exports.ConnectionStateController = ConnectionStateController = __decorate([
+    (0, common_1.Controller)('instance')
+], ConnectionStateController);
+//# sourceMappingURL=connectionState.controller.js.map

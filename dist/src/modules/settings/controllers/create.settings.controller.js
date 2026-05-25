@@ -14,6 +14,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CreateSettingsController = void 0;
 const common_1 = require("@nestjs/common");
+const swagger_1 = require("@nestjs/swagger");
 const admin_token_guard_1 = require("../../../guards/admin-token.guard");
 const upsert_settings_dto_1 = require("../dto/upsert-settings.dto");
 const create_settings_usecase_1 = require("../usecase/create-settings.usecase");
@@ -31,6 +32,13 @@ exports.CreateSettingsController = CreateSettingsController;
 __decorate([
     (0, decorators_1.RequirePermissions)('order:create'),
     (0, common_1.Post)('create'),
+    (0, swagger_1.ApiBearerAuth)('access-token'),
+    (0, swagger_1.ApiOperation)({
+        summary: 'Criar configurações da empresa',
+        description: 'Cria as configurações iniciais da empresa (nome, especialidade, telefone, email, logo). Requer permissão `order:create`.',
+    }),
+    (0, swagger_1.ApiBody)({ type: upsert_settings_dto_1.UpsertSettingsDto, description: 'Dados de configuração da empresa' }),
+    (0, swagger_1.ApiResponse)({ status: 201, description: 'Configurações criadas com sucesso.' }),
     __param(0, (0, common_1.Req)()),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
@@ -38,6 +46,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], CreateSettingsController.prototype, "create", null);
 exports.CreateSettingsController = CreateSettingsController = __decorate([
+    (0, swagger_1.ApiTags)('Configurações'),
     (0, common_1.Controller)('admin/settings'),
     (0, common_1.UseGuards)(admin_token_guard_1.AdminTokenGuard),
     __metadata("design:paramtypes", [create_settings_usecase_1.CreateSettingsUseCase])

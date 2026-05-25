@@ -14,6 +14,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.FindByIdTeamMemberController = void 0;
 const common_1 = require("@nestjs/common");
+const swagger_1 = require("@nestjs/swagger");
 const admin_token_guard_1 = require("../../../guards/admin-token.guard");
 const team_member_id_param_dto_1 = require("../dto/team-member-id-param.dto");
 const find_team_member_by_id_usecase_1 = require("../usecase/find-team-member-by-id.usecase");
@@ -32,12 +33,21 @@ __decorate([
     (0, decorators_1.Roles)(types_1.UserRole.ADMIN, types_1.UserRole.USER),
     (0, decorators_1.RequirePermissions)('team:read'),
     (0, common_1.Get)(':id'),
+    (0, swagger_1.ApiBearerAuth)('access-token'),
+    (0, swagger_1.ApiOperation)({
+        summary: 'Buscar membro da equipe por ID',
+        description: 'Retorna os dados de um membro da equipe específico. Requer permissão `team:read`. Disponível para ADMIN e USER.',
+    }),
+    (0, swagger_1.ApiParam)({ name: 'id', description: 'ID único do membro da equipe', example: '550e8400-e29b-41d4-a716-446655440000' }),
+    (0, swagger_1.ApiResponse)({ status: 200, description: 'Membro da equipe encontrado com sucesso.' }),
+    (0, swagger_1.ApiResponse)({ status: 404, description: 'Membro da equipe não encontrado.' }),
     __param(0, (0, common_1.Param)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [team_member_id_param_dto_1.TeamMemberIdParamDto]),
     __metadata("design:returntype", Promise)
 ], FindByIdTeamMemberController.prototype, "findById", null);
 exports.FindByIdTeamMemberController = FindByIdTeamMemberController = __decorate([
+    (0, swagger_1.ApiTags)('Equipe'),
     (0, common_1.UseGuards)(admin_token_guard_1.AdminTokenGuard),
     (0, common_1.Controller)('admin/team'),
     __metadata("design:paramtypes", [find_team_member_by_id_usecase_1.FindTeamMemberByIdUseCase])

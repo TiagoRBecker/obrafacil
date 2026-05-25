@@ -14,6 +14,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UpdateCustomerController = void 0;
 const common_1 = require("@nestjs/common");
+const swagger_1 = require("@nestjs/swagger");
 const admin_token_guard_1 = require("../../../guards/admin-token.guard");
 const customer_id_param_dto_1 = require("../dto/customer-id-param.dto");
 const update_customer_dto_1 = require("../dto/update-customer.dto");
@@ -33,6 +34,15 @@ __decorate([
     (0, decorators_1.Roles)(types_1.UserRole.ADMIN),
     (0, decorators_1.RequirePermissions)('customer:update'),
     (0, common_1.Patch)('update/:id'),
+    (0, swagger_1.ApiBearerAuth)('access-token'),
+    (0, swagger_1.ApiOperation)({
+        summary: 'Atualizar cliente',
+        description: 'Atualiza os dados de um cliente existente. Requer permissão `customer:update` e papel ADMIN.',
+    }),
+    (0, swagger_1.ApiParam)({ name: 'id', description: 'ID único do cliente a ser atualizado', example: '550e8400-e29b-41d4-a716-446655440000' }),
+    (0, swagger_1.ApiBody)({ type: update_customer_dto_1.UpdateCustomerDto, description: 'Dados atualizados do cliente' }),
+    (0, swagger_1.ApiResponse)({ status: 200, description: 'Cliente atualizado com sucesso.' }),
+    (0, swagger_1.ApiResponse)({ status: 404, description: 'Cliente não encontrado.' }),
     __param(0, (0, common_1.Param)()),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
@@ -41,6 +51,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], UpdateCustomerController.prototype, "update", null);
 exports.UpdateCustomerController = UpdateCustomerController = __decorate([
+    (0, swagger_1.ApiTags)('Clientes'),
     (0, common_1.UseGuards)(admin_token_guard_1.AdminTokenGuard),
     (0, common_1.Controller)('admin/customers'),
     __metadata("design:paramtypes", [update_customer_usecase_1.UpdateCustomerUseCase])

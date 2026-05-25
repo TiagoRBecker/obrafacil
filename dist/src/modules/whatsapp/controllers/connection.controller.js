@@ -14,6 +14,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ConnectionWhatsAppController = void 0;
 const common_1 = require("@nestjs/common");
+const swagger_1 = require("@nestjs/swagger");
 const connection_instance_usecase_1 = require("../usecase/connection-instance.usecase");
 let ConnectionWhatsAppController = class ConnectionWhatsAppController {
     constructor(connectionService) {
@@ -26,12 +27,19 @@ let ConnectionWhatsAppController = class ConnectionWhatsAppController {
 exports.ConnectionWhatsAppController = ConnectionWhatsAppController;
 __decorate([
     (0, common_1.Post)('create/connection'),
+    (0, swagger_1.ApiOperation)({
+        summary: 'Criar conexão WhatsApp',
+        description: 'Inicia uma nova conexão com o WhatsApp. Cria uma instância para gerar o QR Code de conexão.',
+    }),
+    (0, swagger_1.ApiBody)({ schema: { type: 'object', properties: { instanceName: { type: 'string', description: 'Nome da instância WhatsApp' } } } }),
+    (0, swagger_1.ApiResponse)({ status: 201, description: 'Conexão iniciada. QR Code disponível para escaneamento.' }),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", void 0)
 ], ConnectionWhatsAppController.prototype, "connection", null);
 exports.ConnectionWhatsAppController = ConnectionWhatsAppController = __decorate([
+    (0, swagger_1.ApiTags)('WhatsApp'),
     (0, common_1.Controller)('instance'),
     __metadata("design:paramtypes", [connection_instance_usecase_1.ConnectionUseCase])
 ], ConnectionWhatsAppController);

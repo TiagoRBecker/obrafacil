@@ -14,6 +14,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CreateTeamMemberController = void 0;
 const common_1 = require("@nestjs/common");
+const swagger_1 = require("@nestjs/swagger");
 const admin_token_guard_1 = require("../../../guards/admin-token.guard");
 const create_team_member_dto_1 = require("../dto/create-team-member.dto");
 const create_team_member_usecase_1 = require("../usecase/create-team-member.usecase");
@@ -32,12 +33,21 @@ __decorate([
     (0, common_1.Post)('create'),
     (0, decorators_1.Roles)(types_1.UserRole.ADMIN),
     (0, decorators_1.RequirePermissions)('team:create'),
+    (0, swagger_1.ApiBearerAuth)('access-token'),
+    (0, swagger_1.ApiOperation)({
+        summary: 'Criar membro da equipe',
+        description: 'Adiciona um novo membro à equipe. Requer permissão `team:create` e papel ADMIN.',
+    }),
+    (0, swagger_1.ApiBody)({ type: create_team_member_dto_1.CreateTeamMemberDto, description: 'Dados do membro da equipe' }),
+    (0, swagger_1.ApiResponse)({ status: 201, description: 'Membro da equipe criado com sucesso.' }),
+    (0, swagger_1.ApiResponse)({ status: 401, description: 'Token de acesso ausente ou inválido.' }),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [create_team_member_dto_1.CreateTeamMemberDto]),
     __metadata("design:returntype", Promise)
 ], CreateTeamMemberController.prototype, "create", null);
 exports.CreateTeamMemberController = CreateTeamMemberController = __decorate([
+    (0, swagger_1.ApiTags)('Equipe'),
     (0, common_1.UseGuards)(admin_token_guard_1.AdminTokenGuard),
     (0, common_1.Controller)('admin/team'),
     __metadata("design:paramtypes", [create_team_member_usecase_1.CreateTeamMemberUseCase])

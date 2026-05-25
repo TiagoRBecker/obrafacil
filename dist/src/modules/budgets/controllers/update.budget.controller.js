@@ -14,6 +14,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UpdateBudgetsController = void 0;
 const common_1 = require("@nestjs/common");
+const swagger_1 = require("@nestjs/swagger");
 const types_1 = require("../../../../decorators/types");
 const update_budget_usecase_1 = require("../usecase/update-budget.usecase");
 const decorators_1 = require("../../../../decorators");
@@ -33,6 +34,15 @@ __decorate([
     (0, decorators_1.Roles)(types_1.UserRole.ADMIN),
     (0, decorators_1.RequirePermissions)('order:update'),
     (0, common_1.Patch)('update/:id'),
+    (0, swagger_1.ApiBearerAuth)('access-token'),
+    (0, swagger_1.ApiOperation)({
+        summary: 'Atualizar orçamento',
+        description: 'Atualiza os dados de um orçamento existente. Requer permissão `order:update` e papel ADMIN.',
+    }),
+    (0, swagger_1.ApiParam)({ name: 'id', description: 'ID único do orçamento a ser atualizado', example: '550e8400-e29b-41d4-a716-446655440000' }),
+    (0, swagger_1.ApiBody)({ type: create_budget_dto_1.CreateOrderDto, description: 'Dados atualizados do orçamento' }),
+    (0, swagger_1.ApiResponse)({ status: 200, description: 'Orçamento atualizado com sucesso.' }),
+    (0, swagger_1.ApiResponse)({ status: 404, description: 'Orçamento não encontrado.' }),
     __param(0, (0, common_1.Param)()),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
@@ -41,6 +51,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], UpdateBudgetsController.prototype, "update", null);
 exports.UpdateBudgetsController = UpdateBudgetsController = __decorate([
+    (0, swagger_1.ApiTags)('Orçamentos'),
     (0, common_1.UseGuards)(admin_token_guard_1.AdminTokenGuard),
     (0, common_1.Controller)('admin/budgets'),
     __metadata("design:paramtypes", [update_budget_usecase_1.UpdateBudgetUseCase])

@@ -3,9 +3,10 @@ import {
   Get,
   Param,
 } from '@nestjs/common';
-
+import { ApiTags, ApiOperation, ApiParam, ApiResponse } from '@nestjs/swagger';
 import { GetConnectionUseCase } from '../usecase/findByConnection-usecase';
 
+@ApiTags('WhatsApp')
 @Controller('instance')
 export class GetConnectionWhatsAppController {
   constructor(
@@ -13,8 +14,14 @@ export class GetConnectionWhatsAppController {
   ) {}
 
   @Get('/connection/:id/qrcode')
-  connection(@Param ()  params:{id:string}) {
-   
+  @ApiOperation({
+    summary: 'Obter QR Code da conexão',
+    description: 'Retorna o QR Code para conexão com o WhatsApp de uma instância específica.',
+  })
+  @ApiParam({ name: 'id', description: 'ID da instância/conexão WhatsApp', example: '550e8400-e29b-41d4-a716-446655440000' })
+  @ApiResponse({ status: 200, description: 'QR Code retornado com sucesso.' })
+  @ApiResponse({ status: 404, description: 'Conexão não encontrada.' })
+  connection(@Param() params: { id: string }) {
     return this.connectionService.execute(params.id);
   }
 }

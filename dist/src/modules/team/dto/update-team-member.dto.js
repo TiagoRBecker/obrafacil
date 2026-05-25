@@ -11,27 +11,32 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UpdateTeamMemberDto = void 0;
 const class_validator_1 = require("class-validator");
+const swagger_1 = require("@nestjs/swagger");
 class UpdateTeamMemberDto {
 }
 exports.UpdateTeamMemberDto = UpdateTeamMemberDto;
 __decorate([
+    (0, swagger_1.ApiPropertyOptional)({ description: 'Nome do membro', example: 'Pedro Santos' }),
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.MinLength)(3),
     __metadata("design:type", String)
 ], UpdateTeamMemberDto.prototype, "name", void 0);
 __decorate([
+    (0, swagger_1.ApiPropertyOptional)({ description: 'Cargo/função', example: 'Eletricista Sênior' }),
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.MinLength)(2),
     __metadata("design:type", String)
 ], UpdateTeamMemberDto.prototype, "jobTitle", void 0);
 __decorate([
+    (0, swagger_1.ApiPropertyOptional)({ description: 'Email', example: 'pedro@exemplo.com' }),
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsEmail)(),
     __metadata("design:type", String)
 ], UpdateTeamMemberDto.prototype, "email", void 0);
 __decorate([
+    (0, swagger_1.ApiPropertyOptional)({ description: 'Telefone', example: '(11) 97777-6666' }),
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.Matches)(/^[0-9()+\-\s]+$/, {
@@ -40,6 +45,7 @@ __decorate([
     __metadata("design:type", String)
 ], UpdateTeamMemberDto.prototype, "phone", void 0);
 __decorate([
+    (0, swagger_1.ApiPropertyOptional)({ description: 'Status do membro', example: 'active' }),
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)

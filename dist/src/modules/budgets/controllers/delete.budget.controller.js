@@ -14,6 +14,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.DeleteBudgetsController = void 0;
 const common_1 = require("@nestjs/common");
+const swagger_1 = require("@nestjs/swagger");
 const admin_token_guard_1 = require("../../../guards/admin-token.guard");
 const delete_budget_usecase_1 = require("../usecase/delete-budget.usecase");
 const decorators_1 = require("../../../../decorators");
@@ -32,12 +33,21 @@ __decorate([
     (0, decorators_1.Roles)(types_1.UserRole.ADMIN),
     (0, decorators_1.RequirePermissions)('order:delete'),
     (0, common_1.Delete)('delete/:id'),
+    (0, swagger_1.ApiBearerAuth)('access-token'),
+    (0, swagger_1.ApiOperation)({
+        summary: 'Excluir orçamento',
+        description: 'Remove um orçamento do sistema pelo seu ID. Requer permissão `order:delete` e papel ADMIN.',
+    }),
+    (0, swagger_1.ApiParam)({ name: 'id', description: 'ID único do orçamento a ser excluído', example: '550e8400-e29b-41d4-a716-446655440000' }),
+    (0, swagger_1.ApiResponse)({ status: 200, description: 'Orçamento excluído com sucesso.' }),
+    (0, swagger_1.ApiResponse)({ status: 404, description: 'Orçamento não encontrado.' }),
     __param(0, (0, common_1.Param)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [budget_id_param_dto_1.BudgetIdParamDto]),
     __metadata("design:returntype", Promise)
 ], DeleteBudgetsController.prototype, "delete", null);
 exports.DeleteBudgetsController = DeleteBudgetsController = __decorate([
+    (0, swagger_1.ApiTags)('Orçamentos'),
     (0, common_1.UseGuards)(admin_token_guard_1.AdminTokenGuard),
     (0, common_1.Controller)('admin/budgets'),
     __metadata("design:paramtypes", [delete_budget_usecase_1.DeleteBudgetUseCase])

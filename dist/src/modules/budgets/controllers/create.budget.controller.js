@@ -14,6 +14,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CreateBudgetsController = void 0;
 const common_1 = require("@nestjs/common");
+const swagger_1 = require("@nestjs/swagger");
 const admin_token_guard_1 = require("../../../guards/admin-token.guard");
 const create_budget_usecase_1 = require("../usecase/create-budget.usecase");
 const decorators_1 = require("../../../../decorators");
@@ -32,12 +33,22 @@ __decorate([
     (0, common_1.Post)('create'),
     (0, decorators_1.Roles)(types_1.UserRole.ADMIN),
     (0, decorators_1.RequirePermissions)('order:create'),
+    (0, swagger_1.ApiBearerAuth)('access-token'),
+    (0, swagger_1.ApiOperation)({
+        summary: 'Criar orçamento',
+        description: 'Cria um novo orçamento com dados do cliente, serviços, materiais, datas e valores. Requer permissão `order:create` e papel ADMIN.',
+    }),
+    (0, swagger_1.ApiBody)({ type: create_budget_dto_1.CreateOrderDto, description: 'Dados completos do orçamento' }),
+    (0, swagger_1.ApiResponse)({ status: 201, description: 'Orçamento criado com sucesso.' }),
+    (0, swagger_1.ApiResponse)({ status: 401, description: 'Token de acesso ausente ou inválido.' }),
+    (0, swagger_1.ApiResponse)({ status: 403, description: 'Permissão negada. Requer papel ADMIN e permissão order:create.' }),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [create_budget_dto_1.CreateOrderDto]),
     __metadata("design:returntype", Promise)
 ], CreateBudgetsController.prototype, "create", null);
 exports.CreateBudgetsController = CreateBudgetsController = __decorate([
+    (0, swagger_1.ApiTags)('Orçamentos'),
     (0, common_1.UseGuards)(admin_token_guard_1.AdminTokenGuard),
     (0, common_1.Controller)('admin/budgets'),
     __metadata("design:paramtypes", [create_budget_usecase_1.CreateBudgetUseCase])

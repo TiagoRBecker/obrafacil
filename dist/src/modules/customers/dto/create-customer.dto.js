@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CreateCustomerDto = exports.ServiceTypeEnum = void 0;
 const class_validator_1 = require("class-validator");
+const swagger_1 = require("@nestjs/swagger");
 var ServiceTypeEnum;
 (function (ServiceTypeEnum) {
     ServiceTypeEnum["ELECTRICAL"] = "electrical";
@@ -25,11 +26,13 @@ class CreateCustomerDto {
 }
 exports.CreateCustomerDto = CreateCustomerDto;
 __decorate([
+    (0, swagger_1.ApiProperty)({ description: 'Nome do cliente', example: 'Carlos Almeida' }),
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.MinLength)(3),
     __metadata("design:type", String)
 ], CreateCustomerDto.prototype, "name", void 0);
 __decorate([
+    (0, swagger_1.ApiProperty)({ description: 'Telefone do cliente', example: '(11) 98765-4321' }),
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.Matches)(/^[0-9()+\-\s]+$/, {
         message: 'phone must contain only numbers, spaces or common phone symbols',
@@ -37,17 +40,20 @@ __decorate([
     __metadata("design:type", String)
 ], CreateCustomerDto.prototype, "phone", void 0);
 __decorate([
+    (0, swagger_1.ApiProperty)({ description: 'Tipo de serviço', enum: ServiceTypeEnum, example: ServiceTypeEnum.ELECTRICAL }),
     (0, class_validator_1.IsEnum)(ServiceTypeEnum, {
         message: 'Tipo de serviço invalido ! Consulte  documentaçao para enviar o valor certo',
     }),
     __metadata("design:type", String)
 ], CreateCustomerDto.prototype, "service", void 0);
 __decorate([
+    (0, swagger_1.ApiPropertyOptional)({ description: 'Endereço do cliente', example: 'Av. Paulista, 1000' }),
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], CreateCustomerDto.prototype, "address", void 0);
 __decorate([
+    (0, swagger_1.ApiPropertyOptional)({ description: 'Cidade do cliente', example: 'São Paulo' }),
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)

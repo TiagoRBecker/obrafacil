@@ -11,24 +11,29 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CreateTeamMemberDto = void 0;
 const class_validator_1 = require("class-validator");
+const swagger_1 = require("@nestjs/swagger");
 class CreateTeamMemberDto {
 }
 exports.CreateTeamMemberDto = CreateTeamMemberDto;
 __decorate([
+    (0, swagger_1.ApiProperty)({ description: 'Nome do membro da equipe', example: 'Pedro Santos' }),
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.MinLength)(3),
     __metadata("design:type", String)
 ], CreateTeamMemberDto.prototype, "name", void 0);
 __decorate([
+    (0, swagger_1.ApiProperty)({ description: 'Cargo/função do membro', example: 'Eletricista' }),
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.MinLength)(2),
     __metadata("design:type", String)
 ], CreateTeamMemberDto.prototype, "jobTitle", void 0);
 __decorate([
+    (0, swagger_1.ApiProperty)({ description: 'Email do membro', example: 'pedro@exemplo.com' }),
     (0, class_validator_1.IsEmail)(),
     __metadata("design:type", String)
 ], CreateTeamMemberDto.prototype, "email", void 0);
 __decorate([
+    (0, swagger_1.ApiPropertyOptional)({ description: 'Telefone do membro', example: '(11) 97777-6666' }),
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.Matches)(/^[0-9()+\-\s]+$/, {

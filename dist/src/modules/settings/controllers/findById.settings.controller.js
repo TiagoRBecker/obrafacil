@@ -14,6 +14,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.FindByIdSettingsController = void 0;
 const common_1 = require("@nestjs/common");
+const swagger_1 = require("@nestjs/swagger");
 const admin_token_guard_1 = require("../../../guards/admin-token.guard");
 const find_settings_by_id_usecase_1 = require("../usecase/find-settings-by-id.usecase");
 const decorators_1 = require("../../../../decorators");
@@ -30,12 +31,20 @@ exports.FindByIdSettingsController = FindByIdSettingsController;
 __decorate([
     (0, decorators_1.RequirePermissions)('settings:read'),
     (0, common_1.Get)('/me'),
+    (0, swagger_1.ApiBearerAuth)('access-token'),
+    (0, swagger_1.ApiOperation)({
+        summary: 'Buscar configurações da empresa',
+        description: 'Retorna as configurações da empresa do usuário logado. Requer permissão `settings:read`.',
+    }),
+    (0, swagger_1.ApiResponse)({ status: 200, description: 'Configurações encontradas com sucesso.' }),
+    (0, swagger_1.ApiResponse)({ status: 404, description: 'Configurações não encontradas para este usuário.' }),
     __param(0, (0, common_1.Req)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], FindByIdSettingsController.prototype, "findById", null);
 exports.FindByIdSettingsController = FindByIdSettingsController = __decorate([
+    (0, swagger_1.ApiTags)('Configurações'),
     (0, common_1.Controller)('admin/settings'),
     (0, common_1.UseGuards)(admin_token_guard_1.AdminTokenGuard),
     __metadata("design:paramtypes", [find_settings_by_id_usecase_1.FindSettingsByIdUseCase])

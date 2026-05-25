@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.FindAllCustomersController = void 0;
 const common_1 = require("@nestjs/common");
+const swagger_1 = require("@nestjs/swagger");
 const admin_token_guard_1 = require("../../../guards/admin-token.guard");
 const find_all_customers_usecase_1 = require("../usecase/find-all-customers.usecase");
 const decorators_1 = require("../../../../decorators");
@@ -28,11 +29,19 @@ __decorate([
     (0, decorators_1.Roles)(types_1.UserRole.ADMIN, types_1.UserRole.USER),
     (0, decorators_1.RequirePermissions)('customer:read'),
     (0, common_1.Get)('all'),
+    (0, swagger_1.ApiBearerAuth)('access-token'),
+    (0, swagger_1.ApiOperation)({
+        summary: 'Listar clientes',
+        description: 'Retorna todos os clientes cadastrados. Requer permissão `customer:read`. Disponível para ADMIN e USER.',
+    }),
+    (0, swagger_1.ApiResponse)({ status: 200, description: 'Lista de clientes retornada com sucesso.' }),
+    (0, swagger_1.ApiResponse)({ status: 401, description: 'Token de acesso ausente ou inválido.' }),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], FindAllCustomersController.prototype, "findAll", null);
 exports.FindAllCustomersController = FindAllCustomersController = __decorate([
+    (0, swagger_1.ApiTags)('Clientes'),
     (0, common_1.UseGuards)(admin_token_guard_1.AdminTokenGuard),
     (0, common_1.Controller)('admin/customers'),
     __metadata("design:paramtypes", [find_all_customers_usecase_1.FindAllCustomersUseCase])

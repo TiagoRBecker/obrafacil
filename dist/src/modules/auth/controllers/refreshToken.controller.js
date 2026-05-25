@@ -14,6 +14,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.RefreshTokenController = void 0;
 const common_1 = require("@nestjs/common");
+const swagger_1 = require("@nestjs/swagger");
 const refresh_token_usecase_1 = require("../usecase/refresh-token.usecase");
 const access_token_response_dto_1 = require("../../security/dto/access-token-response.dto");
 let RefreshTokenController = class RefreshTokenController {
@@ -27,12 +28,20 @@ let RefreshTokenController = class RefreshTokenController {
 exports.RefreshTokenController = RefreshTokenController;
 __decorate([
     (0, common_1.Post)('refreshtoken'),
+    (0, swagger_1.ApiOperation)({
+        summary: 'Renovar token de acesso',
+        description: 'Utiliza o refresh token para obter um novo access token JWT. O refresh token é obtido no endpoint de login.',
+    }),
+    (0, swagger_1.ApiBody)({ schema: { type: 'object', properties: { refreshToken: { type: 'string', description: 'Refresh token recebido no login' } } } }),
+    (0, swagger_1.ApiResponse)({ status: 201, description: 'Novo access token gerado com sucesso.', type: access_token_response_dto_1.AccessTokenResponseDto }),
+    (0, swagger_1.ApiResponse)({ status: 401, description: 'Refresh token inválido ou expirado.' }),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", access_token_response_dto_1.AccessTokenResponseDto)
 ], RefreshTokenController.prototype, "refreshToken", null);
 exports.RefreshTokenController = RefreshTokenController = __decorate([
+    (0, swagger_1.ApiTags)('Autenticação'),
     (0, common_1.Controller)('auth'),
     __metadata("design:paramtypes", [refresh_token_usecase_1.RefreshTokenUseCase])
 ], RefreshTokenController);

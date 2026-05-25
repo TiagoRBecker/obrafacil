@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UpsertSettingsDto = exports.DefaultBillingUnit = void 0;
 const class_validator_1 = require("class-validator");
+const swagger_1 = require("@nestjs/swagger");
 var DefaultBillingUnit;
 (function (DefaultBillingUnit) {
     DefaultBillingUnit["HOUR"] = "hour";
@@ -21,16 +22,19 @@ class UpsertSettingsDto {
 }
 exports.UpsertSettingsDto = UpsertSettingsDto;
 __decorate([
+    (0, swagger_1.ApiProperty)({ description: 'Nome da empresa', example: 'Minha Empresa de Serviços' }),
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.MinLength)(3),
     __metadata("design:type", String)
 ], UpsertSettingsDto.prototype, "name", void 0);
 __decorate([
+    (0, swagger_1.ApiProperty)({ description: 'Especialidade da empresa', example: 'Elétrica e Hidráulica' }),
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.MinLength)(2),
     __metadata("design:type", String)
 ], UpsertSettingsDto.prototype, "specialty", void 0);
 __decorate([
+    (0, swagger_1.ApiProperty)({ description: 'Telefone da empresa', example: '(11) 3000-0000' }),
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.Matches)(/^[0-9()+\-\s]+$/, {
         message: 'phone must contain only numbers, spaces or common phone symbols',
@@ -38,15 +42,18 @@ __decorate([
     __metadata("design:type", String)
 ], UpsertSettingsDto.prototype, "phone", void 0);
 __decorate([
+    (0, swagger_1.ApiProperty)({ description: 'Email da empresa', example: 'contato@minhaempresa.com' }),
     (0, class_validator_1.IsEmail)(),
     __metadata("design:type", String)
 ], UpsertSettingsDto.prototype, "email", void 0);
 __decorate([
+    (0, swagger_1.ApiPropertyOptional)({ description: 'Endereço da empresa', example: 'Rua Augusta, 500' }),
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], UpsertSettingsDto.prototype, "address", void 0);
 __decorate([
+    (0, swagger_1.ApiPropertyOptional)({ description: 'URL do logo da empresa', example: 'https://minhaempresa.com/logo.png' }),
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsUrl)(),
     __metadata("design:type", String)

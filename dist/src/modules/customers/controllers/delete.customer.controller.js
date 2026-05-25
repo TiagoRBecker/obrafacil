@@ -14,6 +14,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.DeleteCustomerController = void 0;
 const common_1 = require("@nestjs/common");
+const swagger_1 = require("@nestjs/swagger");
 const admin_token_guard_1 = require("../../../guards/admin-token.guard");
 const customer_id_param_dto_1 = require("../dto/customer-id-param.dto");
 const delete_customer_usecase_1 = require("../usecase/delete-customer.usecase");
@@ -32,12 +33,21 @@ __decorate([
     (0, decorators_1.Roles)(types_1.UserRole.ADMIN),
     (0, decorators_1.RequirePermissions)('customer:update'),
     (0, common_1.Delete)('delete/:id'),
+    (0, swagger_1.ApiBearerAuth)('access-token'),
+    (0, swagger_1.ApiOperation)({
+        summary: 'Excluir cliente',
+        description: 'Remove um cliente do sistema pelo seu ID. Requer permissão `customer:update` e papel ADMIN.',
+    }),
+    (0, swagger_1.ApiParam)({ name: 'id', description: 'ID único do cliente a ser excluído', example: '550e8400-e29b-41d4-a716-446655440000' }),
+    (0, swagger_1.ApiResponse)({ status: 200, description: 'Cliente excluído com sucesso.' }),
+    (0, swagger_1.ApiResponse)({ status: 404, description: 'Cliente não encontrado.' }),
     __param(0, (0, common_1.Param)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [customer_id_param_dto_1.CustomerIdParamDto]),
     __metadata("design:returntype", Promise)
 ], DeleteCustomerController.prototype, "delete", null);
 exports.DeleteCustomerController = DeleteCustomerController = __decorate([
+    (0, swagger_1.ApiTags)('Clientes'),
     (0, common_1.UseGuards)(admin_token_guard_1.AdminTokenGuard),
     (0, common_1.Controller)('admin/customers'),
     __metadata("design:paramtypes", [delete_customer_usecase_1.DeleteCustomerUseCase])

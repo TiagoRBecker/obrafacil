@@ -11,10 +11,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.BudgetIdParamDto = void 0;
 const class_validator_1 = require("class-validator");
+const swagger_1 = require("@nestjs/swagger");
 class BudgetIdParamDto {
 }
 exports.BudgetIdParamDto = BudgetIdParamDto;
 __decorate([
+    (0, swagger_1.ApiProperty)({ description: 'ID único do orçamento', example: '550e8400-e29b-41d4-a716-446655440000' }),
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.MinLength)(1),
     __metadata("design:type", String)

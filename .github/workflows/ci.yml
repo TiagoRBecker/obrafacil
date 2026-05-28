@@ -1,18 +1,22 @@
 name: CI
+
 on:
   push:
     branches: [main]
   pull_request:
     branches: [main]
+
 jobs:
   ci:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      # Atualizado de @v4 para @v6 para suportar o Node 24 internamente
+      - uses: actions/checkout@v6
 
-      - uses: actions/setup-node@v4
+      # Atualizado de @v4 para @v5 (ou mantido a versão compatível com Node 24)
+      - uses: actions/setup-node@v5
         with:
-          node-version: 20
+          node-version: 20 # Aqui define a versão do Node que o SEU projeto usa (pode manter 20 sem problemas)
           cache: 'npm'
 
       - run: npm ci

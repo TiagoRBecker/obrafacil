@@ -35,7 +35,8 @@
     "prisma:studio": "prisma studio",
     "db:reset": "prisma migrate reset",
     "postinstall": "prisma generate",
-    "db:seed": "ts-node prisma/seed.ts"
+    "db:seed": "ts-node prisma/seed.ts",
+    "db:seed:prod": "set NODE_ENV=production&& ts-node prisma/seed.ts"
   },
   "prisma": {
     "seed": "ts-node prisma/seed.ts"

@@ -112,7 +112,8 @@ npm run prisma:generate   # Gera o Prisma Client
 npm run prisma:migrate    # Cria/executa migrations
 npm run prisma:deploy     # Aplica migrations em produção
 npm run prisma:studio     # Interface visual do banco
-npm run db:seed           # Popula RBAC + dados de exemplo
+npm run db:seed           # Popula RBAC + dados de exemplo (dev)
+npm run db:seed:prod      # Popula apenas RBAC, sem dados de teste (prod)
 ```
 
 ---
@@ -262,8 +263,9 @@ Sobe os seguintes serviços:
 # Execute as migrations
 npm run prisma:migrate
 
-# Popule com dados iniciais (RBAC + admin + dados de exemplo)
-npm run db:seed
+# Popule com dados iniciais
+npm run db:seed              # RBAC + dados de exemplo (desenvolvimento)
+npm run db:seed:prod         # Apenas RBAC, sem dados de teste (produção)
 ```
 
 ---

@@ -9,7 +9,7 @@ import { AdminTokenGuard } from '../../../guards/admin-token.guard';
 import { FindBudgetByIdUseCase } from '../usecase/find-budget-by-id.usecase';
 import { UserRole } from '../../../../decorators/types';
 import { RequirePermissions, Roles } from '../../../../decorators';
-import { BudgetIdParamDto } from '../dto/budget-id-param.dto';
+import { IdParamDto } from '../../../common/dto/id-param.dto';
 import { BudgetEntity } from '../entity/budget.entity';
 
 @ApiTags('Orçamentos')
@@ -29,7 +29,7 @@ export class FindByIdBudgetsController {
   @ApiParam({ name: 'id', description: 'ID único do orçamento', example: '550e8400-e29b-41d4-a716-446655440000' })
   @ApiResponse({ status: 200, description: 'Orçamento encontrado com sucesso.' })
   @ApiResponse({ status: 404, description: 'Orçamento não encontrado.' })
-  findById(@Param() params: BudgetIdParamDto): Promise<BudgetEntity> {
+  findById(@Param() params: IdParamDto): Promise<BudgetEntity> {
     return this.findBudgetByIdUseCase.execute(params.id);
   }
 }

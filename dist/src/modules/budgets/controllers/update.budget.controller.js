@@ -19,7 +19,7 @@ const types_1 = require("../../../../decorators/types");
 const update_budget_usecase_1 = require("../usecase/update-budget.usecase");
 const decorators_1 = require("../../../../decorators");
 const admin_token_guard_1 = require("../../../guards/admin-token.guard");
-const budget_id_param_dto_1 = require("../dto/budget-id-param.dto");
+const id_param_dto_1 = require("../../../common/dto/id-param.dto");
 const create_budget_dto_1 = require("../dto/create-budget.dto");
 let UpdateBudgetsController = class UpdateBudgetsController {
     constructor(updateBudgetUseCase) {
@@ -46,7 +46,7 @@ __decorate([
     __param(0, (0, common_1.Param)()),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [budget_id_param_dto_1.BudgetIdParamDto,
+    __metadata("design:paramtypes", [id_param_dto_1.IdParamDto,
         create_budget_dto_1.CreateOrderDto]),
     __metadata("design:returntype", Promise)
 ], UpdateBudgetsController.prototype, "update", null);

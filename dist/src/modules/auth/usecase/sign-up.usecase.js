@@ -13,7 +13,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.SignUpUseCase = void 0;
 const common_1 = require("@nestjs/common");
 const generate_hash_usecase_1 = require("../../security/usecase/generate-hash.usecase");
-const create_account_usecase_1 = require("../../Users/usecase/create-account-usecase");
+const create_account_usecase_1 = require("../../users/usecase/create-account-usecase");
 let SignUpUseCase = SignUpUseCase_1 = class SignUpUseCase {
     constructor(createAccountUseCase, generateHashUseCase) {
         this.createAccountUseCase = createAccountUseCase;

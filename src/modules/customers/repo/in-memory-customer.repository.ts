@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 
 import { CustomerEntity, CustomerWithOrders } from '../entity/customer.entity';
-import { CustomerRepositoryInterface } from './customer-repository.interface';
+import { CustomerRepositoryInterface, PaginatedCustomers } from './customer-repository.interface';
 
 @Injectable()
 export class InMemoryCustomerRepository implements CustomerRepositoryInterface {
@@ -29,8 +29,12 @@ export class InMemoryCustomerRepository implements CustomerRepositoryInterface {
     return null;
   }
 
-  async findAll(): Promise<CustomerWithOrders[]> {
-    return [...this.customers.values() as any];
+  async findAll(skip: number, take: number): Promise<PaginatedCustomers> {
+    const values = [...this.customers.values()];
+    return {
+      data: values.slice(skip, skip + take) as any,
+      total: values.length,
+    };
   }
 
   async delete(id: string): Promise<void> {

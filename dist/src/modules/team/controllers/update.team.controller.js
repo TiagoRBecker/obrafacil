@@ -16,7 +16,7 @@ exports.UpdateTeamMemberController = void 0;
 const common_1 = require("@nestjs/common");
 const swagger_1 = require("@nestjs/swagger");
 const admin_token_guard_1 = require("../../../guards/admin-token.guard");
-const team_member_id_param_dto_1 = require("../dto/team-member-id-param.dto");
+const id_param_dto_1 = require("../../../common/dto/id-param.dto");
 const update_team_member_dto_1 = require("../dto/update-team-member.dto");
 const update_team_member_usecase_1 = require("../usecase/update-team-member.usecase");
 const decorators_1 = require("../../../../decorators");
@@ -46,7 +46,7 @@ __decorate([
     __param(0, (0, common_1.Param)()),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [team_member_id_param_dto_1.TeamMemberIdParamDto,
+    __metadata("design:paramtypes", [id_param_dto_1.IdParamDto,
         update_team_member_dto_1.UpdateTeamMemberDto]),
     __metadata("design:returntype", Promise)
 ], UpdateTeamMemberController.prototype, "update", null);

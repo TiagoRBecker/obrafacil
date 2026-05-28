@@ -6,7 +6,7 @@ import {
 } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiParam, ApiResponse, ApiBearerAuth } from '@nestjs/swagger';
 import { AdminTokenGuard } from '../../../guards/admin-token.guard';
-import { CustomerIdParamDto } from '../dto/customer-id-param.dto';
+import { IdParamDto } from '../../../common/dto/id-param.dto';
 import { DeleteCustomerResponseDto } from '../dto/delete-customer-response.dto';
 import { DeleteCustomerUseCase } from '../usecase/delete-customer.usecase';
 import { RequirePermissions, Roles } from '../../../../decorators';
@@ -30,7 +30,7 @@ export class DeleteCustomerController {
   @ApiResponse({ status: 200, description: 'Cliente excluído com sucesso.' })
   @ApiResponse({ status: 404, description: 'Cliente não encontrado.' })
   delete(
-    @Param() params: CustomerIdParamDto,
+    @Param() params: IdParamDto,
   ): Promise<DeleteCustomerResponseDto> {
     return this.deleteCustomerUseCase.execute(params.id);
   }

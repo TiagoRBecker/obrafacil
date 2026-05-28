@@ -8,6 +8,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.FindAllTeamMembersController = void 0;
 const common_1 = require("@nestjs/common");
@@ -16,12 +19,13 @@ const admin_token_guard_1 = require("../../../guards/admin-token.guard");
 const find_all_team_members_usecase_1 = require("../usecase/find-all-team-members.usecase");
 const decorators_1 = require("../../../../decorators");
 const types_1 = require("../../../../decorators/types");
+const pagination_dto_1 = require("../../../common/dto/pagination.dto");
 let FindAllTeamMembersController = class FindAllTeamMembersController {
     constructor(findAllTeamMembersUseCase) {
         this.findAllTeamMembersUseCase = findAllTeamMembersUseCase;
     }
-    findAll() {
-        return this.findAllTeamMembersUseCase.execute();
+    findAll(query) {
+        return this.findAllTeamMembersUseCase.execute(query.page, query.limit);
     }
 };
 exports.FindAllTeamMembersController = FindAllTeamMembersController;
@@ -36,8 +40,9 @@ __decorate([
     }),
     (0, swagger_1.ApiResponse)({ status: 200, description: 'Lista de membros da equipe retornada com sucesso.' }),
     (0, swagger_1.ApiResponse)({ status: 401, description: 'Token de acesso ausente ou inválido.' }),
+    __param(0, (0, common_1.Query)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
+    __metadata("design:paramtypes", [pagination_dto_1.PaginationParams]),
     __metadata("design:returntype", Promise)
 ], FindAllTeamMembersController.prototype, "findAll", null);
 exports.FindAllTeamMembersController = FindAllTeamMembersController = __decorate([

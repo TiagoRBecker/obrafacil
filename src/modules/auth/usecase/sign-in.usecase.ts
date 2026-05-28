@@ -1,9 +1,9 @@
 import { Injectable, Logger, UnauthorizedException } from '@nestjs/common';
 import { GenerateAccessTokenUseCase } from '../../security/usecase/generate-access-token.usecase';
 import { GenerateRefreshTokenUseCase } from '../../security/usecase/generate-refresh-token.usecase';
-import { FindUserByEmailUsecase } from '../../Users/usecase/find-user-id-usecase';
-import { SignInDto } from '../../Users/dto/sign-in.dto';
-import { AuthResponseDto } from '../../Users/dto/auth-response.dto';
+import { FindUserByEmailUsecase } from '../../users/usecase/find-user-id-usecase';
+import { SignInDto } from '../../users/dto/sign-in.dto';
+import { AuthResponseDto } from '../../users/dto/auth-response.dto';
 
 @Injectable()
 export class SignInUseCase {
@@ -18,6 +18,7 @@ export class SignInUseCase {
   async execute(input: SignInDto): Promise<AuthResponseDto> {
     this.logger.log(`Tentativa de login para email: ${input.email}`);
     const { user } = await this.findByUser.execute(input);
+    
 
     const { accessToken } = this.generateAccessTokenUseCase.execute({
       id: user?.id as string,

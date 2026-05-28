@@ -20,7 +20,7 @@ const find_customer_by_id_usecase_1 = require("./usecase/find-customer-by-id.use
 const update_customer_usecase_1 = require("./usecase/update-customer.usecase");
 const customer_repo_1 = require("./repo/customer.repo");
 const prisma_1 = require("../../db/prisma");
-const user_module_1 = require("../Users/user.module");
+const user_module_1 = require("../users/user.module");
 let CustomersModule = class CustomersModule {
 };
 exports.CustomersModule = CustomersModule;

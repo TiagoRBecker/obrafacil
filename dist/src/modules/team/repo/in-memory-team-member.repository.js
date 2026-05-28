@@ -40,8 +40,12 @@ let InMemoryTeamMemberRepository = class InMemoryTeamMemberRepository {
         }
         return null;
     }
-    async findAll() {
-        return [...this.members.values()];
+    async findAll(skip, take) {
+        const values = [...this.members.values()];
+        return {
+            data: values.slice(skip, skip + take),
+            total: values.length,
+        };
     }
     async delete(id) {
         this.members.delete(id);

@@ -18,11 +18,18 @@ let FindAllBudgetsUseCase = FindAllBudgetsUseCase_1 = class FindAllBudgetsUseCas
         this.budgetRepository = budgetRepository;
         this.logger = new common_1.Logger(FindAllBudgetsUseCase_1.name);
     }
-    async execute() {
-        this.logger.log('Buscando todos os orçamentos');
-        const budgets = await this.budgetRepository.findAll();
-        this.logger.log(`Encontrados ${budgets.length} orçamentos`);
-        return budgets;
+    async execute(page = 1, limit = 10) {
+        this.logger.log(`Buscando orçamentos - página: ${page}, limite: ${limit}`);
+        const skip = (page - 1) * limit;
+        const { data, total } = await this.budgetRepository.findAll(skip, limit);
+        this.logger.log(`Encontrados ${total} orçamentos no total, retornando ${data.length}`);
+        return {
+            data,
+            total,
+            page,
+            limit,
+            totalPages: Math.ceil(total / limit),
+        };
     }
 };
 exports.FindAllBudgetsUseCase = FindAllBudgetsUseCase;

@@ -3,4 +3,4 @@ import { DeleteCustomerController } from './delete.customer.controller';
 import { FindAllCustomersController } from './findAll.customer.controller';
 import { FindByIdCustomerController } from './findById.customer.controller';
 import { UpdateCustomerController } from './update.customer.controller';
-export declare const CustomersController: (typeof CreateCustomerController | typeof DeleteCustomerController | typeof FindAllCustomersController | typeof FindByIdCustomerController | typeof UpdateCustomerController)[];
+export declare const CustomersController: (typeof FindAllCustomersController | typeof CreateCustomerController | typeof FindByIdCustomerController | typeof DeleteCustomerController | typeof UpdateCustomerController)[];

@@ -21,7 +21,7 @@ const budgets_repo_1 = require("./repo/budgets.repo");
 const prisma_1 = require("../../db/prisma");
 const customers_module_1 = require("../customers/customers.module");
 const update_status_order_usecase_1 = require("./usecase/update-status-order.usecase");
-const user_module_1 = require("../Users/user.module");
+const user_module_1 = require("../users/user.module");
 const controllers_1 = require("./controllers");
 let BudgetsModule = class BudgetsModule {
 };

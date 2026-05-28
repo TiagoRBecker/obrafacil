@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../../../db/prisma';
 import { CustomerEntity, CustomerWithOrders } from '../entity/customer.entity';
-import { CustomerRepositoryInterface } from './customer-repository.interface';
+import { CustomerRepositoryInterface, PaginatedCustomers } from './customer-repository.interface';
 
 @Injectable()
 export class CustomerRepo extends CustomerRepositoryInterface {
@@ -29,22 +29,31 @@ export class CustomerRepo extends CustomerRepositoryInterface {
     });
   }
 
-  async findAll(): Promise<CustomerWithOrders[]> {
-    const customers = await this.prisma.customer.findMany({
-      include: { orders: true },
-    });
-
-    return customers.map((c) => ({
-      customer: CustomerEntity.toDTO({
-        id: c.id,
-        name: c.name ?? '',
-        phone: c.phone ?? '',
-        address: c.address ?? '',
-        service: c.service ?? '',
-        city: c.city ?? '',
+  async findAll(skip: number, take: number): Promise<PaginatedCustomers> {
+    const [customers, total] = await this.prisma.$transaction([
+      this.prisma.customer.findMany({
+        skip,
+        take,
+        include: { orders: true },
+        orderBy: { createdAt: 'desc' },
       }),
-      orders: c.orders ?? [],
-    }));
+      this.prisma.customer.count(),
+    ]);
+
+    return {
+      data: customers.map((c) => ({
+        customer: CustomerEntity.toDTO({
+          id: c.id,
+          name: c.name ?? '',
+          phone: c.phone ?? '',
+          address: c.address ?? '',
+          service: c.service ?? '',
+          city: c.city ?? '',
+        }),
+        orders: c.orders ?? [],
+      })),
+      total,
+    };
   }
 
   async findById(id: string): Promise<CustomerEntity | null> {

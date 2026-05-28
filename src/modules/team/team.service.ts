@@ -9,6 +9,7 @@ import { DeleteTeamMemberUseCase } from './usecase/delete-team-member.usecase';
 import { FindAllTeamMembersUseCase } from './usecase/find-all-team-members.usecase';
 import { FindTeamMemberByIdUseCase } from './usecase/find-team-member-by-id.usecase';
 import { UpdateTeamMemberUseCase } from './usecase/update-team-member.usecase';
+import { PaginatedTeamResult } from './dto/pagination-result.dto';
 
 @Injectable()
 export class TeamService {
@@ -32,7 +33,7 @@ export class TeamService {
     return this.findTeamMemberByIdUseCase.execute(id);
   }
 
-  findAll(): Promise<TeamMemberResponseDto[]> {
+  findAll(page:number,limit:number): Promise<PaginatedTeamResult> {
     return this.findAllTeamMembersUseCase.execute();
   }
 

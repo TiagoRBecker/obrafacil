@@ -19,7 +19,7 @@ const admin_token_guard_1 = require("../../../guards/admin-token.guard");
 const delete_budget_usecase_1 = require("../usecase/delete-budget.usecase");
 const decorators_1 = require("../../../../decorators");
 const types_1 = require("../../../../decorators/types");
-const budget_id_param_dto_1 = require("../dto/budget-id-param.dto");
+const id_param_dto_1 = require("../../../common/dto/id-param.dto");
 let DeleteBudgetsController = class DeleteBudgetsController {
     constructor(deleteBudgetUseCase) {
         this.deleteBudgetUseCase = deleteBudgetUseCase;
@@ -43,7 +43,7 @@ __decorate([
     (0, swagger_1.ApiResponse)({ status: 404, description: 'Orçamento não encontrado.' }),
     __param(0, (0, common_1.Param)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [budget_id_param_dto_1.BudgetIdParamDto]),
+    __metadata("design:paramtypes", [id_param_dto_1.IdParamDto]),
     __metadata("design:returntype", Promise)
 ], DeleteBudgetsController.prototype, "delete", null);
 exports.DeleteBudgetsController = DeleteBudgetsController = __decorate([

@@ -53,8 +53,12 @@ let MockCustomerRepository = class MockCustomerRepository {
         }
         return null;
     }
-    async findAll() {
-        return [...this.customers.values()];
+    async findAll(skip, take) {
+        const values = [...this.customers.values()];
+        return {
+            data: values.slice(skip, skip + take),
+            total: values.length,
+        };
     }
     async delete(id) {
         this.customers.delete(id);

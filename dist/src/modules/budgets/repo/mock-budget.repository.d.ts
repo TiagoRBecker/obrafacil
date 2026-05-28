@@ -1,11 +1,11 @@
 import { BudgetEntity } from '../entity/budget.entity';
-import { BudgetRepositoryInterface } from './budget.repository.interface';
+import { BudgetRepositoryInterface, PaginatedBudgets } from './budget.repository.interface';
 export declare class MockBudgetRepository implements BudgetRepositoryInterface {
     private readonly budgets;
     create(budget: BudgetEntity): Promise<BudgetEntity>;
     update(id: string, budget: BudgetEntity): Promise<BudgetEntity>;
     findById(id: string): Promise<BudgetEntity | null>;
-    findAll(): Promise<BudgetEntity[]>;
+    findAll(skip: number, take: number): Promise<PaginatedBudgets>;
     findByCustomerAndStartDate(customerId: string, date: string): Promise<BudgetEntity | null>;
     findMessageTracking(messageId: string): Promise<{
         id: number;

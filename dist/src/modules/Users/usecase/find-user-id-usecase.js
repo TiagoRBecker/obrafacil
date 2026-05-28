@@ -38,7 +38,7 @@ let FindUserByEmailUsecase = FindUserByEmailUsecase_1 = class FindUserByEmailUse
             throw new common_1.UnauthorizedException('Email ou senha inválidas.');
         }
         this.logger.log(`Login bem-sucedido - usuário: ${user.email}`);
-        const settings = await this.settingsCompany.findById(process.env.EMAIL);
+        const settings = await this.settingsCompany.findByEmail(process.env.EMAIL);
         return {
             user: {
                 id: user.id,

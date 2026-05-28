@@ -10,7 +10,7 @@ import { DeleteBudgetUseCase } from '../usecase/delete-budget.usecase';
 import { RequirePermissions, Roles } from '../../../../decorators';
 import { UserRole } from '../../../../decorators/types';
 import { DeleteBudgetResponseDto } from '../dto/delete-budget-response.dto';
-import { BudgetIdParamDto } from '../dto/budget-id-param.dto';
+import { IdParamDto } from '../../../common/dto/id-param.dto';
 
 @ApiTags('Orçamentos')
 @UseGuards(AdminTokenGuard)
@@ -29,7 +29,7 @@ export class DeleteBudgetsController {
   @ApiParam({ name: 'id', description: 'ID único do orçamento a ser excluído', example: '550e8400-e29b-41d4-a716-446655440000' })
   @ApiResponse({ status: 200, description: 'Orçamento excluído com sucesso.' })
   @ApiResponse({ status: 404, description: 'Orçamento não encontrado.' })
-  delete(@Param() params: BudgetIdParamDto): Promise<DeleteBudgetResponseDto> {
+  delete(@Param() params: IdParamDto): Promise<DeleteBudgetResponseDto> {
     return this.deleteBudgetUseCase.execute(params.id);
   }
   

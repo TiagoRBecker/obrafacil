@@ -33,7 +33,7 @@ let TeamService = class TeamService {
     findById(id) {
         return this.findTeamMemberByIdUseCase.execute(id);
     }
-    findAll() {
+    findAll(page, limit) {
         return this.findAllTeamMembersUseCase.execute();
     }
     delete(id) {

@@ -19,12 +19,18 @@ let FindAllCustomersUseCase = FindAllCustomersUseCase_1 = class FindAllCustomers
         this.customerRepository = customerRepository;
         this.logger = new common_1.Logger(FindAllCustomersUseCase_1.name);
     }
-    async execute() {
-        this.logger.log('Buscando todos os clientes');
-        const customers = await this.customerRepository.findAll();
-        this.logger.log(`Encontrados ${customers.length} clientes`);
-        const data = customers.map(customer_mapper_1.CustomerMapper.toResponseWithOrders);
-        return data;
+    async execute(page = 1, limit = 10) {
+        this.logger.log(`Buscando clientes - página: ${page}, limite: ${limit}`);
+        const skip = (page - 1) * limit;
+        const { data, total } = await this.customerRepository.findAll(skip, limit);
+        this.logger.log(`Encontrados ${total} clientes no total, retornando ${data.length}`);
+        return {
+            data: data.map(customer_mapper_1.CustomerMapper.toResponseWithOrders),
+            total,
+            page,
+            limit,
+            totalPages: Math.ceil(total / limit),
+        };
     }
 };
 exports.FindAllCustomersUseCase = FindAllCustomersUseCase;

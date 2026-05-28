@@ -38,7 +38,7 @@ export class EvoApiClient implements ConnectionService, SendMessageService {
     );
 
     if (!res.ok) {
-      console.log(res.ok)
+      
       this.logger.error(`Falha ao conectar o numero na APi: ${res.status}`);
       throw new BadRequestException('Erro ao conectar na  API');
     }
@@ -106,7 +106,7 @@ export class EvoApiClient implements ConnectionService, SendMessageService {
       method: 'GET',
       headers: this.headers,
     });
-    console.log(res)
+  
 
     if (!res.ok) {
       this.logger.error(`Falha ao conectar na Evo API - status: ${res.status}`);

@@ -26,8 +26,12 @@ let InMemoryBudgetRepository = class InMemoryBudgetRepository {
     async findByCustomerAndStartDate(customerId, date) {
         throw "not";
     }
-    async findAll() {
-        return [...this.budgets.values()];
+    async findAll(skip, take) {
+        const values = [...this.budgets.values()];
+        return {
+            data: values.slice(skip, skip + take),
+            total: values.length,
+        };
     }
     async createTrackingMessage(messageId, orerId) {
         throw "";

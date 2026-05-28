@@ -6,7 +6,7 @@ import {
 } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiParam, ApiResponse, ApiBearerAuth } from '@nestjs/swagger';
 import { AdminTokenGuard } from '../../../guards/admin-token.guard';
-import { TeamMemberIdParamDto } from '../dto/team-member-id-param.dto';
+import { IdParamDto } from '../../../common/dto/id-param.dto';
 import { DeleteTeamMemberResponseDto } from '../dto/delete-team-member-response.dto';
 import { DeleteTeamMemberUseCase } from '../usecase/delete-team-member.usecase';
 import { RequirePermissions, Roles } from '../../../../decorators';
@@ -29,7 +29,7 @@ export class DeleteTeamMemberController {
   @ApiResponse({ status: 200, description: 'Membro da equipe excluído com sucesso.' })
   @ApiResponse({ status: 404, description: 'Membro da equipe não encontrado.' })
   delete(
-    @Param() params: TeamMemberIdParamDto,
+    @Param() params: IdParamDto,
   ): Promise<DeleteTeamMemberResponseDto> {
     return this.deleteTeamMemberUseCase.execute(params.id);
   }

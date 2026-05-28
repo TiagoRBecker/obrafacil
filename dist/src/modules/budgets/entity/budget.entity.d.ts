@@ -80,7 +80,7 @@ export declare class BudgetEntity {
         laborValue: number;
         materialValue: number;
         totalValue: number;
-        status?: string | undefined;
+        status?: string;
     };
     private guard;
 }

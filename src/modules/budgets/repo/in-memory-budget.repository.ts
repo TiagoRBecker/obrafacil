@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 
 import { BudgetEntity } from '../entity/budget.entity';
-import { BudgetRepositoryInterface } from './budget.repository.interface';
+import { BudgetRepositoryInterface, PaginatedBudgets } from './budget.repository.interface';
 
 @Injectable()
 export class InMemoryBudgetRepository implements BudgetRepositoryInterface {
@@ -24,8 +24,12 @@ export class InMemoryBudgetRepository implements BudgetRepositoryInterface {
     throw "not"
   }
 
-  async findAll(): Promise<BudgetEntity[]> {
-    return [...this.budgets.values()];
+  async findAll(skip: number, take: number): Promise<PaginatedBudgets> {
+    const values = [...this.budgets.values()];
+    return {
+      data: values.slice(skip, skip + take),
+      total: values.length,
+    };
   }
   async createTrackingMessage(messageId: string, orerId: string): Promise<void> {
     throw ""

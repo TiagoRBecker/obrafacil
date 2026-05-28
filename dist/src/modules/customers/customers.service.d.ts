@@ -4,7 +4,7 @@ import { DeleteCustomerResponseDto } from './dto/delete-customer-response.dto';
 import { UpdateCustomerDto } from './dto/update-customer.dto';
 import { CreateCustomerUseCase } from './usecase/create-customer.usecase';
 import { DeleteCustomerUseCase } from './usecase/delete-customer.usecase';
-import { FindAllCustomersUseCase } from './usecase/find-all-customers.usecase';
+import { FindAllCustomersUseCase, PaginatedCustomersResult } from './usecase/find-all-customers.usecase';
 import { FindCustomerByIdUseCase } from './usecase/find-customer-by-id.usecase';
 import { UpdateCustomerUseCase } from './usecase/update-customer.usecase';
 export declare class CustomersService {
@@ -17,6 +17,6 @@ export declare class CustomersService {
     create(input: CreateCustomerDto): Promise<CustomerResponseDto>;
     update(id: string, input: UpdateCustomerDto): Promise<CustomerResponseDto>;
     findById(id: string): Promise<CustomerResponseDto>;
-    findAll(): Promise<CustomerResponseDto[]>;
+    findAll(page?: number, limit?: number): Promise<PaginatedCustomersResult>;
     delete(id: string): Promise<DeleteCustomerResponseDto>;
 }

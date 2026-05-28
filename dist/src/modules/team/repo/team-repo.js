@@ -34,19 +34,30 @@ let TeamRepo = class TeamRepo extends team_member_repository_1.TeamMemberReposit
         });
         return team_member_entity_1.TeamMemberEntity.toDTO({ ...updated });
     }
-    async findAll() {
-        const team = await this.prisma.team.findMany({
-            include: { teamOrders: true },
-        });
-        return team.map((t) => team_member_entity_1.TeamMemberEntity.toDTO({
-            email: t.email,
-            jobTitle: t.jobTitle,
-            name: t.name,
-            id: t.id,
-            phone: t.phone,
-            status: t.status,
-            teamsOrder: t.teamOrders,
-        }));
+    async findAll(skip, take) {
+        const [team, total] = await this.prisma.$transaction([
+            this.prisma.team.findMany({
+                skip,
+                take,
+                include: {
+                    teamOrders: true,
+                },
+                orderBy: { createdAt: 'desc' },
+            }),
+            this.prisma.customer.count(),
+        ]);
+        return {
+            data: team.map((t) => team_member_entity_1.TeamMemberEntity.toDTO({
+                email: t.email,
+                jobTitle: t.jobTitle,
+                name: t.name,
+                id: t.id,
+                phone: t.phone,
+                status: t.status,
+                teamsOrder: t.teamOrders,
+            })),
+            total,
+        };
     }
     async findByEmail(email) {
         const team = await this.prisma.team.findUnique({ where: { email } });

@@ -6,7 +6,7 @@ import { DeleteCustomerResponseDto } from './dto/delete-customer-response.dto';
 import { UpdateCustomerDto } from './dto/update-customer.dto';
 import { CreateCustomerUseCase } from './usecase/create-customer.usecase';
 import { DeleteCustomerUseCase } from './usecase/delete-customer.usecase';
-import { FindAllCustomersUseCase } from './usecase/find-all-customers.usecase';
+import { FindAllCustomersUseCase, PaginatedCustomersResult } from './usecase/find-all-customers.usecase';
 import { FindCustomerByIdUseCase } from './usecase/find-customer-by-id.usecase';
 import { UpdateCustomerUseCase } from './usecase/update-customer.usecase';
 
@@ -32,8 +32,8 @@ export class CustomersService {
     return this.findCustomerByIdUseCase.execute(id);
   }
 
-  findAll(): Promise<CustomerResponseDto[]> {
-    return this.findAllCustomersUseCase.execute();
+  findAll(page: number = 1, limit: number = 10): Promise<PaginatedCustomersResult> {
+    return this.findAllCustomersUseCase.execute(page, limit);
   }
 
   delete(id: string): Promise<DeleteCustomerResponseDto> {

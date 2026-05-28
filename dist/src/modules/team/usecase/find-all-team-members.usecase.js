@@ -19,11 +19,17 @@ let FindAllTeamMembersUseCase = FindAllTeamMembersUseCase_1 = class FindAllTeamM
         this.teamMemberRepository = teamMemberRepository;
         this.logger = new common_1.Logger(FindAllTeamMembersUseCase_1.name);
     }
-    async execute() {
-        this.logger.log('Buscando todos os membros da equipe');
-        const members = await this.teamMemberRepository.findAll();
-        this.logger.log(`Encontrados ${members.length} membros da equipe`);
-        return members.map(team_member_mapper_1.TeamMemberMapper.toResponse);
+    async execute(page = 1, limit = 10) {
+        this.logger.log(`Buscando equipe - página: ${page}, limite: ${limit}`);
+        const { data, total } = await this.teamMemberRepository.findAll(page, limit);
+        this.logger.log(`Encontrados ${total} colaboradores no total, retornando ${data.length}`);
+        return {
+            data: data.map(team_member_mapper_1.TeamMemberMapper.toResponse),
+            total,
+            page,
+            limit,
+            totalPages: Math.ceil(total / limit),
+        };
     }
 };
 exports.FindAllTeamMembersUseCase = FindAllTeamMembersUseCase;

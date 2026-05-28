@@ -7,7 +7,7 @@ import {
 } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiParam, ApiBody, ApiResponse, ApiBearerAuth } from '@nestjs/swagger';
 import { AdminTokenGuard } from '../../../guards/admin-token.guard';
-import { CustomerIdParamDto } from '../dto/customer-id-param.dto';
+import { IdParamDto } from '../../../common/dto/id-param.dto';
 import { CustomerResponseDto } from '../dto/customer-response.dto';
 import { UpdateCustomerDto } from '../dto/update-customer.dto';
 import { UpdateCustomerUseCase } from '../usecase/update-customer.usecase';
@@ -33,7 +33,7 @@ export class UpdateCustomerController {
   @ApiResponse({ status: 200, description: 'Cliente atualizado com sucesso.' })
   @ApiResponse({ status: 404, description: 'Cliente não encontrado.' })
   update(
-    @Param() params: CustomerIdParamDto,
+    @Param() params: IdParamDto,
     @Body() body: UpdateCustomerDto,
   ): Promise<CustomerResponseDto> {
     return this.updateCustomerUseCase.execute(params.id, body);

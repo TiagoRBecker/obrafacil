@@ -7,6 +7,7 @@ import { DeleteTeamMemberUseCase } from './usecase/delete-team-member.usecase';
 import { FindAllTeamMembersUseCase } from './usecase/find-all-team-members.usecase';
 import { FindTeamMemberByIdUseCase } from './usecase/find-team-member-by-id.usecase';
 import { UpdateTeamMemberUseCase } from './usecase/update-team-member.usecase';
+import { PaginatedTeamResult } from './dto/pagination-result.dto';
 export declare class TeamService {
     private readonly createTeamMemberUseCase;
     private readonly updateTeamMemberUseCase;
@@ -17,6 +18,6 @@ export declare class TeamService {
     create(input: CreateTeamMemberDto): Promise<TeamMemberResponseDto>;
     update(id: string, input: UpdateTeamMemberDto): Promise<TeamMemberResponseDto>;
     findById(id: string): Promise<TeamMemberResponseDto>;
-    findAll(): Promise<TeamMemberResponseDto[]>;
+    findAll(page: number, limit: number): Promise<PaginatedTeamResult>;
     delete(id: string): Promise<DeleteTeamMemberResponseDto>;
 }

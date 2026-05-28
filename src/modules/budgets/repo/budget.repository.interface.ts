@@ -1,5 +1,10 @@
 import { BudgetEntity } from '../entity/budget.entity';
 
+export interface PaginatedBudgets {
+  data: BudgetEntity[];
+  total: number;
+}
+
 export abstract class BudgetRepositoryInterface {
   abstract create(budget: BudgetEntity): Promise<BudgetEntity>;
   abstract update(id: string, budget: BudgetEntity): Promise<BudgetEntity>;
@@ -9,7 +14,7 @@ export abstract class BudgetRepositoryInterface {
     customerId: string,
     date: string,
   ): Promise<BudgetEntity | null>;
-  abstract findAll(): Promise<BudgetEntity[]>;
+  abstract findAll(skip: number, take: number): Promise<PaginatedBudgets>;
   abstract delete(id: string): Promise<void>;
   abstract createTrackingMessage(
     messageId: string,

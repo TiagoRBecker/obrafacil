@@ -7,7 +7,7 @@ import {
 } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiParam, ApiBody, ApiResponse, ApiBearerAuth } from '@nestjs/swagger';
 import { AdminTokenGuard } from '../../../guards/admin-token.guard';
-import { TeamMemberIdParamDto } from '../dto/team-member-id-param.dto';
+import { IdParamDto } from '../../../common/dto/id-param.dto';
 import { TeamMemberResponseDto } from '../dto/team-member-response.dto';
 import { UpdateTeamMemberDto } from '../dto/update-team-member.dto';
 import { UpdateTeamMemberUseCase } from '../usecase/update-team-member.usecase';
@@ -33,7 +33,7 @@ export class UpdateTeamMemberController {
   @ApiResponse({ status: 200, description: 'Membro da equipe atualizado com sucesso.' })
   @ApiResponse({ status: 404, description: 'Membro da equipe não encontrado.' })
   update(
-    @Param() params: TeamMemberIdParamDto,
+    @Param() params: IdParamDto,
     @Body() body: UpdateTeamMemberDto,
   ): Promise<TeamMemberResponseDto> {
     return this.updateTeamMemberUseCase.execute(params.id, body);

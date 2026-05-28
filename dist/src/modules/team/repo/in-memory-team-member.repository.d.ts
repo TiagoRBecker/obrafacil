@@ -1,5 +1,5 @@
 import { TeamMemberEntity } from '../entity/team-member.entity';
-import { TeamMemberRepositoryInterface } from './team-member.repository';
+import { PaginatedTeam, TeamMemberRepositoryInterface } from './team-member.repository';
 export declare class InMemoryTeamMemberRepository implements TeamMemberRepositoryInterface {
     private readonly members;
     create(member: TeamMemberEntity): Promise<TeamMemberEntity>;
@@ -7,6 +7,6 @@ export declare class InMemoryTeamMemberRepository implements TeamMemberRepositor
     findById(id: string): Promise<TeamMemberEntity | null>;
     findByEmail(email: string): Promise<TeamMemberEntity | null>;
     findByPhone(phone: string): Promise<TeamMemberEntity | null>;
-    findAll(): Promise<TeamMemberEntity[]>;
+    findAll(skip: any, take: any): Promise<PaginatedTeam>;
     delete(id: string): Promise<void>;
 }

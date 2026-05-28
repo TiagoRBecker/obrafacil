@@ -37,7 +37,7 @@ export class FindUserByEmailUsecase {
     }
 
     this.logger.log(`Login bem-sucedido - usuário: ${user.email}`);
-    const settings = await this.settingsCompany.findById(
+    const settings = await this.settingsCompany.findByEmail(
       process.env.EMAIL as string,
     );
   

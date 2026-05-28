@@ -19,7 +19,7 @@ const admin_token_guard_1 = require("../../../guards/admin-token.guard");
 const find_budget_by_id_usecase_1 = require("../usecase/find-budget-by-id.usecase");
 const types_1 = require("../../../../decorators/types");
 const decorators_1 = require("../../../../decorators");
-const budget_id_param_dto_1 = require("../dto/budget-id-param.dto");
+const id_param_dto_1 = require("../../../common/dto/id-param.dto");
 let FindByIdBudgetsController = class FindByIdBudgetsController {
     constructor(findBudgetByIdUseCase) {
         this.findBudgetByIdUseCase = findBudgetByIdUseCase;
@@ -43,7 +43,7 @@ __decorate([
     (0, swagger_1.ApiResponse)({ status: 404, description: 'Orçamento não encontrado.' }),
     __param(0, (0, common_1.Param)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [budget_id_param_dto_1.BudgetIdParamDto]),
+    __metadata("design:paramtypes", [id_param_dto_1.IdParamDto]),
     __metadata("design:returntype", Promise)
 ], FindByIdBudgetsController.prototype, "findById", null);
 exports.FindByIdBudgetsController = FindByIdBudgetsController = __decorate([

@@ -30,7 +30,7 @@ export async function generateOrderPdf(data: any): Promise<Buffer | undefined> {
     await page.setRequestInterception(false);
     // 5. Renderizar HTML
     await page.setContent(finalHtml, {
-      waitUntil: 'networkidle0',
+      waitUntil: 'networkidle0' as any,
     });
 
     // 6. Gerar PDF

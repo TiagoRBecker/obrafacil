@@ -1,14 +1,16 @@
 import {
   Controller,
   Get,
+  Query,
   UseGuards,
 } from '@nestjs/common';
-import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth } from '@nestjs/swagger';
+import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth, ApiExtraModels, getSchemaPath } from '@nestjs/swagger';
 import { AdminTokenGuard } from '../../../guards/admin-token.guard';
 import { CustomerResponseDto } from '../dto/customer-response.dto';
-import { FindAllCustomersUseCase } from '../usecase/find-all-customers.usecase';
+import { FindAllCustomersUseCase, PaginatedCustomersResult } from '../usecase/find-all-customers.usecase';
 import { RequirePermissions, Roles } from '../../../../decorators';
 import { UserRole } from '../../../../decorators/types';
+import { PaginationParams } from '../../../common/dto/pagination.dto';
 
 @ApiTags('Clientes')
 @UseGuards(AdminTokenGuard)
@@ -21,12 +23,13 @@ export class FindAllCustomersController {
   @Get('all')
   @ApiBearerAuth('access-token')
   @ApiOperation({
-    summary: 'Listar clientes',
-    description: 'Retorna todos os clientes cadastrados. Requer permissão `customer:read`. Disponível para ADMIN e USER.',
+    summary: 'Listar clientes (paginado)',
+    description: 'Retorna clientes cadastrados com paginação. Requer permissão `customer:read`. Disponível para ADMIN e USER.',
   })
-  @ApiResponse({ status: 200, description: 'Lista de clientes retornada com sucesso.' })
+  @ApiResponse({ status: 200, description: 'Lista paginada de clientes retornada com sucesso.' })
   @ApiResponse({ status: 401, description: 'Token de acesso ausente ou inválido.' })
-  findAll(): Promise<CustomerResponseDto[]> {
-    return this.findAllCustomersUseCase.execute();
+  findAll(@Query() query: PaginationParams): Promise<PaginatedCustomersResult> {
+  
+    return this.findAllCustomersUseCase.execute(query.page, query.limit);
   }
 }

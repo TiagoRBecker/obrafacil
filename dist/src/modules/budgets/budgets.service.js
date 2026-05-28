@@ -33,8 +33,8 @@ let BudgetsService = class BudgetsService {
     findById(id) {
         return this.findBudgetByIdUseCase.execute(id);
     }
-    findAll() {
-        return this.findAllBudgetsUseCase.execute();
+    findAll(page = 1, limit = 10) {
+        return this.findAllBudgetsUseCase.execute(page, limit);
     }
     delete(id) {
         return this.deleteBudgetUseCase.execute(id);

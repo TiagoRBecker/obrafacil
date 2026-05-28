@@ -5,7 +5,7 @@ export declare class SendMessageUseCase {
     private readonly evoClient;
     private readonly logger;
     constructor(orderRepo: BudgetRepositoryInterface, evoClient: EvoApiClient);
-    execute(orderId: string): Promise<void>;
+    execute(orderId: string, userId: string): Promise<void>;
     private mapperObject;
     private formatDate;
     private formatCurrency;

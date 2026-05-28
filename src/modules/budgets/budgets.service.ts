@@ -6,7 +6,7 @@ import { DeleteBudgetResponseDto } from './dto/delete-budget-response.dto';
 import { UpdateBudgetDto } from './dto/update-budget.dto';
 import { CreateBudgetUseCase } from './usecase/create-budget.usecase';
 import { DeleteBudgetUseCase } from './usecase/delete-budget.usecase';
-import { FindAllBudgetsUseCase } from './usecase/find-all-budgets.usecase';
+import { FindAllBudgetsUseCase, PaginatedBudgetsResult } from './usecase/find-all-budgets.usecase';
 import { FindBudgetByIdUseCase } from './usecase/find-budget-by-id.usecase';
 import { UpdateBudgetUseCase } from './usecase/update-budget.usecase';
 import { BudgetEntity } from './entity/budget.entity';
@@ -33,8 +33,8 @@ export class BudgetsService {
     return this.findBudgetByIdUseCase.execute(id);
   }
 
-  findAll(): Promise<BudgetEntity[]> {
-    return this.findAllBudgetsUseCase.execute();
+  findAll(page: number = 1, limit: number = 10): Promise<PaginatedBudgetsResult> {
+    return this.findAllBudgetsUseCase.execute(page, limit);
   }
 
   delete(id: string): Promise<DeleteBudgetResponseDto> {

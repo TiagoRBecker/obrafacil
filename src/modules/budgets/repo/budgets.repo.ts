@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 
 import { BudgetEntity, BudgetEntityProps } from '../entity/budget.entity';
-import { BudgetRepositoryInterface } from './budget.repository.interface';
+import { BudgetRepositoryInterface, PaginatedBudgets } from './budget.repository.interface';
 import { TypeCharge } from '../dto/create-budget.dto';
 import { PrismaService } from '../../../db/prisma';
 
@@ -52,47 +52,56 @@ export class BudgetRepo extends BudgetRepositoryInterface {
     });
   }
 
-  async findAll(): Promise<BudgetEntity[]> {
-    const data = await this.prisma.order.findMany({
-      select: {
-        id: true,
-        name: true,
-        phone: true,
-        address: true,
-        observations: true,
-        title: true,
-        description: true,
-        valueHour: true,
-        estimatedHours: true,
-        numberEmployees: true,
-        typeCharge: true,
-        updatedAt: true,
-        customerId: true,
-        materials: true,
-        initDate: true,
-        endDate: true,
-        validityDate: true,
-        totalValue: true,
-        laborValue: true,
-        materialValue: true,
-        discount: true,
-        finalObservations: true,
-        createdAt: true,
-        status: true,
-      },
-    });
-
-    return data.map((order) =>
-      BudgetEntity.toDTO({
-        ...order,
-        laborValue: order.laborValue ?? 0,
-        materialValue: order.materialValue ?? 0,
-        totalValue: order.totalValue ?? 0,
-        discount: order.discount ?? 0,
-        customerId: order.customerId ?? '',
-        status: order.status ?? '',
+  async findAll(skip: number, take: number): Promise<PaginatedBudgets> {
+    const [data, total] = await this.prisma.$transaction([
+      this.prisma.order.findMany({
+        skip,
+        take,
+        select: {
+          id: true,
+          name: true,
+          phone: true,
+          address: true,
+          observations: true,
+          title: true,
+          description: true,
+          valueHour: true,
+          estimatedHours: true,
+          numberEmployees: true,
+          typeCharge: true,
+          updatedAt: true,
+          customerId: true,
+          materials: true,
+          initDate: true,
+          endDate: true,
+          validityDate: true,
+          totalValue: true,
+          laborValue: true,
+          materialValue: true,
+          discount: true,
+          finalObservations: true,
+          createdAt: true,
+          status: true,
+        },
+        orderBy: { createdAt: 'desc' },
       }),
-    );
+      this.prisma.order.count(),
+    ]);
+
+    return {
+      data: data.map((order) =>
+        BudgetEntity.toDTO({
+          ...order,
+          laborValue: order.laborValue ?? 0,
+          materialValue: order.materialValue ?? 0,
+          totalValue: order.totalValue ?? 0,
+          discount: order.discount ?? 0,
+          customerId: order.customerId ?? '',
+          status: order.status ?? '',
+        }),
+      ),
+      total,
+    };
   }
 
   async findByCustomerAndStartDate(

@@ -37,21 +37,30 @@ let CustomerRepo = class CustomerRepo extends customer_repository_interface_1.Cu
             city: data.city ?? '',
         });
     }
-    async findAll() {
-        const customers = await this.prisma.customer.findMany({
-            include: { orders: true },
-        });
-        return customers.map((c) => ({
-            customer: customer_entity_1.CustomerEntity.toDTO({
-                id: c.id,
-                name: c.name ?? '',
-                phone: c.phone ?? '',
-                address: c.address ?? '',
-                service: c.service ?? '',
-                city: c.city ?? '',
+    async findAll(skip, take) {
+        const [customers, total] = await this.prisma.$transaction([
+            this.prisma.customer.findMany({
+                skip,
+                take,
+                include: { orders: true },
+                orderBy: { createdAt: 'desc' },
             }),
-            orders: c.orders ?? [],
-        }));
+            this.prisma.customer.count(),
+        ]);
+        return {
+            data: customers.map((c) => ({
+                customer: customer_entity_1.CustomerEntity.toDTO({
+                    id: c.id,
+                    name: c.name ?? '',
+                    phone: c.phone ?? '',
+                    address: c.address ?? '',
+                    service: c.service ?? '',
+                    city: c.city ?? '',
+                }),
+                orders: c.orders ?? [],
+            })),
+            total,
+        };
     }
     async findById(id) {
         const customer = await this.prisma.customer.findUnique({ where: { id } });

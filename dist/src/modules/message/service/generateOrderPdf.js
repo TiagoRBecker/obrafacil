@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.generateOrderPdf = void 0;
+exports.generateOrderPdf = generateOrderPdf;
 const fs_1 = __importDefault(require("fs"));
 const path_1 = __importDefault(require("path"));
 const handlebars_1 = __importDefault(require("handlebars"));
@@ -37,5 +37,4 @@ async function generateOrderPdf(data) {
         throw new common_1.BadRequestException(`Erro ao gerar o pdf  com puppert`);
     }
 }
-exports.generateOrderPdf = generateOrderPdf;
 //# sourceMappingURL=generateOrderPdf.js.map

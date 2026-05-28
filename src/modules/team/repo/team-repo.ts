@@ -1,7 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../../../db/prisma';
 import { TeamMemberEntity } from '../entity/team-member.entity';
-import { TeamMemberRepositoryInterface } from './team-member.repository';
+import {
+  PaginatedTeam,
+  TeamMemberRepositoryInterface,
+} from './team-member.repository';
 
 @Injectable()
 export class TeamRepo extends TeamMemberRepositoryInterface {
@@ -19,7 +22,10 @@ export class TeamRepo extends TeamMemberRepositoryInterface {
     return TeamMemberEntity.toDTO({ ...created });
   }
 
-  async update(id: string, member: TeamMemberEntity): Promise<TeamMemberEntity> {
+  async update(
+    id: string,
+    member: TeamMemberEntity,
+  ): Promise<TeamMemberEntity> {
     const { jobTitle, name } = member.data;
 
     const updated = await this.prisma.team.update({
@@ -30,22 +36,33 @@ export class TeamRepo extends TeamMemberRepositoryInterface {
     return TeamMemberEntity.toDTO({ ...updated });
   }
 
-  async findAll(): Promise<TeamMemberEntity[]> {
-    const team = await this.prisma.team.findMany({
-      include: { teamOrders: true },
-    });
-
-    return team.map((t) =>
-      TeamMemberEntity.toDTO({
-        email: t.email,
-        jobTitle: t.jobTitle,
-        name: t.name,
-        id: t.id,
-        phone: t.phone,
-        status: t.status,
-        teamsOrder: t.teamOrders,
+  async findAll(skip: number, take: number): Promise<PaginatedTeam> {
+    const [team, total] = await this.prisma.$transaction([
+      this.prisma.team.findMany({
+        skip,
+        take,
+        include: {
+          teamOrders: true,
+        },
+        orderBy: { createdAt: 'desc' },
       }),
-    );
+      this.prisma.customer.count(),
+    ]);
+
+    return {
+      data: team.map((t) =>
+        TeamMemberEntity.toDTO({
+          email: t.email,
+          jobTitle: t.jobTitle,
+          name: t.name,
+          id: t.id,
+          phone: t.phone,
+          status: t.status,
+          teamsOrder: t.teamOrders,
+        }),
+      ),
+      total,
+    };
   }
 
   async findByEmail(email: string): Promise<TeamMemberEntity | null> {

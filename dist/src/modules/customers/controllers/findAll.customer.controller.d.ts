@@ -1,7 +1,7 @@
-import { CustomerResponseDto } from '../dto/customer-response.dto';
-import { FindAllCustomersUseCase } from '../usecase/find-all-customers.usecase';
+import { FindAllCustomersUseCase, PaginatedCustomersResult } from '../usecase/find-all-customers.usecase';
+import { PaginationParams } from '../../../common/dto/pagination.dto';
 export declare class FindAllCustomersController {
     private readonly findAllCustomersUseCase;
     constructor(findAllCustomersUseCase: FindAllCustomersUseCase);
-    findAll(): Promise<CustomerResponseDto[]>;
+    findAll(query: PaginationParams): Promise<PaginatedCustomersResult>;
 }

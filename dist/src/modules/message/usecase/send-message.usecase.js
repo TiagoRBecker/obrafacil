@@ -21,7 +21,7 @@ let SendMessageUseCase = SendMessageUseCase_1 = class SendMessageUseCase {
         this.evoClient = evoClient;
         this.logger = new common_1.Logger(SendMessageUseCase_1.name);
     }
-    async execute(orderId) {
+    async execute(orderId, userId) {
         this.logger.log(`Iniciando envio de orçamento - ID: ${orderId}`);
         const existOrderId = await this.orderRepo.findById(orderId);
         if (!existOrderId) {
@@ -33,7 +33,7 @@ let SendMessageUseCase = SendMessageUseCase_1 = class SendMessageUseCase {
         const pdfBuffer = await (0, generateOrderPdf_1.generateOrderPdf)(mapper);
         const pdfBase64 = pdfBuffer?.toString('base64');
         this.logger.log(`Enviando mídia via WhatsApp para: ${mapper.phone}`);
-        const data = await this.evoClient.sendMedia('5551995204223', pdfBase64, `orcamento-${mapper.name}.pdf`, `Olá ${mapper.name}!
+        const data = await this.evoClient.sendMedia(mapper.phone, pdfBase64, `orcamento-${mapper.name}.pdf`, `Olá ${mapper.name}!
 Preparamos seu orçamento com todos os detalhes.  
 Você pode visualizar no PDF em anexo.
 
@@ -50,7 +50,6 @@ Se tiver qualquer dúvida, estou à disposição!`);
     }
     mapperObject(order) {
         return {
-            companyName: 'Tiago Becker',
             id: order.id,
             createdAt: this.formatDate(order.createdAt),
             name: order.name,

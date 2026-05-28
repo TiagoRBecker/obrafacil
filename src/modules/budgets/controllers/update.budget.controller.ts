@@ -10,7 +10,7 @@ import { UserRole } from '../../../../decorators/types';
 import { UpdateBudgetUseCase } from '../usecase/update-budget.usecase';
 import { RequirePermissions, Roles } from '../../../../decorators';
 import { AdminTokenGuard } from '../../../guards/admin-token.guard';
-import { BudgetIdParamDto } from '../dto/budget-id-param.dto';
+import { IdParamDto } from '../../../common/dto/id-param.dto';
 import { CreateOrderDto } from '../dto/create-budget.dto';
 import { BudgetEntity } from '../entity/budget.entity';
 
@@ -33,7 +33,7 @@ export class UpdateBudgetsController {
   @ApiResponse({ status: 200, description: 'Orçamento atualizado com sucesso.' })
   @ApiResponse({ status: 404, description: 'Orçamento não encontrado.' })
   update(
-    @Param() params: BudgetIdParamDto,
+    @Param() params: IdParamDto,
     @Body() body: CreateOrderDto,
   ): Promise<BudgetEntity> {
     return this.updateBudgetUseCase.execute(params.id, body);

@@ -6,7 +6,7 @@ import {
 } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiParam, ApiResponse, ApiBearerAuth } from '@nestjs/swagger';
 import { AdminTokenGuard } from '../../../guards/admin-token.guard';
-import { CustomerIdParamDto } from '../dto/customer-id-param.dto';
+import { IdParamDto } from '../../../common/dto/id-param.dto';
 import { CustomerResponseDto } from '../dto/customer-response.dto';
 import { FindCustomerByIdUseCase } from '../usecase/find-customer-by-id.usecase';
 import { RequirePermissions, Roles } from '../../../../decorators';
@@ -29,7 +29,7 @@ export class FindByIdCustomerController {
   @ApiParam({ name: 'id', description: 'ID único do cliente', example: '550e8400-e29b-41d4-a716-446655440000' })
   @ApiResponse({ status: 200, description: 'Cliente encontrado com sucesso.' })
   @ApiResponse({ status: 404, description: 'Cliente não encontrado.' })
-  findById(@Param() params: CustomerIdParamDto): Promise<CustomerResponseDto> {
+  findById(@Param() params: IdParamDto): Promise<CustomerResponseDto> {
     return this.findCustomerByIdUseCase.execute(params.id);
   }
 }

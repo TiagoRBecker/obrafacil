@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 
 import { TypeCharge } from '../dto/create-budget.dto';
 import { BudgetEntity } from '../entity/budget.entity';
-import { BudgetRepositoryInterface } from './budget.repository.interface';
+import { BudgetRepositoryInterface, PaginatedBudgets } from './budget.repository.interface';
 
 @Injectable()
 export class MockBudgetRepository implements BudgetRepositoryInterface {
@@ -56,8 +56,12 @@ export class MockBudgetRepository implements BudgetRepositoryInterface {
     return this.budgets.get(id) ?? null;
   }
 
-  async findAll(): Promise<BudgetEntity[]> {
-    return [...this.budgets.values()];
+  async findAll(skip: number, take: number): Promise<PaginatedBudgets> {
+    const values = [...this.budgets.values()];
+    return {
+      data: values.slice(skip, skip + take),
+      total: values.length,
+    };
   }
   async findByCustomerAndStartDate(
     customerId: string,

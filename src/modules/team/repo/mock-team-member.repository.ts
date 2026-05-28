@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 
 
 import { TeamMemberEntity } from '../entity/team-member.entity';
-import { TeamMemberRepositoryInterface } from './team-member.repository';
+import { PaginatedTeam, TeamMemberRepositoryInterface } from './team-member.repository';
 
 @Injectable()
 export class MockTeamMemberRepository implements TeamMemberRepositoryInterface {
@@ -84,8 +84,12 @@ export class MockTeamMemberRepository implements TeamMemberRepositoryInterface {
 
     return null;
   }
-  async findAll(): Promise<TeamMemberEntity[]> {
-    return [...this.members.values()];
+  async findAll(skip,take): Promise<PaginatedTeam> {
+    const values =  [...this.members.values()];
+     return {
+      data: values.slice(skip, skip + take) as any,
+      total: values.length,
+    };
   }
 
   async delete(id: string): Promise<void> {

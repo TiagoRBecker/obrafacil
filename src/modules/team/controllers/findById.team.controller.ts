@@ -6,7 +6,7 @@ import {
 } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiParam, ApiResponse, ApiBearerAuth } from '@nestjs/swagger';
 import { AdminTokenGuard } from '../../../guards/admin-token.guard';
-import { TeamMemberIdParamDto } from '../dto/team-member-id-param.dto';
+import { IdParamDto } from '../../../common/dto/id-param.dto';
 import { TeamMemberResponseDto } from '../dto/team-member-response.dto';
 import { FindTeamMemberByIdUseCase } from '../usecase/find-team-member-by-id.usecase';
 import { RequirePermissions, Roles } from '../../../../decorators';
@@ -30,7 +30,7 @@ export class FindByIdTeamMemberController {
   @ApiResponse({ status: 200, description: 'Membro da equipe encontrado com sucesso.' })
   @ApiResponse({ status: 404, description: 'Membro da equipe não encontrado.' })
   findById(
-    @Param() params: TeamMemberIdParamDto,
+    @Param() params: IdParamDto,
   ): Promise<TeamMemberResponseDto> {
     return this.findTeamMemberByIdUseCase.execute(params.id);
   }

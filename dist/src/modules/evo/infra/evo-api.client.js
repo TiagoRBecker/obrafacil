@@ -40,7 +40,6 @@ let EvoApiClient = EvoApiClient_1 = class EvoApiClient {
             headers: this.headers,
         });
         if (!res.ok) {
-            console.log(res.ok);
             this.logger.error(`Falha ao conectar o numero na APi: ${res.status}`);
             throw new common_1.BadRequestException('Erro ao conectar na  API');
         }
@@ -89,7 +88,6 @@ let EvoApiClient = EvoApiClient_1 = class EvoApiClient {
             method: 'GET',
             headers: this.headers,
         });
-        console.log(res);
         if (!res.ok) {
             this.logger.error(`Falha ao conectar na Evo API - status: ${res.status}`);
             throw new common_1.BadRequestException('Erro ao conectar na Evo API');

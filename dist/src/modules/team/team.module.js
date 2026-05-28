@@ -20,7 +20,7 @@ const find_team_member_by_id_usecase_1 = require("./usecase/find-team-member-by-
 const update_team_member_usecase_1 = require("./usecase/update-team-member.usecase");
 const team_repo_1 = require("./repo/team-repo");
 const prisma_1 = require("../../db/prisma");
-const user_module_1 = require("../Users/user.module");
+const user_module_1 = require("../users/user.module");
 let TeamModule = class TeamModule {
 };
 exports.TeamModule = TeamModule;

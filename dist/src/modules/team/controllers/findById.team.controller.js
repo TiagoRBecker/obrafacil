@@ -16,7 +16,7 @@ exports.FindByIdTeamMemberController = void 0;
 const common_1 = require("@nestjs/common");
 const swagger_1 = require("@nestjs/swagger");
 const admin_token_guard_1 = require("../../../guards/admin-token.guard");
-const team_member_id_param_dto_1 = require("../dto/team-member-id-param.dto");
+const id_param_dto_1 = require("../../../common/dto/id-param.dto");
 const find_team_member_by_id_usecase_1 = require("../usecase/find-team-member-by-id.usecase");
 const decorators_1 = require("../../../../decorators");
 const types_1 = require("../../../../decorators/types");
@@ -43,7 +43,7 @@ __decorate([
     (0, swagger_1.ApiResponse)({ status: 404, description: 'Membro da equipe não encontrado.' }),
     __param(0, (0, common_1.Param)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [team_member_id_param_dto_1.TeamMemberIdParamDto]),
+    __metadata("design:paramtypes", [id_param_dto_1.IdParamDto]),
     __metadata("design:returntype", Promise)
 ], FindByIdTeamMemberController.prototype, "findById", null);
 exports.FindByIdTeamMemberController = FindByIdTeamMemberController = __decorate([

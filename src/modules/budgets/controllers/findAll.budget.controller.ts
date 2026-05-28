@@ -1,14 +1,15 @@
 import {
   Controller,
   Get,
+  Query,
   UseGuards,
 } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth } from '@nestjs/swagger';
 import { AdminTokenGuard } from '../../../guards/admin-token.guard';
-import { FindAllBudgetsUseCase } from '../usecase/find-all-budgets.usecase';
+import { FindAllBudgetsUseCase, PaginatedBudgetsResult } from '../usecase/find-all-budgets.usecase';
 import { UserRole } from '../../../../decorators/types';
 import { RequirePermissions, Roles } from '../../../../decorators';
-import { BudgetEntity } from '../entity/budget.entity';
+import { PaginationParams } from '../../../common/dto/pagination.dto';
 
 @ApiTags('Orçamentos')
 @UseGuards(AdminTokenGuard)
@@ -21,13 +22,13 @@ export class FindAllBudgetsController {
   @Get('all')
   @ApiBearerAuth('access-token')
   @ApiOperation({
-    summary: 'Listar orçamentos',
-    description: 'Retorna todos os orçamentos cadastrados. Requer permissão `order:read`. Disponível para ADMIN e USER.',
+    summary: 'Listar orçamentos (paginado)',
+    description: 'Retorna orçamentos cadastrados com paginação. Requer permissão `order:read`. Disponível para ADMIN e USER.',
   })
-  @ApiResponse({ status: 200, description: 'Lista de orçamentos retornada com sucesso.' })
+  @ApiResponse({ status: 200, description: 'Lista paginada de orçamentos retornada com sucesso.' })
   @ApiResponse({ status: 401, description: 'Token de acesso ausente ou inválido.' })
-  findAll(): Promise<BudgetEntity[]> {
-    return this.findAllBudgetsUseCase.execute();
+  findAll(@Query() query: PaginationParams): Promise<PaginatedBudgetsResult> {
+    return this.findAllBudgetsUseCase.execute(query.page, query.limit);
   }
 
 }

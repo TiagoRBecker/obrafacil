@@ -33,8 +33,8 @@ let CustomersService = class CustomersService {
     findById(id) {
         return this.findCustomerByIdUseCase.execute(id);
     }
-    findAll() {
-        return this.findAllCustomersUseCase.execute();
+    findAll(page = 1, limit = 10) {
+        return this.findAllCustomersUseCase.execute(page, limit);
     }
     delete(id) {
         return this.deleteCustomerUseCase.execute(id);

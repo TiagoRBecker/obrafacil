@@ -2,6 +2,7 @@ import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { BudgetRepositoryInterface } from '../../budgets/repo/budget.repository.interface';
 import { generateOrderPdf } from '../service/generateOrderPdf';
 import { EvoApiClient } from '../../evo/infra/evo-api.client';
+import { PrismaService } from '../../../db/prisma';
 
 @Injectable()
 export class SendMessageUseCase {
@@ -10,15 +11,18 @@ export class SendMessageUseCase {
   constructor(
     private readonly orderRepo: BudgetRepositoryInterface,
     private readonly evoClient: EvoApiClient,
+    
   ) {}
 
-  async execute(orderId: string): Promise<void> {
+  async execute(orderId: string, userId: string): Promise<void> {
     this.logger.log(`Iniciando envio de orçamento - ID: ${orderId}`);
     const existOrderId = await this.orderRepo.findById(orderId);
     if (!existOrderId) {
       this.logger.error(`Orçamento não encontrado - ID: ${orderId}`);
       throw new NotFoundException(`Orçamento não encontrado na base de dados`);
     }
+
+
 
     this.logger.log(`Gerando PDF do orçamento - Cliente: ${existOrderId.name}`);
     const mapper = this.mapperObject(existOrderId);
@@ -27,7 +31,7 @@ export class SendMessageUseCase {
 
     this.logger.log(`Enviando mídia via WhatsApp para: ${mapper.phone}`);
     const data = await this.evoClient.sendMedia(
-      '5551995204223',
+      mapper.phone,
       pdfBase64,
       `orcamento-${mapper.name}.pdf`,
       `Olá ${mapper.name}!
@@ -51,7 +55,6 @@ Se tiver qualquer dúvida, estou à disposição!`,
 
   private mapperObject(order) {
     return {
-      companyName: 'Tiago Becker',
       id: order.id,
       createdAt: this.formatDate(order.createdAt),
       name: order.name,

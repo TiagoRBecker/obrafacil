@@ -58,8 +58,12 @@ let MockBudgetRepository = class MockBudgetRepository {
     async findById(id) {
         return this.budgets.get(id) ?? null;
     }
-    async findAll() {
-        return [...this.budgets.values()];
+    async findAll(skip, take) {
+        const values = [...this.budgets.values()];
+        return {
+            data: values.slice(skip, skip + take),
+            total: values.length,
+        };
     }
     async findByCustomerAndStartDate(customerId, date) {
         throw 'not';

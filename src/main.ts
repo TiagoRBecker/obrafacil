@@ -1,4 +1,4 @@
-import { ValidationPipe } from '@nestjs/common';
+import { Logger, ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
@@ -66,9 +66,9 @@ async function bootstrap() {
   await app.listen(3003)
     .then(() => {
       const port = 3003;
-      console.log(`\n🚀 Servidor rodando em http://localhost:${port}`);
-      console.log(`📚 Documentação Swagger em http://localhost:${port}/api/docs\n`);
+      Logger.log(`Servidor rodando em http://localhost:${port}`);
+      Logger.log(`Documentação Swagger em http://localhost:${port}/api/docs`);
     })
-    .catch((e) => console.error(e));
+    .catch((e) => Logger.error(e));
 }
 bootstrap();

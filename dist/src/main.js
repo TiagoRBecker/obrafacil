@@ -50,10 +50,10 @@ async function bootstrap() {
     await app.listen(3003)
         .then(() => {
         const port = 3003;
-        console.log(`\n🚀 Servidor rodando em http://localhost:${port}`);
-        console.log(`📚 Documentação Swagger em http://localhost:${port}/api/docs\n`);
+        common_1.Logger.log(`Servidor rodando em http://localhost:${port}`);
+        common_1.Logger.log(`Documentação Swagger em http://localhost:${port}/api/docs`);
     })
-        .catch((e) => console.error(e));
+        .catch((e) => common_1.Logger.error(e));
 }
 bootstrap();
 //# sourceMappingURL=main.js.map

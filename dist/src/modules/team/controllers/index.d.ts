@@ -3,4 +3,4 @@ import { DeleteTeamMemberController } from './delete.team.controller';
 import { FindAllTeamMembersController } from './findAll.team.controller';
 import { FindByIdTeamMemberController } from './findById.team.controller';
 import { UpdateTeamMemberController } from './update.team.controller';
-export declare const TeamController: (typeof FindAllTeamMembersController | typeof CreateTeamMemberController | typeof FindByIdTeamMemberController | typeof DeleteTeamMemberController | typeof UpdateTeamMemberController)[];
+export declare const TeamController: (typeof CreateTeamMemberController | typeof DeleteTeamMemberController | typeof FindAllTeamMembersController | typeof FindByIdTeamMemberController | typeof UpdateTeamMemberController)[];

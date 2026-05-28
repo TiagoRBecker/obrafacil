@@ -15,7 +15,7 @@ import { PrismaExceptionFilter } from './filters/prisma-exception.filter';
 import { WhatsAppModule } from './modules/whatsapp/whatsapp.module';
 import { EvoModule } from './modules/evo/evo.module';
 import { MessageModule } from './modules/message/message.module';
-import { UserModule } from './modules/users/user.module';
+import { UserModule } from './modules/Users/user.module';
 import { SharedModule } from './modules/Shared/shared.module';
 
 

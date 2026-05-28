@@ -8,7 +8,7 @@ import { UpsertSettingsUseCase } from './usecase/upsert-settings.usecase';
 import { FindSettingsByIdUseCase } from './usecase/find-settings-by-id.usecase';
 import { SettingsRepo } from './repo/settings-repo';
 import { PrismaService } from '../../db/prisma';
-import { UserModule } from '../users/user.module';
+import { UserModule } from '../Users/user.module';
 
 @Module({
   controllers: [...SettingsController],

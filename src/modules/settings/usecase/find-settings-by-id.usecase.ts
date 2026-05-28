@@ -3,7 +3,7 @@ import { Injectable, Logger, NotFoundException, UnauthorizedException } from '@n
 import { SettingsResponseDto } from '../dto/settings-response.dto';
 import { SettingsRepositoryInterface } from '../repo/settings.repository';
 import { SettingsMapper } from './settings.mapper';
-import { UserRepositoryInterface } from '../../users/repo/user.repository.interface';
+import { UserRepositoryInterface } from '../../Users/repo/user.repository.interface';
 
 
 @Injectable()

@@ -1,7 +1,7 @@
 import { Body, Controller, Post } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiBody, ApiResponse } from '@nestjs/swagger';
-import { SignInDto } from '../../users/dto/sign-in.dto';
-import { AuthResponseDto } from '../../users/dto/auth-response.dto';
+import { SignInDto } from '../../Users/dto/sign-in.dto';
+import { AuthResponseDto } from '../../Users/dto/auth-response.dto';
 import { SignInUseCase } from '../usecase/sign-in.usecase';
 
 @ApiTags('Autenticação')

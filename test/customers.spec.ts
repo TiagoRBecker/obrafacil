@@ -5,14 +5,14 @@ import { JwtModule, JwtService } from '@nestjs/jwt';
 import request from 'supertest';
 
 import { CustomersModule } from '../src/modules/customers/customers.module';
-import { UserModule } from '../src/modules/users/user.module';
+import { UserModule } from '../src/modules/Users/user.module';
 import { SecurityModule } from '../src/modules/security/security.module';
 import { AuthModule } from '../src/modules/auth/auth.module';
 import { SharedModule } from '../src/modules/Shared/shared.module';
 import { SettingsModule } from '../src/modules/settings/settings.module';
 
 import { CustomerRepositoryInterface } from '../src/modules/customers/repo/customer-repository.interface';
-import { UserRepositoryInterface } from '../src/modules/users/repo/user.repository.interface';
+import { UserRepositoryInterface } from '../src/modules/Users/repo/user.repository.interface';
 import { SettingsRepositoryInterface } from '../src/modules/settings/repo/settings.repository';
 import { MockSettingsRepository } from '../src/modules/settings/repo/mock-settings.repository';
 import { MockUserRepository } from './helpers/mock-user.repository';

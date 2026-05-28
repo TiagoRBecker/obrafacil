@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { WhatsAppController } from './controllers';
 import { EvoModule } from '../evo/evo.module';
 import { BudgetsModule } from '../budgets/budgets.module';
-import { UserModule } from '../users/user.module';
+import { UserModule } from '../Users/user.module';
 import { WebhookGuard } from '../../guards/webhook.guard';
 import { WebHookUseCase } from './usecase/webhook.usecase';
 import { CreateConnectionUseCase } from './usecase/create-connection-instance.usecase';

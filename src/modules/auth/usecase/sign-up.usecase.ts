@@ -2,8 +2,8 @@ import { Injectable, Logger } from '@nestjs/common';
 
 
 import { GenerateHashUseCase } from '../../security/usecase/generate-hash.usecase';
-import { SignUpDto } from '../../users/dto/sign-up.dto';
-import { CreateAccountUseCase } from '../../users/usecase/create-account-usecase';
+import { SignUpDto } from '../../Users/dto/sign-up.dto';
+import { CreateAccountUseCase } from '../../Users/usecase/create-account-usecase';
 
 @Injectable()
 export class SignUpUseCase {

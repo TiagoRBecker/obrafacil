@@ -14,7 +14,7 @@ import { BudgetRepo } from './repo/budgets.repo';
 import { PrismaService } from '../../db/prisma';
 import { CustomersModule } from '../customers/customers.module';
 import { UpdateOrderStatusUseCase } from './usecase/update-status-order.usecase';
-import { UserModule } from '../users/user.module';
+import { UserModule } from '../Users/user.module';
 import { BudgetsController } from './controllers';
 
 @Module({

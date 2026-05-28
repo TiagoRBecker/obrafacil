@@ -7,8 +7,8 @@ import * as bcrypt from 'bcrypt';
 
 import { AuthModule } from '../src/modules/auth/auth.module';
 import { SecurityModule } from '../src/modules/security/security.module';
-import { UserModule } from '../src/modules/users/user.module';
-import { UserRepositoryInterface } from '../src/modules/users/repo/user.repository.interface';
+import { UserModule } from '../src/modules/Users/user.module';
+import { UserRepositoryInterface } from '../src/modules/Users/repo/user.repository.interface';
 import { SettingsRepositoryInterface } from '../src/modules/settings/repo/settings.repository';
 import { MockSettingsRepository } from '../src/modules/settings/repo/mock-settings.repository';
 import { MockUserRepository } from './helpers/mock-user.repository';

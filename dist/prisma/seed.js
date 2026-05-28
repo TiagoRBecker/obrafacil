@@ -1,10 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const settings_1 = require("./seed/settings");
 const rbac_1 = require("./seed/rbac");
 const test_data_1 = require("./seed/test-data");
 async function init() {
-    await (0, settings_1.createSettings)();
     await (0, rbac_1.createRbac)();
     const counts = await (0, test_data_1.createTestData)();
     console.log('');

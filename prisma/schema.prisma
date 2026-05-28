@@ -9,15 +9,18 @@ generator client {
 
 datasource db {
   provider = "postgresql"
+ 
 }
 
 model Account {
-  id       String  @id @default(uuid()) @db.Uuid
-  name     String
-  email    String  @unique
-  password String
-  role     Role?   @relation(fields: [roleId], references: [id])
-  roleId   String? @db.Uuid
+  id         String    @id @default(uuid()) @db.Uuid
+  name       String
+  email      String    @unique
+  password   String
+  role       Role?     @relation(fields: [roleId], references: [id])
+  roleId     String?   @db.Uuid
+  settings   Settings? @relation(fields: [settingsId], references: [id])
+  settingsId String?   @db.Uuid
 }
 
 model Customer {
@@ -66,10 +69,7 @@ model TeamOrder {
 
 model Settings {
   id String @id @default(uuid()) @db.Uuid
-  // Vínculo único com a Organização
-
-  // Dados que aparecem no PDF
-  businessName         String? // Nome comercial para a proposta
+  businessName         String? 
   specialty            String
   phone                String
   email                String  @unique
@@ -80,7 +80,8 @@ model Settings {
   proposalValidityDays Int     @default(7)
   defaultBillingUnit   String
 
-  updatedAt DateTime @updatedAt
+  updatedAt DateTime  @updatedAt
+  accounts  Account[]
 }
 
 model Order {

@@ -1,9 +1,9 @@
-import { createSettings } from './seed/settings';
+
 import { createRbac } from './seed/rbac';
 import { createTestData } from './seed/test-data';
 
 async function init() {
-  await createSettings();
+ 
   await createRbac();
   const counts = await createTestData();
   console.log('');

@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import * as jwt from 'jsonwebtoken';
-import type { SignOptions } from 'jsonwebtoken';
+import { JwtService } from '@nestjs/jwt';
 
 import { GenerateRefreshTokenDto } from '../dto/generate-refresh-token.dto';
 import { RefreshTokenResponseDto } from '../dto/refresh-token-response.dto';
@@ -15,7 +14,10 @@ interface RefreshTokenPayload {
 
 @Injectable()
 export class GenerateRefreshTokenUseCase {
-  constructor(private readonly configService: ConfigService) {}
+  constructor(
+    private readonly jwtService: JwtService,
+    private readonly configService: ConfigService,
+  ) {}
 
   execute(input: GenerateRefreshTokenDto): RefreshTokenResponseDto {
     const payload: RefreshTokenPayload = {
@@ -30,8 +32,9 @@ export class GenerateRefreshTokenUseCase {
     const expiresIn =
       input.expiresIn ?? securityConfig?.jwtRefreshExpiresIn ?? '15d';
 
-    const refreshToken = jwt.sign(payload, secret, {
-      expiresIn: expiresIn as SignOptions['expiresIn'],
+    const refreshToken = this.jwtService.sign(payload, {
+      secret,
+      expiresIn: expiresIn as any,
     });
 
     return {

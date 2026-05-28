@@ -10,6 +10,7 @@ exports.AppModule = void 0;
 const common_1 = require("@nestjs/common");
 const core_1 = require("@nestjs/core");
 const config_1 = require("@nestjs/config");
+const jwt_1 = require("@nestjs/jwt");
 const app_controller_1 = require("./app.controller");
 const app_service_1 = require("./app.service");
 const auth_module_1 = require("./modules/auth/auth.module");
@@ -22,7 +23,7 @@ const prisma_exception_filter_1 = require("./filters/prisma-exception.filter");
 const whatsapp_module_1 = require("./modules/whatsapp/whatsapp.module");
 const evo_module_1 = require("./modules/evo/evo.module");
 const message_module_1 = require("./modules/message/message.module");
-const user_module_1 = require("./modules/Users/user.module");
+const user_module_1 = require("./modules/users/user.module");
 const shared_module_1 = require("./modules/Shared/shared.module");
 let AppModule = class AppModule {
 };
@@ -32,6 +33,16 @@ exports.AppModule = AppModule = __decorate([
         imports: [
             config_1.ConfigModule.forRoot({
                 isGlobal: true,
+            }),
+            jwt_1.JwtModule.registerAsync({
+                global: true,
+                inject: [config_1.ConfigService],
+                useFactory: (configService) => ({
+                    secret: configService.get('security.jwtAccessSecret') ?? 'dev-secret',
+                    signOptions: {
+                        expiresIn: configService.get('security.jwtAccessExpiresIn') ?? '55m',
+                    },
+                }),
             }),
             auth_module_1.AuthModule,
             budgets_module_1.BudgetsModule,

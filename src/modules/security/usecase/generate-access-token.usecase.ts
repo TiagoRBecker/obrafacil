@@ -1,11 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
-import * as jwt from 'jsonwebtoken';
-import type { SignOptions } from 'jsonwebtoken';
+import { JwtService } from '@nestjs/jwt';
 
 import { AccessTokenResponseDto } from '../dto/access-token-response.dto';
 import { GenerateAccessTokenDto } from '../dto/generate-access-token.dto';
-import type { SecurityConfig } from '../security.config';
 
 interface AccessTokenPayload {
   id: string;
@@ -17,7 +14,7 @@ interface AccessTokenPayload {
 
 @Injectable()
 export class GenerateAccessTokenUseCase {
-  constructor(private readonly configService: ConfigService) {}
+  constructor(private readonly jwtService: JwtService) {}
 
   execute(input: GenerateAccessTokenDto): AccessTokenResponseDto {
     const payload: AccessTokenPayload = {
@@ -28,15 +25,7 @@ export class GenerateAccessTokenUseCase {
       settingsId: input.settingsId,
     };
 
-    const securityConfig = this.configService.get<SecurityConfig>('security');
-    const secret =
-      input.secret ?? securityConfig?.jwtAccessSecret ?? 'change-me-in-production';
-    const expiresIn =
-      input.expiresIn ?? securityConfig?.jwtAccessExpiresIn ?? '1d';
-
-    const accessToken = jwt.sign(payload, secret, {
-      expiresIn: expiresIn as SignOptions['expiresIn'],
-    });
+    const accessToken = this.jwtService.sign(payload);
 
     return {
       accessToken,

@@ -4,12 +4,11 @@ import {
   Injectable,
   UnauthorizedException,
 } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
+import { JwtService } from '@nestjs/jwt';
 import { Request } from 'express';
-import * as jwt from 'jsonwebtoken';
 import { Reflector } from '@nestjs/core';
 import { PERMISSIONS_KEY } from '../../decorators';
-import { UserRepositoryInterface } from '../modules/Users/repo/user.repository.interface';
+import { UserRepositoryInterface } from '../modules/users/repo/user.repository.interface';
 
 interface AdminTokenPayload {
   id: string;
@@ -21,7 +20,7 @@ interface AdminTokenPayload {
 @Injectable()
 export class AdminTokenGuard implements CanActivate {
   constructor(
-    private readonly configService: ConfigService,
+    private readonly jwtService: JwtService,
     private readonly userRepo: UserRepositoryInterface,
     private readonly reflector: Reflector,
   ) {}
@@ -40,8 +39,8 @@ export class AdminTokenGuard implements CanActivate {
     }
 
     const payload = this.decodeTokenPayload(token);
-   
- 
+    
+  
     if (!payload) {
       throw new UnauthorizedException('Admin access only.');
     }
@@ -81,12 +80,7 @@ export class AdminTokenGuard implements CanActivate {
 
   private decodeTokenPayload(token: string): AdminTokenPayload | null {
     try {
-      const secret =
-        this.configService.get<string>('security.jwtAccessSecret') ??
-        process.env.JWT_ACCESS_SECRET ??
-        'change-me-in-production';
-
-      const payload = jwt.verify(token, secret) as Partial<AdminTokenPayload>;
+      const payload = this.jwtService.verify<AdminTokenPayload>(token);
 
       if (
         typeof payload.id !== 'string' ||

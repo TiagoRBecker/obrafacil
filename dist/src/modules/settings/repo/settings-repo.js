@@ -19,7 +19,23 @@ let SettingsRepo = class SettingsRepo extends settings_repository_1.SettingsRepo
         super();
         this.prisma = prisma;
     }
-    async findById(email) {
+    async findById(id) {
+        const data = await this.prisma.settings.findUnique({
+            where: { id },
+        });
+        if (!data)
+            return null;
+        return settings_entity_1.SettingsEntity.create({
+            email: data.email,
+            id: data.id,
+            name: data.businessName ?? '',
+            phone: data.phone,
+            specialty: data.specialty,
+            address: data.address ?? '',
+            logoUrl: data.logoUrl ?? '',
+        });
+    }
+    async findByEmail(email) {
         const data = await this.prisma.settings.findUnique({
             where: { email },
         });
@@ -35,9 +51,19 @@ let SettingsRepo = class SettingsRepo extends settings_repository_1.SettingsRepo
             logoUrl: data.logoUrl ?? '',
         });
     }
-    async create(settings) {
-        const data = await this.prisma.settings.create({
-            data: {
+    async create(settings, id) {
+        const data = await this.prisma.settings.upsert({
+            where: {
+                email: settings.email,
+            },
+            update: {
+                businessName: settings.name,
+                phone: settings.phone,
+                specialty: settings.specialty,
+                address: settings.address,
+                logoUrl: settings.logoUrl,
+            },
+            create: {
                 email: settings.email,
                 businessName: settings.name,
                 phone: settings.phone,
@@ -48,6 +74,11 @@ let SettingsRepo = class SettingsRepo extends settings_repository_1.SettingsRepo
                 proposalValidityDays: 7,
                 proposalTerms: '',
                 warrantyTerms: '',
+                accounts: {
+                    connect: {
+                        id
+                    }
+                }
             },
         });
         return settings_entity_1.SettingsEntity.create({

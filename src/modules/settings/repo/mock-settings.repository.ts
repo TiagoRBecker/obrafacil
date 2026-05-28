@@ -1,6 +1,4 @@
 import { Injectable } from '@nestjs/common';
-
-import { DefaultBillingUnit } from '../dto/upsert-settings.dto';
 import { SettingsEntity } from '../entity/settings.entity';
 import { SettingsRepositoryInterface } from './settings.repository';
 
@@ -17,7 +15,6 @@ export class MockSettingsRepository implements SettingsRepositoryInterface {
         email: 'joao@eletrica.com',
         address: 'Sao Paulo e Grande ABC',
         logoUrl: 'https://example.com/logo.png',
-       
       }),
     ],
   ]);
@@ -34,5 +31,8 @@ export class MockSettingsRepository implements SettingsRepositoryInterface {
 
   async findById(id: string): Promise<SettingsEntity | null> {
     return this.settings.get(id) ?? null;
+  }
+  async findByEmail(email: string): Promise<SettingsEntity | null> {
+    return this.settings.get(email) ?? null;
   }
 }

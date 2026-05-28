@@ -3,7 +3,7 @@ import { Injectable, Logger, NotFoundException, UnauthorizedException } from '@n
 import { SettingsResponseDto } from '../dto/settings-response.dto';
 import { SettingsRepositoryInterface } from '../repo/settings.repository';
 import { SettingsMapper } from './settings.mapper';
-import { UserRepositoryInterface } from '../../Users/repo/user.repository.interface';
+import { UserRepositoryInterface } from '../../users/repo/user.repository.interface';
 
 
 @Injectable()
@@ -13,15 +13,17 @@ export class FindSettingsByIdUseCase {
   constructor(private readonly settingsRepository: SettingsRepositoryInterface,private readonly userRepo:UserRepositoryInterface) {}
 
   async execute(id: string): Promise<SettingsResponseDto> {
+     
     this.logger.log(`Buscando configurações para usuário - ID: ${id}`);
     
     const existingUser = await this.userRepo.findById(id)
+      
     if(!existingUser) {
       this.logger.error(`Usuário não encontrado ou não autorizado - ID: ${id}`);
       throw new UnauthorizedException(`Nao autorizado ou nao encontrado`)
     }
     
-    const settings = await this.settingsRepository.findById("");
+    const settings = await this.settingsRepository.findByEmail("contato@devsolutions.com");
 
     if (!settings) {
       this.logger.error(`Configurações não encontradas - userId: ${id}`);

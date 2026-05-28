@@ -1,11 +1,11 @@
 import { SettingsResponseDto } from '../dto/settings-response.dto';
 import { UpsertSettingsDto } from '../dto/upsert-settings.dto';
 import { SettingsRepositoryInterface } from '../repo/settings.repository';
-import { UserRepositoryInterface } from '../../Users/repo/user.repository.interface';
-export declare class CreateSettingsUseCase {
+import { PrismaService } from '../../../db/prisma';
+export declare class UpsertSettingsUseCase {
     private readonly settingsRepository;
-    private readonly userRepo;
+    private readonly prisma;
     private readonly logger;
-    constructor(settingsRepository: SettingsRepositoryInterface, userRepo: UserRepositoryInterface);
+    constructor(settingsRepository: SettingsRepositoryInterface, prisma: PrismaService);
     execute(input: UpsertSettingsDto, userId: string): Promise<SettingsResponseDto>;
 }

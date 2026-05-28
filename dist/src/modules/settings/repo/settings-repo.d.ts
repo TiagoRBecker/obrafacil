@@ -4,7 +4,8 @@ import { SettingsRepositoryInterface } from './settings.repository';
 export declare class SettingsRepo extends SettingsRepositoryInterface {
     private readonly prisma;
     constructor(prisma: PrismaService);
-    findById(email: string): Promise<SettingsEntity | null>;
-    create(settings: SettingsEntity): Promise<SettingsEntity>;
+    findById(id: string): Promise<SettingsEntity | null>;
+    findByEmail(email: string): Promise<SettingsEntity | null>;
+    create(settings: SettingsEntity, id: string): Promise<SettingsEntity>;
     update(settings: SettingsEntity): Promise<SettingsEntity>;
 }

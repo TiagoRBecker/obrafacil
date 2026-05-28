@@ -20,4 +20,7 @@ export class InMemorySettingsRepository implements SettingsRepositoryInterface {
   async findById(id: string): Promise<SettingsEntity | null> {
     return this.settings.get(id) ?? null;
   }
+  async findByEmail(email: string): Promise<SettingsEntity | null> {
+    return this.settings.get(email) ?? null;
+  }
 }

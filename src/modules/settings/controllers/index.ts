@@ -1,9 +1,8 @@
-import { CreateSettingsController } from './create.settings.controller';
+import { UpsertSettingsController } from './upsert.settings.controller';
 import { FindByIdSettingsController } from './findById.settings.controller';
-import { UpdateSettingsController } from './update.settings.controller';
 
 export const SettingsController = [
-  CreateSettingsController,
-  FindByIdSettingsController,
-  UpdateSettingsController,
+   FindByIdSettingsController,
+  UpsertSettingsController
+ 
 ];

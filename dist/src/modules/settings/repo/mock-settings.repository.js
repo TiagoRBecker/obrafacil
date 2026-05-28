@@ -37,6 +37,9 @@ let MockSettingsRepository = class MockSettingsRepository {
     async findById(id) {
         return this.settings.get(id) ?? null;
     }
+    async findByEmail(email) {
+        return this.settings.get(email) ?? null;
+    }
 };
 exports.MockSettingsRepository = MockSettingsRepository;
 exports.MockSettingsRepository = MockSettingsRepository = __decorate([

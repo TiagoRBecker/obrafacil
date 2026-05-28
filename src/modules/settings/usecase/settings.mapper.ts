@@ -8,7 +8,9 @@ export class SettingsMapper {
       name: settings.name,
       specialty: settings.specialty,
       logoUrl: settings.logoUrl,
-   
+      address:settings.address,
+      email:settings.email,
+     phone:settings.phone
     };
   }
 }

@@ -9,7 +9,25 @@ export class SettingsRepo extends SettingsRepositoryInterface {
     super();
   }
 
-  async findById(email: string): Promise<SettingsEntity | null> {
+  async findById(id: string): Promise<SettingsEntity | null> {
+    
+    const data = await this.prisma.settings.findUnique({
+      where: { id },
+    });
+
+    if (!data) return null;
+
+    return SettingsEntity.create({
+      email: data.email,
+      id: data.id,
+      name: data.businessName ?? '',
+      phone: data.phone,
+      specialty: data.specialty,
+      address: data.address ?? '',
+      logoUrl: data.logoUrl ?? '',
+    });
+  }
+   async findByEmail(email: string): Promise<SettingsEntity | null> {
     const data = await this.prisma.settings.findUnique({
       where: { email },
     });
@@ -27,33 +45,50 @@ export class SettingsRepo extends SettingsRepositoryInterface {
     });
   }
 
-  async create(settings: SettingsEntity): Promise<SettingsEntity> {
-    const data = await this.prisma.settings.create({
-      data: {
-        email: settings.email,
-        businessName: settings.name,
-        phone: settings.phone,
-        specialty: settings.specialty,
-        address: settings.address,
-        logoUrl: settings.logoUrl,
-        defaultBillingUnit: '',
-        proposalValidityDays: 7,
-        proposalTerms: '',
-        warrantyTerms: '',
-      },
-    });
 
-    return SettingsEntity.create({
-      email: data.email,
-      id: data.id,
-      name: data.businessName ?? '',
-      phone: data.phone,
-      specialty: data.specialty,
-      address: data.address ?? '',
-      logoUrl: data.logoUrl ?? '',
-    });
-  }
+  async create(settings: SettingsEntity,id:string): Promise<SettingsEntity> {
+  const data = await this.prisma.settings.upsert({
+    where: {
+      email: settings.email,
+    },
 
+    update: {
+      businessName: settings.name,
+      phone: settings.phone,
+      specialty: settings.specialty,
+      address: settings.address,
+      logoUrl: settings.logoUrl,
+    },
+
+    create: {
+      email: settings.email,
+      businessName: settings.name,
+      phone: settings.phone,
+      specialty: settings.specialty,
+      address: settings.address,
+      logoUrl: settings.logoUrl,
+      defaultBillingUnit: '',
+      proposalValidityDays: 7,
+      proposalTerms: '',
+      warrantyTerms: '',
+      accounts:{
+        connect:{
+          id
+        }
+      }
+    },
+  });
+
+  return SettingsEntity.create({
+    email: data.email,
+    id: data.id,
+    name: data.businessName ?? '',
+    phone: data.phone,
+    specialty: data.specialty,
+    address: data.address ?? '',
+    logoUrl: data.logoUrl ?? '',
+  });
+}
   async update(settings: SettingsEntity): Promise<SettingsEntity> {
     const data = await this.prisma.settings.update({
       where: { id: settings.id },
@@ -76,4 +111,5 @@ export class SettingsRepo extends SettingsRepositoryInterface {
       logoUrl: data.logoUrl ?? '',
     });
   }
+  
 }

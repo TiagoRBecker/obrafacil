@@ -26,7 +26,9 @@ export class FindByIdSettingsController {
   @ApiResponse({ status: 200, description: 'Configurações encontradas com sucesso.' })
   @ApiResponse({ status: 404, description: 'Configurações não encontradas para este usuário.' })
   findById(@Req() req): Promise<SettingsResponseDto> {
+  
     const userId = req.user;
+   
     return this.findSettingsByIdUseCase.execute(userId);
   }
 }

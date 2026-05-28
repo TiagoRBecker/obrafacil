@@ -12,13 +12,11 @@ const admin_token_guard_1 = require("../../guards/admin-token.guard");
 const mock_settings_repository_1 = require("./repo/mock-settings.repository");
 const settings_repository_1 = require("./repo/settings.repository");
 const controllers_1 = require("./controllers");
-const settings_service_1 = require("./settings.service");
-const create_settings_usecase_1 = require("./usecase/create-settings.usecase");
+const upsert_settings_usecase_1 = require("./usecase/upsert-settings.usecase");
 const find_settings_by_id_usecase_1 = require("./usecase/find-settings-by-id.usecase");
-const update_settings_usecase_1 = require("./usecase/update-settings.usecase");
 const settings_repo_1 = require("./repo/settings-repo");
 const prisma_1 = require("../../db/prisma");
-const user_module_1 = require("../Users/user.module");
+const user_module_1 = require("../users/user.module");
 let SettingsModule = class SettingsModule {
 };
 exports.SettingsModule = SettingsModule;
@@ -27,9 +25,7 @@ exports.SettingsModule = SettingsModule = __decorate([
         controllers: [...controllers_1.SettingsController],
         imports: [user_module_1.UserModule],
         providers: [
-            settings_service_1.SettingsService,
-            create_settings_usecase_1.CreateSettingsUseCase,
-            update_settings_usecase_1.UpdateSettingsUseCase,
+            upsert_settings_usecase_1.UpsertSettingsUseCase,
             find_settings_by_id_usecase_1.FindSettingsByIdUseCase,
             admin_token_guard_1.AdminTokenGuard,
             mock_settings_repository_1.MockSettingsRepository,

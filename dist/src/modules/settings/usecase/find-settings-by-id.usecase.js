@@ -14,7 +14,7 @@ exports.FindSettingsByIdUseCase = void 0;
 const common_1 = require("@nestjs/common");
 const settings_repository_1 = require("../repo/settings.repository");
 const settings_mapper_1 = require("./settings.mapper");
-const user_repository_interface_1 = require("../../Users/repo/user.repository.interface");
+const user_repository_interface_1 = require("../../users/repo/user.repository.interface");
 let FindSettingsByIdUseCase = FindSettingsByIdUseCase_1 = class FindSettingsByIdUseCase {
     constructor(settingsRepository, userRepo) {
         this.settingsRepository = settingsRepository;
@@ -28,7 +28,7 @@ let FindSettingsByIdUseCase = FindSettingsByIdUseCase_1 = class FindSettingsById
             this.logger.error(`Usuário não encontrado ou não autorizado - ID: ${id}`);
             throw new common_1.UnauthorizedException(`Nao autorizado ou nao encontrado`);
         }
-        const settings = await this.settingsRepository.findById("");
+        const settings = await this.settingsRepository.findByEmail("contato@devsolutions.com");
         if (!settings) {
             this.logger.error(`Configurações não encontradas - userId: ${id}`);
             throw new common_1.NotFoundException('Settings not found.');

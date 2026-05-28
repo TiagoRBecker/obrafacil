@@ -1,6 +1,6 @@
 import { SettingsResponseDto } from '../dto/settings-response.dto';
 import { SettingsRepositoryInterface } from '../repo/settings.repository';
-import { UserRepositoryInterface } from '../../Users/repo/user.repository.interface';
+import { UserRepositoryInterface } from '../../users/repo/user.repository.interface';
 export declare class FindSettingsByIdUseCase {
     private readonly settingsRepository;
     private readonly userRepo;

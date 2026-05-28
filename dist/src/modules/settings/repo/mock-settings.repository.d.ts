@@ -5,4 +5,5 @@ export declare class MockSettingsRepository implements SettingsRepositoryInterfa
     create(settings: SettingsEntity): Promise<SettingsEntity>;
     update(settings: SettingsEntity): Promise<SettingsEntity>;
     findById(id: string): Promise<SettingsEntity | null>;
+    findByEmail(email: string): Promise<SettingsEntity | null>;
 }

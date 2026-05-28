@@ -23,6 +23,9 @@ let InMemorySettingsRepository = class InMemorySettingsRepository {
     async findById(id) {
         return this.settings.get(id) ?? null;
     }
+    async findByEmail(email) {
+        return this.settings.get(email) ?? null;
+    }
 };
 exports.InMemorySettingsRepository = InMemorySettingsRepository;
 exports.InMemorySettingsRepository = InMemorySettingsRepository = __decorate([

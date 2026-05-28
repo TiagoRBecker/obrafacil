@@ -188,38 +188,34 @@ npm run format
 
 ## TODO — Polimento para Portfolio
 
-Checklist do que vou ajustar durante a semana pra deixar o projeto com cara de vaga:
+Checklist do projeto — itens concluídos e pendentes.
 
 ### Qualidade do código
 
-- [ ] **Corrigir typos em nomes de arquivo:**
-  - `delete-isntance-usecase.ts` → `delete-instance-usecase.ts`
-  - `connection-instance-usecase..ts` → `connection-instance-usecase.ts`
-  - `find-customer-by-phone.usecase .ts` → `find-customer-by-phone.usecase.ts`
-  - `customer.repo.inteface.ts` → `customer.repo.interface.ts`
-- [ ] **Padronizar nome dos módulos** (`Users` → `users` pra consistência)
-- [ ] **Remover módulos vazios**: `Events/`, `templates/`, `Shared/` se não forem utilizados
-- [ ] **Corrigir permission do `SettingsController.create`** (requer `order:create`, deveria ser `settings:create`)
-- [ ] **Adicionar DTO de validação** pro body do `refreshToken` (atualmente `any`)
-- [ ] **Remover valores hardcoded**: telefone `5551995204223` e nome `Tiago Becker` do `SendMessageUseCase`
-- [ ] **Resolver `PdfService`** ou remover se não for utilizado (retorna `"ok"` sem gerar PDF)
+- [x] **Corrigir typos em nomes de arquivo** — todos os arquivos já estão com nomes corretos
+- [x] **Padronizar nome dos módulos** (`Users` → `users` pra consistência)
+- [x] **Corrigir permission do `SettingsController.create`** — já usa `settings:create`
+- [~] **Adicionar DTO de validação** pro body do `refreshToken` — DTO existe, mas o controller ainda não o tipa
+- [x] **Remover valores hardcoded**: telefone `5551995204223` e nome `Tiago Becker` do `SendMessageUseCase`
+- [x] **Resolver `PdfService`** — removido o stub, criado módulo próprio
+- [x] **Remover módulo vazio**: `Shared/` (avaliar se realmente necessário) — está em uso
 
 ### Arquitetura
 
-- [ ] **Migrar `jsonwebtoken` → `JwtModule`** do NestJS (já está nas deps, só não está sendo usado)
-- [ ] **Adicionar `.env.example`** com variáveis dummy (mostra que sei não versionar secrets)
+- [x] **Migrar `jsonwebtoken` → `JwtModule`** do NestJS — 4 arquivos refatorados para usar `JwtService`
+- [x] **Adicionar `.env.example`** com variáveis dummy — raiz e `infra/`
 - [ ] **Adicionar paginação** nos `findAll` (customers, budgets, team)
-- [ ] **Adicionar ExceptionFilter global** pra erros não-Prisnia (complementar o filtro Prisma já criado)
+- [x] **Adicionar ExceptionFilter global** pra erros não-Prisma — desnecessário, NestJS já trata nativamente
 
 ### Testes
 
-- [ ] **Cobrir módulos sem teste**: budgets, team, settings, whatsapp
-- [ ] **Adicionar ao menos um teste E2E** completo (já tem o setup em `test/jest-e2e.json`)
+- [ ] **Cobrir módulo sem teste**: whatsapp
+- [~] **Adicionar ao menos um teste E2E** completo (setup existe, mas teste atual é trivial — só `GET /`)
 
 ### Extras (diferenciais)
 
-- [ ] **Swagger** (`@nestjs/swagger`) — documentação automática da API
-- [ ] **README em inglês** — alcance internacional
+- [x] **Swagger** (`@nestjs/swagger`) — já implementado em `/api/docs`
+- [ ] **README em inglês**
 - [ ] **CI/CD** (GitHub Actions com lint + test + build)
 
 ---

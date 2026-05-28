@@ -8,18 +8,18 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var ConnectionUseCase_1;
+var CreateConnectionUseCase_1;
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ConnectionUseCase = void 0;
+exports.CreateConnectionUseCase = void 0;
 const common_1 = require("@nestjs/common");
 const evo_api_client_1 = require("../../evo/infra/evo-api.client");
 const whatsapp_session_entity_1 = require("../entity/whatsapp-session.entity");
 const whatsapp_repo_interface_1 = require("../repo/whatsapp-repo-interface");
-let ConnectionUseCase = ConnectionUseCase_1 = class ConnectionUseCase {
+let CreateConnectionUseCase = CreateConnectionUseCase_1 = class CreateConnectionUseCase {
     constructor(evoService, whatsappRepo) {
         this.evoService = evoService;
         this.whatsappRepo = whatsappRepo;
-        this.logger = new common_1.Logger(ConnectionUseCase_1.name);
+        this.logger = new common_1.Logger(CreateConnectionUseCase_1.name);
     }
     async execute(instanceName) {
         const session = await this.whatsappRepo.findBySession(instanceName);
@@ -45,10 +45,10 @@ let ConnectionUseCase = ConnectionUseCase_1 = class ConnectionUseCase {
         }
     }
 };
-exports.ConnectionUseCase = ConnectionUseCase;
-exports.ConnectionUseCase = ConnectionUseCase = ConnectionUseCase_1 = __decorate([
+exports.CreateConnectionUseCase = CreateConnectionUseCase;
+exports.CreateConnectionUseCase = CreateConnectionUseCase = CreateConnectionUseCase_1 = __decorate([
     (0, common_1.Injectable)(),
     __metadata("design:paramtypes", [evo_api_client_1.EvoApiClient,
         whatsapp_repo_interface_1.WhatsAppRepositoryInterface])
-], ConnectionUseCase);
-//# sourceMappingURL=connection-instance.usecase.js.map
+], CreateConnectionUseCase);
+//# sourceMappingURL=create-connection-instance.usecase.js.map

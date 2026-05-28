@@ -15,7 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ConnectionWhatsAppController = void 0;
 const common_1 = require("@nestjs/common");
 const swagger_1 = require("@nestjs/swagger");
-const connection_instance_usecase_1 = require("../usecase/connection-instance.usecase");
+const create_connection_instance_usecase_1 = require("../usecase/create-connection-instance.usecase");
 let ConnectionWhatsAppController = class ConnectionWhatsAppController {
     constructor(connectionService) {
         this.connectionService = connectionService;
@@ -41,6 +41,6 @@ __decorate([
 exports.ConnectionWhatsAppController = ConnectionWhatsAppController = __decorate([
     (0, swagger_1.ApiTags)('WhatsApp'),
     (0, common_1.Controller)('instance'),
-    __metadata("design:paramtypes", [connection_instance_usecase_1.ConnectionUseCase])
+    __metadata("design:paramtypes", [create_connection_instance_usecase_1.CreateConnectionUseCase])
 ], ConnectionWhatsAppController);
 //# sourceMappingURL=connection.controller.js.map

@@ -4,13 +4,13 @@ import {
   Body,
 } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiBody, ApiResponse } from '@nestjs/swagger';
-import { ConnectionUseCase } from '../usecase/connection-instance.usecase';
+import { CreateConnectionUseCase } from '../usecase/create-connection-instance.usecase';
 
 @ApiTags('WhatsApp')
 @Controller('instance')
 export class ConnectionWhatsAppController {
   constructor(
-    private readonly connectionService: ConnectionUseCase,
+    private readonly connectionService: CreateConnectionUseCase,
   ) {}
 
   @Post('create/connection')

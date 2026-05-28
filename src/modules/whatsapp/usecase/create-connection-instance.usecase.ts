@@ -4,8 +4,8 @@ import { WhatsAppSession } from '../entity/whatsapp-session.entity';
 import { WhatsAppRepositoryInterface } from '../repo/whatsapp-repo-interface';
 
 @Injectable()
-export class ConnectionUseCase {
-  private readonly logger = new Logger(ConnectionUseCase.name);
+export class CreateConnectionUseCase {
+  private readonly logger = new Logger(CreateConnectionUseCase.name);
 
   constructor(
     private readonly evoService: EvoApiClient,

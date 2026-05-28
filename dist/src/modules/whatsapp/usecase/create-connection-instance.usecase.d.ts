@@ -1,6 +1,6 @@
 import { EvoApiClient } from '../../evo/infra/evo-api.client';
 import { WhatsAppRepositoryInterface } from '../repo/whatsapp-repo-interface';
-export declare class ConnectionUseCase {
+export declare class CreateConnectionUseCase {
     private readonly evoService;
     private readonly whatsappRepo;
     private readonly logger;

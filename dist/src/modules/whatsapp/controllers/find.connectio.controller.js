@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.GetConnectionWhatsAppController = void 0;
 const common_1 = require("@nestjs/common");
 const swagger_1 = require("@nestjs/swagger");
+const id_param_dto_1 = require("../../../common/dto/id-param.dto");
 const findByConnection_usecase_1 = require("../usecase/findByConnection-usecase");
 let GetConnectionWhatsAppController = class GetConnectionWhatsAppController {
     constructor(connectionService) {
@@ -36,7 +37,7 @@ __decorate([
     (0, swagger_1.ApiResponse)({ status: 404, description: 'Conexão não encontrada.' }),
     __param(0, (0, common_1.Param)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
+    __metadata("design:paramtypes", [id_param_dto_1.IdParamDto]),
     __metadata("design:returntype", void 0)
 ], GetConnectionWhatsAppController.prototype, "connection", null);
 exports.GetConnectionWhatsAppController = GetConnectionWhatsAppController = __decorate([

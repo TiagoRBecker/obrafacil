@@ -48,7 +48,7 @@ export class UpdateStatusConnectionUseCase {
     payload: ConnectionUpdateData,
     instanceName: string,
   ): Promise<void> {
-    console.log('Aqui e o payload do status', payload.state);
+    
     if (payload.state) {
       const updateSession = WhatsAppSession.create({
         instance: instanceName,

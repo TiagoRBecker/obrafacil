@@ -11,11 +11,10 @@ const common_1 = require("@nestjs/common");
 const controllers_1 = require("./controllers");
 const evo_module_1 = require("../evo/evo.module");
 const budgets_module_1 = require("../budgets/budgets.module");
-const user_module_1 = require("../Users/user.module");
+const user_module_1 = require("../users/user.module");
 const webhook_guard_1 = require("../../guards/webhook.guard");
 const webhook_usecase_1 = require("./usecase/webhook.usecase");
-const create_instance_usecase_1 = require("./usecase/create-instance-usecase");
-const connection_instance_usecase_1 = require("./usecase/connection-instance.usecase");
+const create_connection_instance_usecase_1 = require("./usecase/create-connection-instance.usecase");
 const event_dispatcher_usecase_1 = require("./usecase/event-dispatcher.usecase");
 const update_status_connection_usecase_1 = require("./usecase/update-status-connection-usecase");
 const whatsapp_repo_interface_1 = require("./repo/whatsapp-repo-interface");
@@ -31,9 +30,8 @@ exports.WhatsAppModule = WhatsAppModule = __decorate([
         imports: [evo_module_1.EvoModule, budgets_module_1.BudgetsModule, user_module_1.UserModule],
         providers: [
             prisma_1.PrismaService,
-            connection_instance_usecase_1.ConnectionUseCase,
+            create_connection_instance_usecase_1.CreateConnectionUseCase,
             webhook_usecase_1.WebHookUseCase,
-            create_instance_usecase_1.CreateInstanceNameUseCase,
             event_dispatcher_usecase_1.EventDispatcherService,
             update_status_connection_usecase_1.UpdateStatusConnectionUseCase,
             findByConnection_usecase_1.GetConnectionUseCase,

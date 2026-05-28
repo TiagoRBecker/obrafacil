@@ -43,7 +43,6 @@ let UpdateStatusConnectionUseCase = UpdateStatusConnectionUseCase_1 = class Upda
         return;
     }
     async updateStatus(payload, instanceName) {
-        console.log('Aqui e o payload do status', payload.state);
         if (payload.state) {
             const updateSession = whatsapp_session_entity_1.WhatsAppSession.create({
                 instance: instanceName,

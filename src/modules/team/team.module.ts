@@ -12,7 +12,7 @@ import { FindTeamMemberByIdUseCase } from './usecase/find-team-member-by-id.usec
 import { UpdateTeamMemberUseCase } from './usecase/update-team-member.usecase';
 import { TeamRepo } from './repo/team-repo';
 import { PrismaService } from '../../db/prisma';
-import { UserModule } from '../Users/user.module';
+import { UserModule } from '../users/user.module';
 
 @Module({
   controllers: [...TeamController],

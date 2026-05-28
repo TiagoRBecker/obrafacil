@@ -8,7 +8,7 @@ import { JwtService } from '@nestjs/jwt';
 import { Request } from 'express';
 import { Reflector } from '@nestjs/core';
 import { PERMISSIONS_KEY } from '../../decorators';
-import { UserRepositoryInterface } from '../modules/Users/repo/user.repository.interface';
+import { UserRepositoryInterface } from '../modules/users/repo/user.repository.interface';
 
 interface AdminTokenPayload {
   id: string;

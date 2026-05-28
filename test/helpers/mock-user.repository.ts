@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { UserEntity } from '../../src/modules/Users/entity/user.entity';
-import { UserRepositoryInterface } from '../../src/modules/Users/repo/user.repository.interface';
+import { UserEntity } from '../../src/modules/users/entity/user.entity';
+import { UserRepositoryInterface } from '../../src/modules/users/repo/user.repository.interface';
 
 @Injectable()
 export class MockUserRepository implements UserRepositoryInterface {

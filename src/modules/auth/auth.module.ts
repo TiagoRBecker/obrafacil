@@ -6,7 +6,7 @@ import { RefreshTokenUseCase } from './usecase/refresh-token.usecase';
 import { SignInUseCase } from './usecase/sign-in.usecase';
 import { SignUpUseCase } from './usecase/sign-up.usecase';
 import { PrismaService } from '../../db/prisma';
-import { UserModule } from '../Users/user.module';
+import { UserModule } from '../users/user.module';
 import { AuthController } from './controllers';
 
 @Global()

@@ -4,7 +4,7 @@ import { AdminTokenGuard } from '../../guards/admin-token.guard';
 import { SendMessageUseCase } from './usecase/send-message.usecase';
 import { BudgetsModule } from '../budgets/budgets.module';
 import { EvoModule } from '../evo/evo.module';
-import { UserModule } from '../Users/user.module';
+import { UserModule } from '../users/user.module';
 import { SharedModule } from '../Shared/shared.module';
 
 @Module({

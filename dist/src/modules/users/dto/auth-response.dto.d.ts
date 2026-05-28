@@ -1,0 +1,14 @@
+export declare class AuthResponseDto {
+    accessToken?: string;
+    refreshToken?: string;
+    user: {
+        id: string;
+        name: string;
+        email: string;
+        role: string;
+        permission?: string[];
+        companyName?: string;
+        logoUrl?: string;
+        specialty?: string;
+    };
+}

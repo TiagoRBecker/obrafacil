@@ -120,82 +120,84 @@ npm run db:seed:prod      # Popula apenas RBAC, sem dados de teste (prod)
 
 ## API Endpoints
 
+> **Nota:** Todas as rotas são prefixadas com `/v1/`. Exemplo: `POST /v1/auth/signin`.
+
 ### Health Check
 
 | Método | Rota | Descrição | Autenticação |
 |--------|------|-----------|-------------|
-| `GET` | `/` | Verificar status da API | Pública |
+| `GET` | `/v1/` | Verificar status da API | Pública |
 
 ### Autenticação
 
 | Método | Rota | Descrição | Autenticação |
 |--------|------|-----------|-------------|
-| `POST` | `/auth/signin` | Realizar login (retorna access + refresh tokens) | Pública |
-| `POST` | `/auth/refreshtoken` | Renovar access token | Pública |
+| `POST` | `/v1/auth/signin` | Realizar login (retorna access + refresh tokens) | Pública |
+| `POST` | `/v1/auth/refreshtoken` | Renovar access token | Pública |
 
-### Orçamentos (`/admin/budgets`) — tag: `Orçamentos`
+### Orçamentos (`/v1/admin/budgets`) — tag: `Orçamentos`
 
 Protegido por `AdminTokenGuard`. Requer permissão específica.
 
 | Método | Rota | Permissão | Papéis | Descrição |
 |--------|------|-----------|--------|-----------|
-| `POST` | `/admin/budgets/create` | `order:create` | ADMIN | Criar orçamento |
-| `GET` | `/admin/budgets/all` | `order:read` | ADMIN, USER | Listar orçamentos (paginado) |
-| `GET` | `/admin/budgets/:id` | `order:read` | ADMIN, USER | Buscar orçamento por ID |
-| `PATCH` | `/admin/budgets/update/:id` | `order:update` | ADMIN | Atualizar orçamento |
-| `DELETE` | `/admin/budgets/delete/:id` | `order:delete` | ADMIN | Excluir orçamento |
+| `POST` | `/v1/admin/budgets/create` | `order:create` | ADMIN | Criar orçamento |
+| `GET` | `/v1/admin/budgets/all` | `order:read` | ADMIN, USER | Listar orçamentos (paginado) |
+| `GET` | `/v1/admin/budgets/:id` | `order:read` | ADMIN, USER | Buscar orçamento por ID |
+| `PATCH` | `/v1/admin/budgets/update/:id` | `order:update` | ADMIN | Atualizar orçamento |
+| `DELETE` | `/v1/admin/budgets/delete/:id` | `order:delete` | ADMIN | Excluir orçamento |
 
-### Clientes (`/admin/customers`) — tag: `Clientes`
-
-| Método | Rota | Permissão | Papéis | Descrição |
-|--------|------|-----------|--------|-----------|
-| `POST` | `/admin/customers/create` | `customer:create` | ADMIN | Criar cliente |
-| `GET` | `/admin/customers/all` | `customer:read` | ADMIN, USER | Listar clientes (paginado) |
-| `GET` | `/admin/customers/:id` | `customer:read` | ADMIN, USER | Buscar cliente por ID |
-| `PATCH` | `/admin/customers/update/:id` | `customer:update` | ADMIN | Atualizar cliente |
-| `DELETE` | `/admin/customers/delete/:id` | `customer:update` | ADMIN | Excluir cliente |
-
-### Equipe (`/admin/team`) — tag: `Equipe`
+### Clientes (`/v1/admin/customers`) — tag: `Clientes`
 
 | Método | Rota | Permissão | Papéis | Descrição |
 |--------|------|-----------|--------|-----------|
-| `POST` | `/admin/team/create` | `team:create` | ADMIN | Criar membro da equipe |
-| `GET` | `/admin/team/all` | `team:read` | ADMIN, USER | Listar equipe (paginado) |
-| `GET` | `/admin/team/:id` | `team:read` | ADMIN, USER | Buscar membro por ID |
-| `PATCH` | `/admin/team/update/:id` | `team:update` | ADMIN | Atualizar membro |
-| `DELETE` | `/admin/team/delete/:id` | — | ADMIN | Excluir membro |
+| `POST` | `/v1/admin/customers/create` | `customer:create` | ADMIN | Criar cliente |
+| `GET` | `/v1/admin/customers/all` | `customer:read` | ADMIN, USER | Listar clientes (paginado) |
+| `GET` | `/v1/admin/customers/:id` | `customer:read` | ADMIN, USER | Buscar cliente por ID |
+| `PATCH` | `/v1/admin/customers/update/:id` | `customer:update` | ADMIN | Atualizar cliente |
+| `DELETE` | `/v1/admin/customers/delete/:id` | `customer:update` | ADMIN | Excluir cliente |
 
-### Configurações (`/admin/settings`) — tag: `Configurações`
-
-| Método | Rota | Permissão | Papéis | Descrição |
-|--------|------|-----------|--------|-----------|
-| `POST` | `/admin/settings` | `settings:update`, `settings:create` | ADMIN | Criar ou atualizar configurações da empresa |
-| `GET` | `/admin/settings/me` | `settings:read` | ADMIN, USER | Obter configurações da empresa do usuário logado |
-
-### Mensagens (`/admin/send`) — tag: `Mensagens`
+### Equipe (`/v1/admin/team`) — tag: `Equipe`
 
 | Método | Rota | Permissão | Papéis | Descrição |
 |--------|------|-----------|--------|-----------|
-| `POST` | `/admin/send/message` | `order:create` | ADMIN | Gerar PDF e enviar orçamento via WhatsApp |
+| `POST` | `/v1/admin/team/create` | `team:create` | ADMIN | Criar membro da equipe |
+| `GET` | `/v1/admin/team/all` | `team:read` | ADMIN, USER | Listar equipe (paginado) |
+| `GET` | `/v1/admin/team/:id` | `team:read` | ADMIN, USER | Buscar membro por ID |
+| `PATCH` | `/v1/admin/team/update/:id` | `team:update` | ADMIN | Atualizar membro |
+| `DELETE` | `/v1/admin/team/delete/:id` | — | ADMIN | Excluir membro |
 
-### WhatsApp (`/instance`) — tag: `WhatsApp`
+### Configurações (`/v1/admin/settings`) — tag: `Configurações`
+
+| Método | Rota | Permissão | Papéis | Descrição |
+|--------|------|-----------|--------|-----------|
+| `POST` | `/v1/admin/settings` | `settings:update`, `settings:create` | ADMIN | Criar ou atualizar configurações da empresa |
+| `GET` | `/v1/admin/settings/me` | `settings:read` | ADMIN, USER | Obter configurações da empresa do usuário logado |
+
+### Mensagens (`/v1/admin/send`) — tag: `Mensagens`
+
+| Método | Rota | Permissão | Papéis | Descrição |
+|--------|------|-----------|--------|-----------|
+| `POST` | `/v1/admin/send/message` | `order:create` | ADMIN | Gerar PDF e enviar orçamento via WhatsApp |
+
+### WhatsApp (`/v1/instance`) — tag: `WhatsApp`
 
 | Método | Rota | Descrição | Autenticação |
 |--------|------|-----------|-------------|
-| `POST` | `/instance/create/connection` | Criar instância e conectar WhatsApp | Pública |
-| `GET` | `/instance/connection/:id/qrcode` | Obter QR Code para escanear | Pública |
+| `POST` | `/v1/instance/create/connection` | Criar instância e conectar WhatsApp | Pública |
+| `GET` | `/v1/instance/connection/:id/qrcode` | Obter QR Code para escanear | Pública |
 
-### WhatsApp — Mídia (`/message`) — tag: `WhatsApp`
+### WhatsApp — Mídia (`/v1/message`) — tag: `WhatsApp`
 
 | Método | Rota | Permissão | Descrição |
 |--------|------|-----------|-----------|
-| `POST` | `/message/sendMedia/:instanceName` | `settings:create` | Enviar mídia via WhatsApp para instância |
+| `POST` | `/v1/message/sendMedia/:instanceName` | `settings:create` | Enviar mídia via WhatsApp para instância |
 
-### Webhook (`/webhook`) — tag: `Webhook`
+### Webhook (`/v1/webhook`) — tag: `Webhook`
 
 | Método | Rota | Segurança | Descrição |
 |--------|------|-----------|-----------|
-| `POST` | `/webhook/message/connection-update` | `WebhookGuard` (API Key) | Receber eventos de conexão do WhatsApp |
+| `POST` | `/v1/webhook/message/connection-update` | `WebhookGuard` (API Key) | Receber eventos de conexão do WhatsApp |
 
 ---
 
@@ -239,7 +241,7 @@ JWT_REFRESH_EXPIRES_IN=15d
 EVO_API_KEY=sua_chave_evolution
 EVO_BASE_URL=http://localhost:8080
 INSTANCE_NAME=atendimento-01
-WEBHOOK_URL=http://localhost:3003/webhook/message/connection-update
+WEBHOOK_URL=http://localhost:3003/v1/webhook/message/connection-update
 ```
 
 ### Infraestrutura (Docker)
@@ -291,7 +293,7 @@ npm run lint
 npm run format
 ```
 
-A API estará disponível em `http://localhost:3003`.
+A API estará disponível em `http://localhost:3003/v1`.
 
 Documentação Swagger: `http://localhost:3003/api/docs`.
 

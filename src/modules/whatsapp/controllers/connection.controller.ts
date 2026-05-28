@@ -2,18 +2,25 @@ import {
   Controller,
   Post,
   Body,
+  UseGuards,
 } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiBody, ApiResponse } from '@nestjs/swagger';
 import { CreateConnectionUseCase } from '../usecase/create-connection-instance.usecase';
+import { AdminTokenGuard } from '../../../guards/admin-token.guard';
+import { UserRole } from '../../../../decorators/types';
+import { RequirePermissions, Roles } from '../../../../decorators';
 
 @ApiTags('WhatsApp')
 @Controller('instance')
+@UseGuards(AdminTokenGuard)
 export class ConnectionWhatsAppController {
   constructor(
     private readonly connectionService: CreateConnectionUseCase,
   ) {}
 
   @Post('create/connection')
+    @Roles(UserRole.ADMIN)
+    @RequirePermissions('settings:create')
   @ApiOperation({
     summary: 'Criar conexão WhatsApp',
     description: 'Inicia uma nova conexão com o WhatsApp. Cria uma instância para gerar o QR Code de conexão.',

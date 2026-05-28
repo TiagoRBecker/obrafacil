@@ -21,8 +21,10 @@ API RESTful para gestão de orçamentos de serviços (elétrica, hidráulica, re
 - **Swagger** — Documentação interativa disponível em `/api/docs`
 - **Filtro Global de Exceções** — Tratamento padronizado de erros do Prisma (unique constraint, not found, FK violation)
 
+### Implementado (Infra)
+- **Testes de Integração** — 36 testes para autenticação, clientes e orçamentos usando Jest + supertest com mocks em memória
+
 ### Pendentes
-- [ ] Testes unitários e E2E completos para todos os módulos
 - [ ] CI/CD com GitHub Actions (lint + test + build)
 - [ ] Endpoint de dashboard com métricas
 - [ ] Upload de logotipo para configurações da empresa
@@ -285,8 +287,7 @@ npm run build
 npm start
 
 # Testes
-npm run test          # Testes unitários
-npm run test:e2e      # Testes E2E
+npm test              # Testes de integração (36 testes)
 
 # Lint e Formatação
 npm run lint

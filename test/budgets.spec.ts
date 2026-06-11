@@ -42,21 +42,39 @@ describe('Módulo de Orçamentos', () => {
         name: 'Admin Test',
         email: 'admin@test.com',
         role: 'admin',
-        password: '',
-        permissions: [
-          'order:create', 'order:read', 'order:update', 'order:delete',
-          'customer:create', 'customer:read', 'customer:update', 'customer:delete',
-          'team:create', 'team:read', 'team:update',
-          'settings:create', 'settings:read', 'settings:update',
-        ],
+        passwordHash: '',
+        permission: [
+  { permission: { name: 'order:create' } },
+  { permission: { name: 'order:read' } },
+  { permission: { name: 'order:update' } },
+  { permission: { name: 'order:delete' } },
+
+  { permission: { name: 'customer:create' } },
+  { permission: { name: 'customer:read' } },
+  { permission: { name: 'customer:update' } },
+  { permission: { name: 'customer:delete' } },
+
+  { permission: { name: 'team:create' } },
+  { permission: { name: 'team:read' } },
+  { permission: { name: 'team:update' } },
+
+  { permission: { name: 'settings:create' } },
+  { permission: { name: 'settings:read' } },
+  { permission: { name: 'settings:update' } },
+],
       },
       'user@test.com': {
         id: 'user-id',
         name: 'User Test',
         email: 'user@test.com',
         role: 'user',
-        password: '',
-        permissions: ['order:read', 'customer:read', 'team:read', 'settings:read'],
+        passwordHash: '',
+      permission: [
+  { permission: { name: 'order:read' } },
+  { permission: { name: 'customer:read' } },
+  { permission: { name: 'team:read' } },
+  { permission: { name: 'settings:read' } },
+],
       },
     });
 

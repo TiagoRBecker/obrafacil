@@ -36,7 +36,7 @@ interface MessagesUpsertData {
   messageType: string;
   status: string;
 }
- 
+
 interface QrCodeUpdatedData {
   qrcode: { base64: string; code: string };
 }
@@ -45,27 +45,30 @@ export class EventDispatcherService {
   private readonly logger = new Logger(EventDispatcherService.name);
 
   constructor(
-    private readonly UpdateStatusConnectionUseCase:UpdateStatusConnectionUseCase
+    private readonly UpdateStatusConnectionUseCase: UpdateStatusConnectionUseCase,
   ) {}
 
   async execute(payload): Promise<void> {
 
-    
+
     switch (payload.event) {
       case 'connection.update':
-        await this.UpdateStatusConnectionUseCase.execute(payload.data as ConnectionUpdateData, payload.instance)
-      
+        await this.UpdateStatusConnectionUseCase.execute(
+          payload.data as ConnectionUpdateData,
+          payload.instance,
+        );
+
         break;
 
       case 'qrcode.updated':
-   
-       await this.UpdateStatusConnectionUseCase.execute(payload.data as QrCodeUpdatedData, payload.instance)
-        break;
-
-      case 'messages.upsert':
+        await this.UpdateStatusConnectionUseCase.execute(
+          payload.data as QrCodeUpdatedData,
+          payload.instance,
+        );
         break;
 
       case 'messages.update':
+        console.log(payload, `atualização de mensagem  update `);
         break;
 
       default:

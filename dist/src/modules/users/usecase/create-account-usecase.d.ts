@@ -12,7 +12,6 @@ export declare class CreateAccountUseCase {
             name: string;
             email: string;
             role: string;
-            permission: string[];
         };
     }>;
 }

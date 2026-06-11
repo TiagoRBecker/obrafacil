@@ -26,9 +26,6 @@ class UserEntity {
     get passwordHash() {
         return this.props.passwordHash;
     }
-    get permission() {
-        return this.props.permission;
-    }
     static toDto(props) {
         return new UserEntity({ ...props, id: props.id });
     }

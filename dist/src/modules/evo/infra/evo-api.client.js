@@ -70,7 +70,7 @@ let EvoApiClient = EvoApiClient_1 = class EvoApiClient {
                     headers: {
                         'x-webhook-secret': this.configService.get('evo.apiKey'),
                     },
-                    events: ['QRCODE_UPDATED', 'CONNECTION_UPDATE', 'MESSAGES_UPSERT'],
+                    events: ['QRCODE_UPDATED', 'CONNECTION_UPDATE', 'MESSAGES_UPSERT', 'MESSAGES_UPDATE'],
                 },
             }),
         });
@@ -115,7 +115,7 @@ let EvoApiClient = EvoApiClient_1 = class EvoApiClient {
         this.logger.log(`Mensagem enviada com sucesso para: ${to}`);
         return data;
     }
-    async sendMedia(to, mediaBase64, fileName, caption) {
+    async sendMedia(to, mediaBase64, fileName, caption, instanceName) {
         this.logger.log(`Enviando mídia para: ${to} - arquivo: ${fileName}`);
         const payload = {
             number: to,
@@ -125,7 +125,7 @@ let EvoApiClient = EvoApiClient_1 = class EvoApiClient {
             media: mediaBase64,
             fileName: fileName,
         };
-        const res = await fetch(`${this.baseUrl}/message/sendMedia/${this.instanceName}`, {
+        const res = await fetch(`${this.baseUrl}/message/sendMedia/${instanceName}`, {
             method: 'POST',
             headers: this.headers,
             body: JSON.stringify(payload),

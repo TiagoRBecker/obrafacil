@@ -21,6 +21,7 @@ const whatsapp_repo_interface_1 = require("./repo/whatsapp-repo-interface");
 const whatsapp_repo_1 = require("./repo/whatsapp-repo");
 const prisma_1 = require("../../db/prisma");
 const findByConnection_usecase_1 = require("./usecase/findByConnection-usecase");
+const send_message_usecase_1 = require("./usecase/send-message.usecase");
 let WhatsAppModule = class WhatsAppModule {
 };
 exports.WhatsAppModule = WhatsAppModule;
@@ -36,6 +37,7 @@ exports.WhatsAppModule = WhatsAppModule = __decorate([
             update_status_connection_usecase_1.UpdateStatusConnectionUseCase,
             findByConnection_usecase_1.GetConnectionUseCase,
             webhook_guard_1.WebhookGuard,
+            send_message_usecase_1.SendMessageUseCase,
             {
                 provide: whatsapp_repo_interface_1.WhatsAppRepositoryInterface,
                 useClass: whatsapp_repo_1.WhatsAppRepo,

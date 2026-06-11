@@ -9,6 +9,7 @@ import { FindSettingsByIdUseCase } from './usecase/find-settings-by-id.usecase';
 import { SettingsRepo } from './repo/settings-repo';
 import { PrismaService } from '../../db/prisma';
 import { UserModule } from '../users/user.module';
+import { CreatetSettingsUseCase } from './usecase/create-settings-usecase';
 
 @Module({
   controllers: [...SettingsController],
@@ -18,11 +19,13 @@ import { UserModule } from '../users/user.module';
     FindSettingsByIdUseCase,
     AdminTokenGuard,
     MockSettingsRepository,
+    CreatetSettingsUseCase,
     PrismaService,
     {
       provide: SettingsRepositoryInterface,
       useClass: SettingsRepo,
     },
   ],
+  exports:[FindSettingsByIdUseCase]
 })
 export class SettingsModule {}

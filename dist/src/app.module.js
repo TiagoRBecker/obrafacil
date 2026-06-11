@@ -22,7 +22,7 @@ const team_module_1 = require("./modules/team/team.module");
 const prisma_exception_filter_1 = require("./filters/prisma-exception.filter");
 const whatsapp_module_1 = require("./modules/whatsapp/whatsapp.module");
 const evo_module_1 = require("./modules/evo/evo.module");
-const message_module_1 = require("./modules/message/message.module");
+const metrics_module_1 = require("./modules/metrics/metrics.module");
 const user_module_1 = require("./modules/users/user.module");
 const shared_module_1 = require("./modules/Shared/shared.module");
 let AppModule = class AppModule {
@@ -52,7 +52,7 @@ exports.AppModule = AppModule = __decorate([
             security_module_1.SecurityModule,
             whatsapp_module_1.WhatsAppModule,
             evo_module_1.EvoModule,
-            message_module_1.MessageModule,
+            metrics_module_1.MetricsModule,
             user_module_1.UserModule,
             shared_module_1.SharedModule
         ],

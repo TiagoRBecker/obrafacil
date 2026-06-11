@@ -57,6 +57,17 @@ let WhatsAppRepo = class WhatsAppRepo extends whatsapp_repo_interface_1.WhatsApp
             qrCode: updated.qrCode,
         });
     }
+    async findByFirstSession() {
+        const session = await this.prisma.whatsAppSession.findFirst({});
+        if (!session)
+            return null;
+        return whatsapp_session_entity_1.WhatsAppSession.create({
+            instance: session.instance,
+            status: session.status,
+            id: session.id,
+            qrCode: session.qrCode,
+        });
+    }
 };
 exports.WhatsAppRepo = WhatsAppRepo;
 exports.WhatsAppRepo = WhatsAppRepo = __decorate([

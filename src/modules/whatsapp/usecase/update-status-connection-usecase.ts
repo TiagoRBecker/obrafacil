@@ -12,6 +12,7 @@ export class UpdateStatusConnectionUseCase {
     payload: QrCodeUpdatedData | ConnectionUpdateData,
     instanceName: string,
   ) {
+    
     const session = await this.whatsappRepo.findBySession(instanceName);
     if (!session?.props.instance) {
       this.logger.error(`Session não encontrada para atualizaçao `);

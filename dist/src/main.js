@@ -37,7 +37,7 @@ async function bootstrap() {
         .addTag('Webhook', 'Recebimento de eventos do WhatsApp')
         .build();
     const document = swagger_1.SwaggerModule.createDocument(app, swaggerConfig);
-    swagger_1.SwaggerModule.setup('api/docs', app, document, {
+    swagger_1.SwaggerModule.setup('v1/api/docs', app, document, {
         customSiteTitle: 'API de Orçamentos - Documentação',
         customfavIcon: 'https://nestjs.com/img/logo_text.svg',
         customJs: [
@@ -51,8 +51,8 @@ async function bootstrap() {
     await app.listen(3003)
         .then(() => {
         const port = 3003;
-        common_1.Logger.log(`Servidor rodando em http://localhost:${port}`);
-        common_1.Logger.log(`Documentação Swagger em http://localhost:${port}/api/docs`);
+        common_1.Logger.log(`Servidor rodando em http://localhost:${port}/v1/`);
+        common_1.Logger.log(`Documentação Swagger em http://localhost:${port}/v1/api/docs`);
     })
         .catch((e) => common_1.Logger.error(e));
 }

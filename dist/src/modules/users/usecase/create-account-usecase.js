@@ -46,7 +46,6 @@ let CreateAccountUseCase = CreateAccountUseCase_1 = class CreateAccountUseCase {
                 name: createdUser.name,
                 email: createdUser.email,
                 role: createdUser.role,
-                permission: createdUser.permission,
             },
         };
     }

@@ -8,10 +8,11 @@ import { SignUpUseCase } from './usecase/sign-up.usecase';
 import { PrismaService } from '../../db/prisma';
 import { UserModule } from '../users/user.module';
 import { AuthController } from './controllers';
+import { SettingsModule } from '../settings/settings.module';
 
 @Global()
 @Module({
-  imports: [SecurityModule,UserModule],
+  imports: [SecurityModule,UserModule,SettingsModule],
   controllers: [...AuthController],
   providers: [
     PrismaService,

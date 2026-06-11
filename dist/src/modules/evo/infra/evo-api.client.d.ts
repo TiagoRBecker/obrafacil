@@ -13,5 +13,5 @@ export declare class EvoApiClient implements ConnectionService, SendMessageServi
     create(instanceName: string): Promise<any>;
     getInstance(): Promise<any>;
     sendMessage(to: string, message: string): Promise<any>;
-    sendMedia(to: string, mediaBase64: string, fileName: string, caption?: string): Promise<any>;
+    sendMedia(to: string, mediaBase64: string, fileName: string, caption?: string, instanceName?: string): Promise<any>;
 }

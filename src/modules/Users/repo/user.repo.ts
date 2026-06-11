@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../../../db/prisma';
 import { UserEntity } from '../entity/user.entity';
 import { UserRepositoryInterface } from './user.repository.interface';
-import { MapperToPrisma } from './mapper.user.repo';
+import { MapperToPrisma, UserWithContextDto } from './mapper.user.repo';
 
 @Injectable()
 export class UserRepo extends UserRepositoryInterface {
@@ -28,13 +28,15 @@ export class UserRepo extends UserRepositoryInterface {
             },
           },
         },
+       
       },
     });
 
     return MapperToPrisma.toDto(created);
   }
 
-  async findByEmail(email: string): Promise<UserEntity | null> {
+  async findByEmail(email: string): Promise<UserWithContextDto | null> {
+    
     const user = await this.prisma.account.findUnique({
       where: { email },
       include: {
@@ -45,14 +47,15 @@ export class UserRepo extends UserRepositoryInterface {
             },
           },
         },
+      
       },
     });
 
     if (!user) return null;
-    return MapperToPrisma.toDto(user);
+    return MapperToPrisma.toDtoContext(user);
   }
 
-  async findById(id: string): Promise<UserEntity | null> {
+  async findById(id: string): Promise<UserWithContextDto | null> {
     const user = await this.prisma.account.findUnique({
       where: { id },
       include: {
@@ -63,10 +66,11 @@ export class UserRepo extends UserRepositoryInterface {
             },
           },
         },
+     
       },
     });
 
     if (!user) return null;
-    return MapperToPrisma.toDto(user);
+    return MapperToPrisma.toDtoContext(user);
   }
 }

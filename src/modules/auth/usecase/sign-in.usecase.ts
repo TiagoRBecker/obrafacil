@@ -4,6 +4,7 @@ import { GenerateRefreshTokenUseCase } from '../../security/usecase/generate-ref
 import { FindUserByEmailUsecase } from '../../users/usecase/find-user-id-usecase';
 import { SignInDto } from '../../users/dto/sign-in.dto';
 import { AuthResponseDto } from '../../users/dto/auth-response.dto';
+import { FindSettingsByIdUseCase } from '../../settings/usecase/find-settings-by-id.usecase';
 
 @Injectable()
 export class SignInUseCase {
@@ -11,13 +12,21 @@ export class SignInUseCase {
 
   constructor(
     private readonly findByUser: FindUserByEmailUsecase,
+    private readonly findBySettings:FindSettingsByIdUseCase ,
     private readonly generateAccessTokenUseCase: GenerateAccessTokenUseCase,
     private readonly generateRefreshTokenUseCase: GenerateRefreshTokenUseCase,
   ) {}
 
   async execute(input: SignInDto): Promise<AuthResponseDto> {
+
+    console.log("Chamando o loin aqui")
     this.logger.log(`Tentativa de login para email: ${input.email}`);
-    const { user } = await this.findByUser.execute(input);
+
+    const  [{user},]= await Promise.all([
+     this.findByUser.execute(input),
+   
+    ])
+  
     
 
     const { accessToken } = this.generateAccessTokenUseCase.execute({
@@ -41,9 +50,7 @@ export class SignInUseCase {
         name: user.name,
         email: user.email,
         role: user.role,
-        companyName: user?.name,
-        specialty: user?.specialty,
-        logoUrl: user?.logoUrl,
+      
       },
     };
   }

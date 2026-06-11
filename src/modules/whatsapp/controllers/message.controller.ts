@@ -1,37 +1,32 @@
 import {
+  Body,
   Controller,
   Post,
-  Body,
-  Param,
+  Req,
   UseGuards,
 } from '@nestjs/common';
-import { ApiTags, ApiOperation, ApiParam, ApiBody, ApiResponse, ApiBearerAuth } from '@nestjs/swagger';
+import { Request } from 'express';
+import { ApiTags, ApiOperation, ApiBody, ApiResponse, ApiBearerAuth } from '@nestjs/swagger';
 import { AdminTokenGuard } from '../../../guards/admin-token.guard';
 import { RequirePermissions } from '../../../../decorators';
+import { SendMessageUseCase } from '../usecase/send-message.usecase';
 
-@ApiTags('WhatsApp')
-@Controller('message')
+@ApiTags('Mensagens')
+@Controller('WhatsApp')
 @UseGuards(AdminTokenGuard)
-export class SendMediaController {
-  @RequirePermissions('settings:create')
-  @Post('sendMedia/:instanceName')
+export class SendMessageController {
+  constructor(private readonly sendMessage: SendMessageUseCase) {}
+  @RequirePermissions('order:create')
+  @Post('send/message')
   @ApiBearerAuth('access-token')
   @ApiOperation({
-    summary: 'Enviar mídia via WhatsApp',
-    description: 'Envia uma mídia (imagem/documento) via WhatsApp para uma instância específica. Requer permissão `settings:create`.',
+    summary: 'Enviar orçamento via WhatsApp',
+    description: 'Envia um orçamento como mensagem via WhatsApp. Requer permissão `order:create`.',
   })
-  @ApiParam({ name: 'instanceName', description: 'Nome da instância WhatsApp', example: 'minha-conexao' })
-  @ApiBody({ schema: { type: 'object', properties: { mediaUrl: { type: 'string', description: 'URL pública da mídia a ser enviada' }, caption: { type: 'string', description: 'Legenda da mídia (opcional)' } } } })
-  @ApiResponse({ status: 201, description: 'Mídia enviada com sucesso.' })
-  sendMedia(
-    @Param('instanceName') instanceName: string,
-    @Body() body: { mediaUrl: string; caption?: string },
-  ) {
-    return {
-      message: 'Enviar orçamento',
-      instanceName,
-      mediaUrl: body.mediaUrl,
-      caption: body.caption,
-    };
+  @ApiBody({ schema: { type: 'object', properties: { id: { type: 'string', description: 'ID do orçamento a ser enviado' } } } })
+  @ApiResponse({ status: 201, description: 'Mensagem enviada com sucesso.' })
+  @ApiResponse({ status: 401, description: 'Token de acesso ausente ou inválido.' })
+  create(@Body() body: { id: string }, @Req() request: Request) {
+    return this.sendMessage.execute(body.id, request.user as string);
   }
 }

@@ -49,7 +49,7 @@ export class CreateAccountUseCase {
         name: createdUser.name,
         email: createdUser.email,
         role: createdUser.role,
-        permission:createdUser.permission,
+        
        
       
       },

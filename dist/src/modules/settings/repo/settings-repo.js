@@ -19,10 +19,8 @@ let SettingsRepo = class SettingsRepo extends settings_repository_1.SettingsRepo
         super();
         this.prisma = prisma;
     }
-    async findById(id) {
-        const data = await this.prisma.settings.findUnique({
-            where: { id },
-        });
+    async findByfirst() {
+        const data = await this.prisma.settings.findFirst({});
         if (!data)
             return null;
         return settings_entity_1.SettingsEntity.create({
@@ -51,19 +49,9 @@ let SettingsRepo = class SettingsRepo extends settings_repository_1.SettingsRepo
             logoUrl: data.logoUrl ?? '',
         });
     }
-    async create(settings, id) {
-        const data = await this.prisma.settings.upsert({
-            where: {
-                email: settings.email,
-            },
-            update: {
-                businessName: settings.name,
-                phone: settings.phone,
-                specialty: settings.specialty,
-                address: settings.address,
-                logoUrl: settings.logoUrl,
-            },
-            create: {
+    async create(settings) {
+        const data = await this.prisma.settings.create({
+            data: {
                 email: settings.email,
                 businessName: settings.name,
                 phone: settings.phone,
@@ -74,11 +62,6 @@ let SettingsRepo = class SettingsRepo extends settings_repository_1.SettingsRepo
                 proposalValidityDays: 7,
                 proposalTerms: '',
                 warrantyTerms: '',
-                accounts: {
-                    connect: {
-                        id
-                    }
-                }
             },
         });
         return settings_entity_1.SettingsEntity.create({

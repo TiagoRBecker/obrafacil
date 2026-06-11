@@ -10,8 +10,8 @@ import { SecurityModule } from '../src/modules/security/security.module';
 import { UserModule } from '../src/modules/users/user.module';
 import { UserRepositoryInterface } from '../src/modules/users/repo/user.repository.interface';
 import { SettingsRepositoryInterface } from '../src/modules/settings/repo/settings.repository';
-import { MockSettingsRepository } from '../src/modules/settings/repo/mock-settings.repository';
-import { MockUserRepository } from './helpers/mock-user.repository';
+import { InMemorySettingsRepository } from '../src/modules/settings/repo/in-memory-settings.repository';
+import { InMemoryUserRepository } from '../src/modules/users/repo/in-memory-user.repository';
 import { generateAdminToken } from './helpers/auth.helper';
 
 describe('Módulo de Autenticação', () => {
@@ -24,12 +24,16 @@ describe('Módulo de Autenticação', () => {
   }> {
     const hashedPassword = await bcrypt.hash('123456', 10);
 
-    class MockUserRepoWithHash extends MockUserRepository {
-      constructor() {
-        super();
-        this.updatePasswordHash('admin@test.com', hashedPassword);
-      }
-    }
+    const userRepo = new InMemoryUserRepository({
+      'admin@test.com': {
+        id: 'admin-id',
+        name: 'Admin Test',
+        email: 'admin@test.com',
+        role: 'admin',
+        passwordHash: hashedPassword,
+       
+      },
+    });
 
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [
@@ -57,9 +61,9 @@ describe('Módulo de Autenticação', () => {
       ],
     })
       .overrideProvider(UserRepositoryInterface)
-      .useClass(MockUserRepoWithHash)
+      .useValue(userRepo)
       .overrideProvider(SettingsRepositoryInterface)
-      .useClass(MockSettingsRepository)
+      .useClass(InMemorySettingsRepository)
       .compile();
 
     const app = moduleFixture.createNestApplication();

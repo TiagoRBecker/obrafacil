@@ -8,7 +8,7 @@ const webhook_controller_1 = require("./webhook.controller");
 exports.WhatsAppController = [
     connection_controller_1.ConnectionWhatsAppController,
     find_connectio_controller_1.GetConnectionWhatsAppController,
-    message_controller_1.SendMediaController,
+    message_controller_1.SendMessageController,
     webhook_controller_1.WebhookController,
 ];
 //# sourceMappingURL=index.js.map

@@ -4,7 +4,6 @@ export interface UserEntityProps {
   email: string;
   role: string;
   passwordHash: string;
-  permission?: string[];
 
 }
 
@@ -37,9 +36,7 @@ export class UserEntity {
   get passwordHash(): string {
     return this.props.passwordHash;
   }
-  get permission(): string[] {
-    return this.props.permission as string[];
-  }
+ 
   
 
   static toDto(props: UserEntityProps): UserEntity {

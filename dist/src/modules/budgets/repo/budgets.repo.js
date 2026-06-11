@@ -196,7 +196,9 @@ let BudgetRepo = class BudgetRepo extends budget_repository_interface_1.BudgetRe
     }
     async findMessageTracking(messageId) {
         return this.prisma.messageTracking.findUnique({
-            where: { messageId },
+            where: {
+                orderId: messageId
+            },
         });
     }
     async delete(id) {

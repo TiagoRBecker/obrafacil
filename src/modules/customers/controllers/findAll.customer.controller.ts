@@ -29,7 +29,7 @@ export class FindAllCustomersController {
   @ApiResponse({ status: 200, description: 'Lista paginada de clientes retornada com sucesso.' })
   @ApiResponse({ status: 401, description: 'Token de acesso ausente ou inválido.' })
   findAll(@Query() query: PaginationParams): Promise<PaginatedCustomersResult> {
-  
+     console.log("Ok aqui chegou ")
     return this.findAllCustomersUseCase.execute(query.page, query.limit);
   }
 }

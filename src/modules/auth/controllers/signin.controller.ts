@@ -21,6 +21,7 @@ export class SignInController {
   @ApiResponse({ status: 201, description: 'Login realizado com sucesso. Retorna tokens de acesso e dados do usuário.', type: AuthResponseDto })
   @ApiResponse({ status: 401, description: 'Email ou senha inválidos.' })
   signIn(@Body() body: SignInDto): Promise<AuthResponseDto> {
+ 
     return this.signInUseCase.execute(body);
   }
 

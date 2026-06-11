@@ -60,7 +60,7 @@ export class EvoApiClient implements ConnectionService, SendMessageService {
           token: instanceName,
           integration: 'WHATSAPP-BAILEYS',
 
-          qrcode: false, // 👈 essencial
+          qrcode: false, //
 
           settings: {
             groupsIgnore: true,
@@ -75,14 +75,14 @@ export class EvoApiClient implements ConnectionService, SendMessageService {
 
             byEvents: false,
 
-            // 👉 QR já vem pronto em base64
+        
             base64: false,
 
             headers: {
               'x-webhook-secret': this.configService.get<string>('evo.apiKey') as string,
             },
 
-            events: ['QRCODE_UPDATED', 'CONNECTION_UPDATE', 'MESSAGES_UPSERT'],
+            events: ['QRCODE_UPDATED', 'CONNECTION_UPDATE', 'MESSAGES_UPSERT','MESSAGES_UPDATE'],
           },
         }),
       },
@@ -149,6 +149,7 @@ export class EvoApiClient implements ConnectionService, SendMessageService {
     mediaBase64: string,
     fileName: string,
     caption?: string,
+    instanceName?:string
   ): Promise<any> {
     this.logger.log(`Enviando mídia para: ${to} - arquivo: ${fileName}`);
     const payload = {
@@ -161,7 +162,7 @@ export class EvoApiClient implements ConnectionService, SendMessageService {
     };
 
     const res = await fetch(
-      `${this.baseUrl}/message/sendMedia/${this.instanceName}`,
+      `${this.baseUrl}/message/sendMedia/${instanceName}`,
       {
         method: 'POST',
         headers: this.headers,

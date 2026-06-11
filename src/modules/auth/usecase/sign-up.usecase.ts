@@ -23,7 +23,7 @@ export class SignUpUseCase {
         name: user.name,
         email: user.email,
         role: user.role,
-        permission: user.permission,
+       
       },
     };
   }

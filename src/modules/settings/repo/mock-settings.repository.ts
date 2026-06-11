@@ -29,8 +29,8 @@ export class MockSettingsRepository implements SettingsRepositoryInterface {
     return settings;
   }
 
-  async findById(id: string): Promise<SettingsEntity | null> {
-    return this.settings.get(id) ?? null;
+  async findByfirst(): Promise<SettingsEntity | null> {
+    return this.settings[0] ?? null;
   }
   async findByEmail(email: string): Promise<SettingsEntity | null> {
     return this.settings.get(email) ?? null;

@@ -11,43 +11,45 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
+var _a;
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.SendMediaController = void 0;
+exports.SendMessageController = void 0;
 const common_1 = require("@nestjs/common");
+const express_1 = require("express");
 const swagger_1 = require("@nestjs/swagger");
 const admin_token_guard_1 = require("../../../guards/admin-token.guard");
 const decorators_1 = require("../../../../decorators");
-let SendMediaController = class SendMediaController {
-    sendMedia(instanceName, body) {
-        return {
-            message: 'Enviar orçamento',
-            instanceName,
-            mediaUrl: body.mediaUrl,
-            caption: body.caption,
-        };
+const send_message_usecase_1 = require("../usecase/send-message.usecase");
+let SendMessageController = class SendMessageController {
+    constructor(sendMessage) {
+        this.sendMessage = sendMessage;
+    }
+    create(body, request) {
+        return this.sendMessage.execute(body.id, request.user);
     }
 };
-exports.SendMediaController = SendMediaController;
+exports.SendMessageController = SendMessageController;
 __decorate([
-    (0, decorators_1.RequirePermissions)('settings:create'),
-    (0, common_1.Post)('sendMedia/:instanceName'),
+    (0, decorators_1.RequirePermissions)('order:create'),
+    (0, common_1.Post)('send/message'),
     (0, swagger_1.ApiBearerAuth)('access-token'),
     (0, swagger_1.ApiOperation)({
-        summary: 'Enviar mídia via WhatsApp',
-        description: 'Envia uma mídia (imagem/documento) via WhatsApp para uma instância específica. Requer permissão `settings:create`.',
+        summary: 'Enviar orçamento via WhatsApp',
+        description: 'Envia um orçamento como mensagem via WhatsApp. Requer permissão `order:create`.',
     }),
-    (0, swagger_1.ApiParam)({ name: 'instanceName', description: 'Nome da instância WhatsApp', example: 'minha-conexao' }),
-    (0, swagger_1.ApiBody)({ schema: { type: 'object', properties: { mediaUrl: { type: 'string', description: 'URL pública da mídia a ser enviada' }, caption: { type: 'string', description: 'Legenda da mídia (opcional)' } } } }),
-    (0, swagger_1.ApiResponse)({ status: 201, description: 'Mídia enviada com sucesso.' }),
-    __param(0, (0, common_1.Param)('instanceName')),
-    __param(1, (0, common_1.Body)()),
+    (0, swagger_1.ApiBody)({ schema: { type: 'object', properties: { id: { type: 'string', description: 'ID do orçamento a ser enviado' } } } }),
+    (0, swagger_1.ApiResponse)({ status: 201, description: 'Mensagem enviada com sucesso.' }),
+    (0, swagger_1.ApiResponse)({ status: 401, description: 'Token de acesso ausente ou inválido.' }),
+    __param(0, (0, common_1.Body)()),
+    __param(1, (0, common_1.Req)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, Object]),
+    __metadata("design:paramtypes", [Object, typeof (_a = typeof express_1.Request !== "undefined" && express_1.Request) === "function" ? _a : Object]),
     __metadata("design:returntype", void 0)
-], SendMediaController.prototype, "sendMedia", null);
-exports.SendMediaController = SendMediaController = __decorate([
-    (0, swagger_1.ApiTags)('WhatsApp'),
-    (0, common_1.Controller)('message'),
-    (0, common_1.UseGuards)(admin_token_guard_1.AdminTokenGuard)
-], SendMediaController);
+], SendMessageController.prototype, "create", null);
+exports.SendMessageController = SendMessageController = __decorate([
+    (0, swagger_1.ApiTags)('Mensagens'),
+    (0, common_1.Controller)('WhatsApp'),
+    (0, common_1.UseGuards)(admin_token_guard_1.AdminTokenGuard),
+    __metadata("design:paramtypes", [send_message_usecase_1.SendMessageUseCase])
+], SendMessageController);
 //# sourceMappingURL=message.controller.js.map

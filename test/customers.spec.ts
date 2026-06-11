@@ -10,17 +10,19 @@ import { SecurityModule } from '../src/modules/security/security.module';
 import { AuthModule } from '../src/modules/auth/auth.module';
 import { SharedModule } from '../src/modules/Shared/shared.module';
 import { SettingsModule } from '../src/modules/settings/settings.module';
+import { CustomerModule } from '../src/modules/customers/customer.module';
 
 import { CustomerRepositoryInterface } from '../src/modules/customers/repo/customer-repository.interface';
 import { UserRepositoryInterface } from '../src/modules/users/repo/user.repository.interface';
 import { SettingsRepositoryInterface } from '../src/modules/settings/repo/settings.repository';
-import { MockSettingsRepository } from '../src/modules/settings/repo/mock-settings.repository';
-import { MockUserRepository } from './helpers/mock-user.repository';
-import { MockCustomerRepository } from './helpers/mock-customer.repository';
-import { MockBudgetRepository } from './helpers/mock-budget.repository';
 import { BudgetRepositoryInterface } from '../src/modules/budgets/repo/budget.repository.interface';
+import { InMemorySettingsRepository } from '../src/modules/settings/repo/in-memory-settings.repository';
+import { InMemoryUserRepository } from '../src/modules/users/repo/in-memory-user.repository';
+import { InMemoryCustomerRepository } from '../src/modules/customers/repo/in-memory-customer.repository';
+import { InMemoryBudgetRepository } from '../src/modules/budgets/repo/in-memory-budget.repository';
 import { generateAdminToken, generateUserToken } from './helpers/auth.helper';
 
+import { CustomerEntity } from '../src/modules/customers/entity/customer.entity';
 import { ServiceTypeEnum } from '../src/modules/customers/dto/create-customer.dto';
 
 describe('Módulo de Clientes', () => {
@@ -28,9 +30,59 @@ describe('Módulo de Clientes', () => {
   let jwtService: JwtService;
   let adminToken: string;
   let userToken: string;
-  let customerRepo: MockCustomerRepository;
+  let customerRepo: InMemoryCustomerRepository;
 
   beforeAll(async () => {
+    const userRepo = new InMemoryUserRepository({
+      'admin@test.com': {
+        id: 'admin-id',
+        name: 'Admin Test',
+        email: 'admin@test.com',
+        role: 'admin',
+        passwordHash: '',
+       permission: [
+  { permission: { name: 'order:create' } },
+  { permission: { name: 'order:read' } },
+  { permission: { name: 'order:update' } },
+  { permission: { name: 'order:delete' } },
+
+  { permission: { name: 'customer:create' } },
+  { permission: { name: 'customer:read' } },
+  { permission: { name: 'customer:update' } },
+  { permission: { name: 'customer:delete' } },
+
+  { permission: { name: 'team:create' } },
+  { permission: { name: 'team:read' } },
+  { permission: { name: 'team:update' } },
+
+  { permission: { name: 'settings:create' } },
+  { permission: { name: 'settings:read' } },
+  { permission: { name: 'settings:update' } },
+],
+      },
+      'user@test.com': {
+        id: 'user-id',
+        name: 'User Test',
+        email: 'user@test.com',
+        role: 'user',
+        passwordHash: '',
+       permission: [
+  { permission: { name: 'order:read' } },
+  { permission: { name: 'customer:read' } },
+  { permission: { name: 'team:read' } },
+  { permission: { name: 'settings:read' } },
+],
+      },
+    });
+
+    const customerRepoImpl = new InMemoryCustomerRepository();
+    for (const c of [
+      { id: 'customer-1', name: 'Roberto Almeida', phone: '(11) 99999-9999', address: 'Rua das Flores, 123 - Sao Paulo', service: 'Nome do servico', city: 'Cidade' },
+      { id: 'customer-2', name: 'Fernanda Lima', phone: '(11) 98888-7777', address: 'Av. Central, 456 - Campinas', service: 'Nome do servico', city: 'Cidade' },
+    ]) {
+      await customerRepoImpl.create(CustomerEntity.toDTO(c));
+    }
+
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [
         ConfigModule.forRoot({
@@ -60,13 +112,13 @@ describe('Módulo de Clientes', () => {
       ],
     })
       .overrideProvider(UserRepositoryInterface)
-      .useClass(MockUserRepository)
+      .useValue(userRepo)
       .overrideProvider(SettingsRepositoryInterface)
-      .useClass(MockSettingsRepository)
+      .useClass(InMemorySettingsRepository)
       .overrideProvider(CustomerRepositoryInterface)
-      .useClass(MockCustomerRepository)
+      .useValue(customerRepoImpl)
       .overrideProvider(BudgetRepositoryInterface)
-      .useClass(MockBudgetRepository)
+      .useClass(InMemoryBudgetRepository)
       .compile();
 
     app = moduleFixture.createNestApplication();
@@ -76,7 +128,7 @@ describe('Módulo de Clientes', () => {
     await app.init();
 
     jwtService = moduleFixture.get<JwtService>(JwtService);
-    customerRepo = moduleFixture.get<MockCustomerRepository>(CustomerRepositoryInterface);
+    customerRepo = moduleFixture.get<InMemoryCustomerRepository>(CustomerRepositoryInterface);
 
     adminToken = generateAdminToken(jwtService);
     userToken = generateUserToken(jwtService);

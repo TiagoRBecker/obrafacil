@@ -7,18 +7,23 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.InMemoryCustomerRepository = void 0;
+const node_crypto_1 = require("node:crypto");
 const common_1 = require("@nestjs/common");
+const customer_entity_1 = require("../entity/customer.entity");
 let InMemoryCustomerRepository = class InMemoryCustomerRepository {
     constructor() {
         this.customers = new Map();
     }
     async create(customer) {
-        this.customers.set(customer.id, customer);
-        return customer;
+        const id = customer.id || (0, node_crypto_1.randomUUID)();
+        const entity = customer_entity_1.CustomerEntity.toDTO({ ...customer.toJSON(), id });
+        this.customers.set(id, entity);
+        return entity;
     }
     async update(id, customer) {
-        this.customers.set(customer.id, customer);
-        return customer;
+        const entity = customer_entity_1.CustomerEntity.toDTO({ ...customer.toJSON(), id });
+        this.customers.set(id, entity);
+        return entity;
     }
     async findById(id) {
         return this.customers.get(id) ?? null;
@@ -34,7 +39,7 @@ let InMemoryCustomerRepository = class InMemoryCustomerRepository {
     async findAll(skip, take) {
         const values = [...this.customers.values()];
         return {
-            data: values.slice(skip, skip + take),
+            data: values.map((customer) => ({ customer, orders: [] })),
             total: values.length,
         };
     }

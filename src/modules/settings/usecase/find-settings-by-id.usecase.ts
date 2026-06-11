@@ -1,38 +1,40 @@
-import { Injectable, Logger, NotFoundException, UnauthorizedException } from '@nestjs/common';
+import {
+  Injectable,
+  Logger,
+  NotFoundException,
+  UnauthorizedException,
+} from '@nestjs/common';
 
 import { SettingsResponseDto } from '../dto/settings-response.dto';
 import { SettingsRepositoryInterface } from '../repo/settings.repository';
 import { SettingsMapper } from './settings.mapper';
-import { UserRepositoryInterface } from '../../users/repo/user.repository.interface';
 
 
 @Injectable()
 export class FindSettingsByIdUseCase {
   private readonly logger = new Logger(FindSettingsByIdUseCase.name);
 
-  constructor(private readonly settingsRepository: SettingsRepositoryInterface,private readonly userRepo:UserRepositoryInterface) {}
+  constructor(
+    private readonly settingsRepository: SettingsRepositoryInterface,
 
-  async execute(id: string): Promise<SettingsResponseDto> {
+  ) {}
+
+  async execute(): Promise<SettingsResponseDto> {
      
-    this.logger.log(`Buscando configurações para usuário - ID: ${id}`);
-    
-    const existingUser = await this.userRepo.findById(id)
-      
-    if(!existingUser) {
-      this.logger.error(`Usuário não encontrado ou não autorizado - ID: ${id}`);
-      throw new UnauthorizedException(`Nao autorizado ou nao encontrado`)
-    }
-    
-    const settings = await this.settingsRepository.findByEmail("contato@devsolutions.com");
+    this.logger.log(`Buscando configurações para usuário `);
+
+               
+
+    const settings = await this.settingsRepository.findByfirst();
 
     if (!settings) {
-      this.logger.error(`Configurações não encontradas - userId: ${id}`);
-      throw new NotFoundException('Settings not found.');
+      this.logger.error(`Configurações não encontradas - userId: }`);
+      throw new NotFoundException(`Nenhuma configuraçao encontra`)
     }
-   
-    this.logger.log(`Configurações encontradas com sucesso - userId: ${id}`);
+
+    this.logger.log(`Configurações encontradas com sucesso `);
     const data = SettingsMapper.toResponse(settings);
-  
-    return data
+
+    return data;
   }
 }

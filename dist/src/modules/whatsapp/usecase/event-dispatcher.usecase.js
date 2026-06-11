@@ -27,9 +27,8 @@ let EventDispatcherService = EventDispatcherService_1 = class EventDispatcherSer
             case 'qrcode.updated':
                 await this.UpdateStatusConnectionUseCase.execute(payload.data, payload.instance);
                 break;
-            case 'messages.upsert':
-                break;
             case 'messages.update':
+                console.log(payload, `atualização de mensagem  update `);
                 break;
             default:
                 this.logger.debug(`[${payload.instance}] Evento não tratado: ${payload.event}`);

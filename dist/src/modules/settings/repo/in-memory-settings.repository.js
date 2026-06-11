@@ -20,8 +20,9 @@ let InMemorySettingsRepository = class InMemorySettingsRepository {
         this.settings.set(settings.id, settings);
         return settings;
     }
-    async findById(id) {
-        return this.settings.get(id) ?? null;
+    async findByfirst() {
+        const first = this.settings.values().next();
+        return first.done ? null : first.value;
     }
     async findByEmail(email) {
         return this.settings.get(email) ?? null;

@@ -3,11 +3,13 @@ import { GenerateRefreshTokenUseCase } from '../../security/usecase/generate-ref
 import { FindUserByEmailUsecase } from '../../users/usecase/find-user-id-usecase';
 import { SignInDto } from '../../users/dto/sign-in.dto';
 import { AuthResponseDto } from '../../users/dto/auth-response.dto';
+import { FindSettingsByIdUseCase } from '../../settings/usecase/find-settings-by-id.usecase';
 export declare class SignInUseCase {
     private readonly findByUser;
+    private readonly findBySettings;
     private readonly generateAccessTokenUseCase;
     private readonly generateRefreshTokenUseCase;
     private readonly logger;
-    constructor(findByUser: FindUserByEmailUsecase, generateAccessTokenUseCase: GenerateAccessTokenUseCase, generateRefreshTokenUseCase: GenerateRefreshTokenUseCase);
+    constructor(findByUser: FindUserByEmailUsecase, findBySettings: FindSettingsByIdUseCase, generateAccessTokenUseCase: GenerateAccessTokenUseCase, generateRefreshTokenUseCase: GenerateRefreshTokenUseCase);
     execute(input: SignInDto): Promise<AuthResponseDto>;
 }

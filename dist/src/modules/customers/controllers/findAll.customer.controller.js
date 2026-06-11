@@ -25,6 +25,7 @@ let FindAllCustomersController = class FindAllCustomersController {
         this.findAllCustomersUseCase = findAllCustomersUseCase;
     }
     findAll(query) {
+        console.log("Ok aqui chegou ");
         return this.findAllCustomersUseCase.execute(query.page, query.limit);
     }
 };

@@ -7,24 +7,29 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.InMemoryBudgetRepository = void 0;
+const node_crypto_1 = require("node:crypto");
 const common_1 = require("@nestjs/common");
+const budget_entity_1 = require("../entity/budget.entity");
 let InMemoryBudgetRepository = class InMemoryBudgetRepository {
     constructor() {
         this.budgets = new Map();
     }
     async create(budget) {
-        this.budgets.set("", budget);
-        return budget;
+        const id = budget.id || (0, node_crypto_1.randomUUID)();
+        const entity = budget_entity_1.BudgetEntity.toDTO({ ...budget.toJSON(), id });
+        this.budgets.set(id, entity);
+        return entity;
     }
     async update(id, budget) {
-        this.budgets.set("", budget);
-        return budget;
+        const entity = budget_entity_1.BudgetEntity.toDTO({ ...budget.toJSON(), id });
+        this.budgets.set(id, entity);
+        return entity;
     }
     async findById(id) {
         return this.budgets.get(id) ?? null;
     }
     async findByCustomerAndStartDate(customerId, date) {
-        throw "not";
+        return null;
     }
     async findAll(skip, take) {
         const values = [...this.budgets.values()];

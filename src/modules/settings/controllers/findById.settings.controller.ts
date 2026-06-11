@@ -8,7 +8,8 @@ import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth } from '@nestjs/swagg
 import { AdminTokenGuard } from '../../../guards/admin-token.guard';
 import { SettingsResponseDto } from '../dto/settings-response.dto';
 import { FindSettingsByIdUseCase } from '../usecase/find-settings-by-id.usecase';
-import { RequirePermissions } from '../../../../decorators';
+import { RequirePermissions, Roles } from '../../../../decorators';
+import { UserRole } from '../../../../decorators/types';
 
 @ApiTags('Configurações')
 @Controller('admin/settings')
@@ -16,6 +17,7 @@ import { RequirePermissions } from '../../../../decorators';
 export class FindByIdSettingsController {
   constructor(private readonly findSettingsByIdUseCase: FindSettingsByIdUseCase) {}
 
+  @Roles(UserRole.ADMIN,UserRole.USER)
   @RequirePermissions('settings:read')
   @Get('/me')
   @ApiBearerAuth('access-token')
@@ -25,10 +27,10 @@ export class FindByIdSettingsController {
   })
   @ApiResponse({ status: 200, description: 'Configurações encontradas com sucesso.' })
   @ApiResponse({ status: 404, description: 'Configurações não encontradas para este usuário.' })
-  findById(@Req() req): Promise<SettingsResponseDto> {
+  findById(): Promise<SettingsResponseDto> {
   
-    const userId = req.user;
+    
    
-    return this.findSettingsByIdUseCase.execute(userId);
+    return this.findSettingsByIdUseCase.execute();
   }
 }

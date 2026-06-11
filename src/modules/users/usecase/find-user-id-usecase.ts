@@ -3,7 +3,6 @@ import { UserRepositoryInterface } from '../repo/user.repository.interface';
 import { CompareHashUseCase } from '../../security/usecase/compare-hash.usecase';
 import { SignInDto } from '../dto/sign-in.dto';
 import { AuthResponseDto } from '../dto/auth-response.dto';
-import { SettingsRepositoryInterface } from '../../settings/repo/settings.repository';
 
 @Injectable()
 export class FindUserByEmailUsecase {
@@ -12,12 +11,13 @@ export class FindUserByEmailUsecase {
   constructor(
     private readonly userRepository: UserRepositoryInterface,
     private readonly compareHashUseCase: CompareHashUseCase,
-    private readonly settingsCompany: SettingsRepositoryInterface,
   ) {}
 
   async execute(input: SignInDto): Promise<AuthResponseDto> {
+
     this.logger.log(`Tentativa de login para email: ${input.email}`);
     const user = await this.userRepository.findByEmail(input.email);
+  
 
     if (!user?.email) {
       this.logger.error(`Usuário não encontrado - email: ${input.email}`);
@@ -37,19 +37,16 @@ export class FindUserByEmailUsecase {
     }
 
     this.logger.log(`Login bem-sucedido - usuário: ${user.email}`);
-    const settings = await this.settingsCompany.findByEmail(
-      process.env.EMAIL as string,
-    );
-  
+
     return {
       user: {
         id: user.id as string,
         name: user.name,
         email: user.email,
         role: user.role,
-        companyName: settings?.name,
-        specialty: settings?.specialty,
-        logoUrl: settings?.logoUrl,
+        companyName: "",
+        specialty: "",
+        logoUrl: "",
       },
     };
   }

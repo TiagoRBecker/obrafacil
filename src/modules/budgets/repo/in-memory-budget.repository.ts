@@ -1,3 +1,4 @@
+import { randomUUID } from 'node:crypto';
 import { Injectable } from '@nestjs/common';
 
 import { BudgetEntity } from '../entity/budget.entity';
@@ -8,20 +9,23 @@ export class InMemoryBudgetRepository implements BudgetRepositoryInterface {
   private readonly budgets = new Map<string, BudgetEntity>();
 
   async create(budget: BudgetEntity): Promise<BudgetEntity> {
-    this.budgets.set("", budget);
-    return budget;
+    const id = budget.id || randomUUID();
+    const entity = BudgetEntity.toDTO({ ...budget.toJSON(), id } as any);
+    this.budgets.set(id, entity);
+    return entity;
   }
 
-  async update(id:string, budget: BudgetEntity): Promise<BudgetEntity> {
-    this.budgets.set("", budget);
-    return budget;
+  async update(id: string, budget: BudgetEntity): Promise<BudgetEntity> {
+    const entity = BudgetEntity.toDTO({ ...budget.toJSON(), id } as any);
+    this.budgets.set(id, entity);
+    return entity;
   }
 
   async findById(id: string): Promise<BudgetEntity | null> {
     return this.budgets.get(id) ?? null;
   }
   async findByCustomerAndStartDate(customerId: string, date: string): Promise<BudgetEntity | null> {
-    throw "not"
+    return null;
   }
 
   async findAll(skip: number, take: number): Promise<PaginatedBudgets> {

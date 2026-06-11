@@ -11,7 +11,6 @@ const common_1 = require("@nestjs/common");
 const security_module_1 = require("../security/security.module");
 const prisma_1 = require("../../db/prisma");
 const user_repository_interface_1 = require("./repo/user.repository.interface");
-const in_memory_user_repository_1 = require("./repo/in-memory-user.repository");
 const user_repo_1 = require("./repo/user.repo");
 const create_account_usecase_1 = require("./usecase/create-account-usecase");
 const find_user_id_usecase_1 = require("./usecase/find-user-id-usecase");
@@ -29,7 +28,6 @@ exports.UserModule = UserModule = __decorate([
             },
             prisma_1.PrismaService,
             create_account_usecase_1.CreateAccountUseCase,
-            in_memory_user_repository_1.InMemoryUserRepository,
             find_user_id_usecase_1.FindUserByEmailUsecase,
         ],
         exports: [

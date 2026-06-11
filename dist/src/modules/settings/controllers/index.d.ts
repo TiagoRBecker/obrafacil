@@ -1,3 +1,4 @@
 import { UpsertSettingsController } from './upsert.settings.controller';
 import { FindByIdSettingsController } from './findById.settings.controller';
-export declare const SettingsController: (typeof UpsertSettingsController | typeof FindByIdSettingsController)[];
+import { CreateSettingsController } from './create.settings.controller';
+export declare const SettingsController: (typeof UpsertSettingsController | typeof FindByIdSettingsController | typeof CreateSettingsController)[];

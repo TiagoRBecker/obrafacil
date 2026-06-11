@@ -56,7 +56,7 @@ let UserRepo = class UserRepo extends user_repository_interface_1.UserRepository
         });
         if (!user)
             return null;
-        return mapper_user_repo_1.MapperToPrisma.toDto(user);
+        return mapper_user_repo_1.MapperToPrisma.toDtoContext(user);
     }
     async findById(id) {
         const user = await this.prisma.account.findUnique({
@@ -73,7 +73,7 @@ let UserRepo = class UserRepo extends user_repository_interface_1.UserRepository
         });
         if (!user)
             return null;
-        return mapper_user_repo_1.MapperToPrisma.toDto(user);
+        return mapper_user_repo_1.MapperToPrisma.toDtoContext(user);
     }
 };
 exports.UserRepo = UserRepo;

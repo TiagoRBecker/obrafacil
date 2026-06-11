@@ -4,6 +4,7 @@ export declare enum DefaultBillingUnit {
     FIXED_SERVICE = "fixed_service"
 }
 export declare class UpsertSettingsDto {
+    id: string;
     name: string;
     specialty: string;
     phone: string;

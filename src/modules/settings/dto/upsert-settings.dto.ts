@@ -15,6 +15,11 @@ export enum DefaultBillingUnit {
 }
 
 export class UpsertSettingsDto {
+   @ApiProperty({ description: 'ID da empresa', example: 'Exemplo b272f50a-581a-4ffe-b17d-79b71f8adc14' })
+  @IsString()
+  @MinLength(3)
+  id!: string;
+
   @ApiProperty({ description: 'Nome da empresa', example: 'Minha Empresa de Serviços' })
   @IsString()
   @MinLength(3)

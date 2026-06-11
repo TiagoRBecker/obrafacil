@@ -34,8 +34,8 @@ let MockSettingsRepository = class MockSettingsRepository {
         this.settings.set(settings.id, settings);
         return settings;
     }
-    async findById(id) {
-        return this.settings.get(id) ?? null;
+    async findByfirst() {
+        return this.settings[0] ?? null;
     }
     async findByEmail(email) {
         return this.settings.get(email) ?? null;

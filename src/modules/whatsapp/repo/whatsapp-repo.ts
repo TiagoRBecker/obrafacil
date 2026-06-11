@@ -54,4 +54,16 @@ export class WhatsAppRepo extends WhatsAppRepositoryInterface {
       qrCode: updated.qrCode,
     });
   }
+  async findByFirstSession(): Promise<WhatsAppSession | null> {
+    const session = await this.prisma.whatsAppSession.findFirst({});
+
+    if (!session) return null;
+
+    return WhatsAppSession.create({
+      instance: session.instance,
+      status: session.status,
+      id: session.id,
+      qrCode: session.qrCode,
+    });
+  }
 }

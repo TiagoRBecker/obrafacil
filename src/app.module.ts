@@ -14,9 +14,10 @@ import { PrismaExceptionFilter } from './filters/prisma-exception.filter';
 
 import { WhatsAppModule } from './modules/whatsapp/whatsapp.module';
 import { EvoModule } from './modules/evo/evo.module';
-import { MessageModule } from './modules/message/message.module';
+import { MetricsModule } from './modules/metrics/metrics.module';
 import { UserModule } from './modules/users/user.module';
 import { SharedModule } from './modules/Shared/shared.module';
+import { SocketModule } from './modules/socket/socket.module';
 
 
 @Module({
@@ -42,9 +43,10 @@ import { SharedModule } from './modules/Shared/shared.module';
     SecurityModule,
     WhatsAppModule,
     EvoModule,
-    MessageModule,
+    MetricsModule,
     UserModule,
-    SharedModule
+    SharedModule,
+    SocketModule
   ],
   controllers: [AppController],
    providers: [

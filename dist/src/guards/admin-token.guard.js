@@ -35,7 +35,7 @@ let AdminTokenGuard = class AdminTokenGuard {
         const userHavePermission = await this.userRepo.findById(payload.id);
         if (!userHavePermission)
             throw new common_1.UnauthorizedException('Acesso negado ');
-        const userPermissions = userHavePermission?.permission?.map((rp) => rp) ?? [];
+        const userPermissions = userHavePermission?.permission?.map((rp) => rp.permission.name) ?? [];
         const hasAll = requiredPermissions?.every((p) => userPermissions.includes(p));
         if (!hasAll)
             throw new common_1.UnauthorizedException('Acesso somente  para adminstradores ');

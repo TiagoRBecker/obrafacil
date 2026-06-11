@@ -22,6 +22,12 @@ class UpsertSettingsDto {
 }
 exports.UpsertSettingsDto = UpsertSettingsDto;
 __decorate([
+    (0, swagger_1.ApiProperty)({ description: 'ID da empresa', example: 'Exemplo b272f50a-581a-4ffe-b17d-79b71f8adc14' }),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.MinLength)(3),
+    __metadata("design:type", String)
+], UpsertSettingsDto.prototype, "id", void 0);
+__decorate([
     (0, swagger_1.ApiProperty)({ description: 'Nome da empresa', example: 'Minha Empresa de Serviços' }),
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.MinLength)(3),

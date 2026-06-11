@@ -7,4 +7,5 @@ export declare class WhatsAppRepo extends WhatsAppRepositoryInterface {
     create(session: WhatsAppSession): Promise<WhatsAppSession>;
     findBySession(name: string): Promise<WhatsAppSession | null>;
     update(session: WhatsAppSession): Promise<WhatsAppSession>;
+    findByFirstSession(): Promise<WhatsAppSession | null>;
 }

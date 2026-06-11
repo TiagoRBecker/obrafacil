@@ -28,7 +28,6 @@ let SignUpUseCase = SignUpUseCase_1 = class SignUpUseCase {
                 name: user.name,
                 email: user.email,
                 role: user.role,
-                permission: user.permission,
             },
         };
     }

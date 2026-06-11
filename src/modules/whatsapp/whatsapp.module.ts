@@ -12,6 +12,7 @@ import { WhatsAppRepositoryInterface } from './repo/whatsapp-repo-interface';
 import { WhatsAppRepo } from './repo/whatsapp-repo';
 import { PrismaService } from '../../db/prisma';
 import { GetConnectionUseCase } from './usecase/findByConnection-usecase';
+import { SendMessageUseCase } from './usecase/send-message.usecase';
 
 @Module({
   controllers: [...WhatsAppController],
@@ -24,6 +25,7 @@ import { GetConnectionUseCase } from './usecase/findByConnection-usecase';
     UpdateStatusConnectionUseCase,
     GetConnectionUseCase,
     WebhookGuard,
+    SendMessageUseCase,
     {
       provide: WhatsAppRepositoryInterface,
       useClass: WhatsAppRepo,

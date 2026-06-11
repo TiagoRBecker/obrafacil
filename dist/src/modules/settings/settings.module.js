@@ -17,6 +17,7 @@ const find_settings_by_id_usecase_1 = require("./usecase/find-settings-by-id.use
 const settings_repo_1 = require("./repo/settings-repo");
 const prisma_1 = require("../../db/prisma");
 const user_module_1 = require("../users/user.module");
+const create_settings_usecase_1 = require("./usecase/create-settings-usecase");
 let SettingsModule = class SettingsModule {
 };
 exports.SettingsModule = SettingsModule;
@@ -29,12 +30,14 @@ exports.SettingsModule = SettingsModule = __decorate([
             find_settings_by_id_usecase_1.FindSettingsByIdUseCase,
             admin_token_guard_1.AdminTokenGuard,
             mock_settings_repository_1.MockSettingsRepository,
+            create_settings_usecase_1.CreatetSettingsUseCase,
             prisma_1.PrismaService,
             {
                 provide: settings_repository_1.SettingsRepositoryInterface,
                 useClass: settings_repo_1.SettingsRepo,
             },
         ],
+        exports: [find_settings_by_id_usecase_1.FindSettingsByIdUseCase]
     })
 ], SettingsModule);
 //# sourceMappingURL=settings.module.js.map

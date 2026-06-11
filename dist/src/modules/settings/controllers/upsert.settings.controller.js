@@ -19,6 +19,7 @@ const admin_token_guard_1 = require("../../../guards/admin-token.guard");
 const upsert_settings_dto_1 = require("../dto/upsert-settings.dto");
 const upsert_settings_usecase_1 = require("../usecase/upsert-settings.usecase");
 const decorators_1 = require("../../../../decorators");
+const types_1 = require("../../../../decorators/types");
 let UpsertSettingsController = class UpsertSettingsController {
     constructor(upsertSettingsUseCase) {
         this.upsertSettingsUseCase = upsertSettingsUseCase;
@@ -29,7 +30,8 @@ let UpsertSettingsController = class UpsertSettingsController {
 };
 exports.UpsertSettingsController = UpsertSettingsController;
 __decorate([
-    (0, decorators_1.RequirePermissions)('settings:update', 'settings:create'),
+    (0, decorators_1.Roles)(types_1.UserRole.ADMIN),
+    (0, decorators_1.RequirePermissions)('settings:update'),
     (0, common_1.Post)(),
     (0, swagger_1.ApiBearerAuth)('access-token'),
     (0, swagger_1.ApiOperation)({

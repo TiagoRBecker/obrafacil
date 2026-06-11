@@ -10,15 +10,17 @@ import { AdminTokenGuard } from '../../../guards/admin-token.guard';
 import { UpsertSettingsDto } from '../dto/upsert-settings.dto';
 import { SettingsResponseDto } from '../dto/settings-response.dto';
 import { UpsertSettingsUseCase } from '../usecase/upsert-settings.usecase';
-import { RequirePermissions } from '../../../../decorators';
+import { RequirePermissions, Roles } from '../../../../decorators';
+import { UserRole } from '../../../../decorators/types';
+
 
 @ApiTags('Configurações')
 @Controller('admin/settings')
 @UseGuards(AdminTokenGuard)
 export class UpsertSettingsController {
   constructor(private readonly upsertSettingsUseCase: UpsertSettingsUseCase) {}
-
-  @RequirePermissions('settings:update', 'settings:create')
+@Roles(UserRole.ADMIN)
+  @RequirePermissions('settings:update')
   @Post()
   @ApiBearerAuth('access-token')
   @ApiOperation({
@@ -31,6 +33,7 @@ export class UpsertSettingsController {
     @Req() req,
     @Body() body: UpsertSettingsDto,
   ): Promise<SettingsResponseDto> {
+    
     return this.upsertSettingsUseCase.execute(body, req.user);
   }
 }

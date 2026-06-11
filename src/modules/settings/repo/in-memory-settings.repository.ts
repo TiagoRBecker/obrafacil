@@ -17,8 +17,9 @@ export class InMemorySettingsRepository implements SettingsRepositoryInterface {
     return settings;
   }
 
-  async findById(id: string): Promise<SettingsEntity | null> {
-    return this.settings.get(id) ?? null;
+  async findByfirst(): Promise<SettingsEntity | null> {
+    const first = this.settings.values().next();
+    return first.done ? null : first.value;
   }
   async findByEmail(email: string): Promise<SettingsEntity | null> {
     return this.settings.get(email) ?? null;

@@ -13,7 +13,16 @@ export type UserPermission = Prisma.AccountGetPayload<{
         };
     };
 }>;
+export interface UserWithContextDto {
+    id: string;
+    name: string;
+    email: string;
+    role: string;
+    permission?: any[];
+    passwordHash: string;
+}
 export declare class MapperToPrisma {
     constructor();
     static toDto(data: UserPermission): UserEntity;
+    static toDtoContext(raw: UserPermission): UserWithContextDto;
 }

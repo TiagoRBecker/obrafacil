@@ -15,13 +15,14 @@ const sign_up_usecase_1 = require("./usecase/sign-up.usecase");
 const prisma_1 = require("../../db/prisma");
 const user_module_1 = require("../users/user.module");
 const controllers_1 = require("./controllers");
+const settings_module_1 = require("../settings/settings.module");
 let AuthModule = class AuthModule {
 };
 exports.AuthModule = AuthModule;
 exports.AuthModule = AuthModule = __decorate([
     (0, common_1.Global)(),
     (0, common_1.Module)({
-        imports: [security_module_1.SecurityModule, user_module_1.UserModule],
+        imports: [security_module_1.SecurityModule, user_module_1.UserModule, settings_module_1.SettingsModule],
         controllers: [...controllers_1.AuthController],
         providers: [
             prisma_1.PrismaService,

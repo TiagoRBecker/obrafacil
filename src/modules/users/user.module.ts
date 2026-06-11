@@ -19,7 +19,6 @@ import { SharedModule } from '../Shared/shared.module';
     },
     PrismaService,
     CreateAccountUseCase,
-    InMemoryUserRepository,
     FindUserByEmailUsecase,
   ],
   exports: [

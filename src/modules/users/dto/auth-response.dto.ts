@@ -31,4 +31,3 @@ export class AuthResponseDto {
     specialty?: string;
   };
 }
-

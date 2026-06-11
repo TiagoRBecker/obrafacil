@@ -15,16 +15,21 @@ const common_1 = require("@nestjs/common");
 const generate_access_token_usecase_1 = require("../../security/usecase/generate-access-token.usecase");
 const generate_refresh_token_usecase_1 = require("../../security/usecase/generate-refresh-token.usecase");
 const find_user_id_usecase_1 = require("../../users/usecase/find-user-id-usecase");
+const find_settings_by_id_usecase_1 = require("../../settings/usecase/find-settings-by-id.usecase");
 let SignInUseCase = SignInUseCase_1 = class SignInUseCase {
-    constructor(findByUser, generateAccessTokenUseCase, generateRefreshTokenUseCase) {
+    constructor(findByUser, findBySettings, generateAccessTokenUseCase, generateRefreshTokenUseCase) {
         this.findByUser = findByUser;
+        this.findBySettings = findBySettings;
         this.generateAccessTokenUseCase = generateAccessTokenUseCase;
         this.generateRefreshTokenUseCase = generateRefreshTokenUseCase;
         this.logger = new common_1.Logger(SignInUseCase_1.name);
     }
     async execute(input) {
+        console.log("Chamando o loin aqui");
         this.logger.log(`Tentativa de login para email: ${input.email}`);
-        const { user } = await this.findByUser.execute(input);
+        const [{ user },] = await Promise.all([
+            this.findByUser.execute(input),
+        ]);
         const { accessToken } = this.generateAccessTokenUseCase.execute({
             id: user?.id,
             name: user?.name,
@@ -44,9 +49,6 @@ let SignInUseCase = SignInUseCase_1 = class SignInUseCase {
                 name: user.name,
                 email: user.email,
                 role: user.role,
-                companyName: user?.name,
-                specialty: user?.specialty,
-                logoUrl: user?.logoUrl,
             },
         };
     }
@@ -55,6 +57,7 @@ exports.SignInUseCase = SignInUseCase;
 exports.SignInUseCase = SignInUseCase = SignInUseCase_1 = __decorate([
     (0, common_1.Injectable)(),
     __metadata("design:paramtypes", [find_user_id_usecase_1.FindUserByEmailUsecase,
+        find_settings_by_id_usecase_1.FindSettingsByIdUseCase,
         generate_access_token_usecase_1.GenerateAccessTokenUseCase,
         generate_refresh_token_usecase_1.GenerateRefreshTokenUseCase])
 ], SignInUseCase);

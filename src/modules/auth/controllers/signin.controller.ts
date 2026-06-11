@@ -1,8 +1,9 @@
 import { Body, Controller, Post } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiBody, ApiResponse } from '@nestjs/swagger';
+
+import { SignInUseCase } from '../usecase/sign-in.usecase';
 import { SignInDto } from '../../users/dto/sign-in.dto';
 import { AuthResponseDto } from '../../users/dto/auth-response.dto';
-import { SignInUseCase } from '../usecase/sign-in.usecase';
 
 @ApiTags('Autenticação')
 @Controller('auth')
@@ -21,6 +22,7 @@ export class SignInController {
   @ApiResponse({ status: 201, description: 'Login realizado com sucesso. Retorna tokens de acesso e dados do usuário.', type: AuthResponseDto })
   @ApiResponse({ status: 401, description: 'Email ou senha inválidos.' })
   signIn(@Body() body: SignInDto): Promise<AuthResponseDto> {
+ 
     return this.signInUseCase.execute(body);
   }
 

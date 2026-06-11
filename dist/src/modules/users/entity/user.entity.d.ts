@@ -4,7 +4,6 @@ export interface UserEntityProps {
     email: string;
     role: string;
     passwordHash: string;
-    permission?: string[];
 }
 export declare class UserEntity {
     private readonly props;
@@ -15,6 +14,5 @@ export declare class UserEntity {
     get email(): string;
     get role(): string;
     get passwordHash(): string;
-    get permission(): string[];
     static toDto(props: UserEntityProps): UserEntity;
 }

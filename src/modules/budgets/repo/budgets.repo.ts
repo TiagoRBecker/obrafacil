@@ -210,7 +210,9 @@ export class BudgetRepo extends BudgetRepositoryInterface {
     messageId: string,
   ): Promise<{ id: number; orderId: string; messageId: string } | null> {
     return this.prisma.messageTracking.findUnique({
-      where: { messageId },
+      where: { 
+        orderId:messageId
+       },
     });
   }
 

@@ -53,7 +53,7 @@ async function bootstrap() {
     .build();
 
   const document = SwaggerModule.createDocument(app, swaggerConfig);
-  SwaggerModule.setup('api/docs', app, document, {
+  SwaggerModule.setup('v1/api/docs', app, document, {
     customSiteTitle: 'API de Orçamentos - Documentação',
     customfavIcon: 'https://nestjs.com/img/logo_text.svg',
     customJs: [
@@ -68,8 +68,8 @@ async function bootstrap() {
   await app.listen(3003)
     .then(() => {
       const port = 3003;
-      Logger.log(`Servidor rodando em http://localhost:${port}`);
-      Logger.log(`Documentação Swagger em http://localhost:${port}/api/docs`);
+      Logger.log(`Servidor rodando em http://localhost:${port}/v1/`);
+      Logger.log(`Documentação Swagger em http://localhost:${port}/v1/api/docs`);
     })
     .catch((e) => Logger.error(e));
 }

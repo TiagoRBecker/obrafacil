@@ -25,6 +25,7 @@ const evo_module_1 = require("./modules/evo/evo.module");
 const metrics_module_1 = require("./modules/metrics/metrics.module");
 const user_module_1 = require("./modules/users/user.module");
 const shared_module_1 = require("./modules/Shared/shared.module");
+const socket_module_1 = require("./modules/socket/socket.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -54,7 +55,8 @@ exports.AppModule = AppModule = __decorate([
             evo_module_1.EvoModule,
             metrics_module_1.MetricsModule,
             user_module_1.UserModule,
-            shared_module_1.SharedModule
+            shared_module_1.SharedModule,
+            socket_module_1.SocketModule
         ],
         controllers: [app_controller_1.AppController],
         providers: [

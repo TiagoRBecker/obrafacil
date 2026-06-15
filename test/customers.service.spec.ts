@@ -6,6 +6,7 @@ import { FindAllCustomersUseCase } from '../src/modules/customers/usecase/find-a
 import { InMemoryCustomerRepository } from '../src/modules/customers/repo/in-memory-customer.repository';
 import { FindCustomerByIdUseCase } from '../src/modules/customers/usecase/find-customer-by-id.usecase';
 import { DeleteCustomerUseCase } from '../src/modules/customers/usecase/delete-customer.usecase';
+import { customerMockDto } from './helpers/mocks/customer';
 
 describe('CustomersService (Testes Unitários)', () => {
   let create: CreateCustomerUseCase;
@@ -15,13 +16,7 @@ describe('CustomersService (Testes Unitários)', () => {
   let findById: FindCustomerByIdUseCase;
   let deleteById: DeleteCustomerUseCase;
 const id = "123" // cliente inexistente erro  ao buscar notfound
-  const dto = {
-    name: 'Diego Shell',
-    phone: '(51) 99999-8888',
-    service: ServiceTypeEnum.ELECTRICAL,
-    address: 'Rua de Teste, 10',
-    city: 'Porto Alegre',
-  };
+ 
 
   beforeEach(() => {
     // 1. Instanciamos o repositório falso em memória limpo para cada teste
@@ -37,7 +32,7 @@ const id = "123" // cliente inexistente erro  ao buscar notfound
 
   describe('Testes de criaçao de cliente ', () => {
     it('deve criar um cliente com sucesso', async () => {
-      const result = await create.execute(dto);
+      const result = await create.execute(customerMockDto);
 
       const id = result.id;
       expect(result).toHaveProperty('id');
@@ -68,7 +63,7 @@ const id = "123" // cliente inexistente erro  ao buscar notfound
         address: 'Rua de Teste, 10',
         city: 'Novo Hamburgo',
       };
-      const result = await create.execute(dto);
+      const result = await create.execute(customerMockDto);
       const updateCustomer = await update.execute(result.id, newDto);
 
       expect(updateCustomer).toHaveProperty('id');
@@ -108,7 +103,7 @@ const id = "123" // cliente inexistente erro  ao buscar notfound
       expect(findAllCustomers.data).toHaveLength(5);
     });
     it('Deve   buscar um  cliente com sucesso', async () => {
-      const result = await create.execute(dto);
+      const result = await create.execute(customerMockDto);
       const customer = await findById.execute(result.id);
 
       expect(customer).toHaveProperty('id');
@@ -116,7 +111,7 @@ const id = "123" // cliente inexistente erro  ao buscar notfound
       expect(customer.name).toBe('Diego Shell');
     });
     it('Deve falhar ao  buscar um  cliente notfound', async () => {
-      await create.execute(dto);
+      await create.execute(customerMockDto);
      
       await expect(findById.execute(id)).rejects.toBeInstanceOf(
         NotFoundException,
@@ -125,7 +120,7 @@ const id = "123" // cliente inexistente erro  ao buscar notfound
   });
   describe('Testes de excluir', () => {
     it('Deve detelar o cliente com sucesso', async () => {
-      const data = await create.execute(dto);
+      const data = await create.execute(customerMockDto);
       await deleteById.execute(data.id);
 
       await expect(findById.execute(data.id)).rejects.toBeInstanceOf(

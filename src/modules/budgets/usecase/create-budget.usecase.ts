@@ -74,7 +74,7 @@ export class CreateBudgetUseCase {
       this.logger.log(`Orçamento criado com sucesso - ID: ${createdBudget.id}`);
       return createdBudget;
     } catch (error) {
-      this.logger.error(`Erro ao criar orçamento: ${error.message || error}`);
+      this.logger.error(`Erro ao criar orçamento: ${error?.message || error}`);
       throw new BadRequestException('Erro a criar a ordem de serviço ');
     }
   }

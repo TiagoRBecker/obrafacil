@@ -10,7 +10,7 @@ import { SecurityModule } from '../src/modules/security/security.module';
 import { AuthModule } from '../src/modules/auth/auth.module';
 import { SharedModule } from '../src/modules/Shared/shared.module';
 import { SettingsModule } from '../src/modules/settings/settings.module';
-import { CustomerModule } from '../src/modules/customers/customer.module';
+
 
 import { CustomerRepositoryInterface } from '../src/modules/customers/repo/customer-repository.interface';
 import { UserRepositoryInterface } from '../src/modules/users/repo/user.repository.interface';

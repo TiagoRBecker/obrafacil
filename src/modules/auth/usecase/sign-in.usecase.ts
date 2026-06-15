@@ -19,7 +19,7 @@ export class SignInUseCase {
 
   async execute(input: SignInDto): Promise<AuthResponseDto> {
 
-    console.log("Chamando o loin aqui")
+
     this.logger.log(`Tentativa de login para email: ${input.email}`);
 
     const  [{user},]= await Promise.all([

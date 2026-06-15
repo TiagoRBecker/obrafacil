@@ -1,8 +1,15 @@
 import { randomUUID } from 'node:crypto';
 import { Injectable } from '@nestjs/common';
 
-import { CustomerEntity, CustomerWithOrders } from '../entity/customer.entity';
-import { CustomerRepositoryInterface, PaginatedCustomers } from './customer-repository.interface';
+import {
+  CustomerEntity,
+  CustomerEntityProps,
+  CustomerWithOrders,
+} from '../entity/customer.entity';
+import {
+  CustomerRepositoryInterface,
+  PaginatedCustomers,
+} from './customer-repository.interface';
 
 @Injectable()
 export class InMemoryCustomerRepository implements CustomerRepositoryInterface {
@@ -12,6 +19,7 @@ export class InMemoryCustomerRepository implements CustomerRepositoryInterface {
     const id = customer.id || randomUUID();
     const entity = CustomerEntity.toDTO({ ...customer.toJSON(), id });
     this.customers.set(id, entity);
+
     return entity;
   }
 
@@ -35,6 +43,7 @@ export class InMemoryCustomerRepository implements CustomerRepositoryInterface {
 
   async findAll(skip: number, take: number): Promise<PaginatedCustomers> {
     const values = [...this.customers.values()];
+
     return {
       data: values.map((customer) => ({ customer, orders: [] })) as any,
       total: values.length,

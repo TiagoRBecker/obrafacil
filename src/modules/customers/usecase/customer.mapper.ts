@@ -17,12 +17,12 @@ export class CustomerMapper {
   static toResponseWithOrders(data: CustomerWithOrders): CustomerResponseDto {
     const { customer, orders } = data;
     return {
-      id: customer.id as string,
-      name: customer.name,
-      phone: customer.phone,
-      address: customer.address,
-      service: customer.service,
-      city: customer.city as string,
+      id: customer?.id as string,
+      name: customer?.name,
+      phone: customer?.phone,
+      address: customer?.address,
+      service: customer?.service,
+      city: customer?.city as string,
       orders:orders || []
     };
   }

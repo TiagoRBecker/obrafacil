@@ -1,14 +1,9 @@
-import { ServiceTypeEnum } from '../src/modules/customers/dto/create-customer.dto';
+
 import { CreateCustomerUseCase } from '../src/modules/customers/usecase/create-customer.usecase';
-import { UpdateCustomerUseCase } from '../src/modules/customers/usecase/update-customer.usecase';
-import { BadRequestException, NotFoundException } from '@nestjs/common';
-import { FindAllCustomersUseCase } from '../src/modules/customers/usecase/find-all-customers.usecase';
+import {  NotFoundException } from '@nestjs/common';
 import { InMemoryCustomerRepository } from '../src/modules/customers/repo/in-memory-customer.repository';
-import { FindCustomerByIdUseCase } from '../src/modules/customers/usecase/find-customer-by-id.usecase';
-import { DeleteCustomerUseCase } from '../src/modules/customers/usecase/delete-customer.usecase';
 import { InMemoryBudgetRepository } from '../src/modules/budgets/repo/in-memory-budget.repository';
 import { CreateBudgetUseCase } from '../src/modules/budgets/usecase/create-budget.usecase';
-import { TypeCharge } from '../src/modules/budgets/dto/create-budget.dto';
 import { orderDto } from './helpers/mocks/budgets';
 import { UpdateBudgetUseCase } from '../src/modules/budgets/usecase/update-budget.usecase';
 import { customerMockDto } from './helpers/mocks/customer';

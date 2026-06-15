@@ -1,18 +1,47 @@
 import { Injectable } from '@nestjs/common';
 
 import { TeamMemberEntity } from '../entity/team-member.entity';
-import { PaginatedTeam, TeamMemberRepositoryInterface } from './team-member.repository';
+import {
+  PaginatedTeam,
+  TeamMemberRepositoryInterface,
+} from './team-member.repository';
+import { randomUUID } from 'node:crypto';
 
 @Injectable()
 export class InMemoryTeamMemberRepository implements TeamMemberRepositoryInterface {
   private readonly members = new Map<string, TeamMemberEntity>();
 
   async create(member: TeamMemberEntity): Promise<TeamMemberEntity> {
-    this.members.set(member.data?.id as string, member);
-    return member;
+    const {
+      email,
+      jobTitle,
+      name,
+      createdAt,
+      phone,
+      status,
+      teamsOrder,
+      updatedAt,
+    } = member.data;
+    const id = randomUUID();
+    this.members.set(id as string, member);
+    const entity = TeamMemberEntity.toDTO({
+      email,
+      jobTitle,
+      name,
+      createdAt,
+      phone,
+      id,
+      status,
+      teamsOrder,
+      updatedAt,
+    }); 
+    return entity;
   }
 
-  async update(id:string,member: TeamMemberEntity): Promise<TeamMemberEntity> {
+  async update(
+    id: string,
+    member: TeamMemberEntity,
+  ): Promise<TeamMemberEntity> {
     this.members.set(member.data?.id as string, member);
     return member;
   }
@@ -42,7 +71,7 @@ export class InMemoryTeamMemberRepository implements TeamMemberRepositoryInterfa
     return null;
   }
 
-  async findAll(skip,take): Promise<PaginatedTeam> {
+  async findAll(skip, take): Promise<PaginatedTeam> {
     const values = [...this.members.values()];
     return {
       data: values.slice(skip, skip + take) as any,

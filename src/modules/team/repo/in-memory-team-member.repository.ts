@@ -12,29 +12,15 @@ export class InMemoryTeamMemberRepository implements TeamMemberRepositoryInterfa
   private readonly members = new Map<string, TeamMemberEntity>();
 
   async create(member: TeamMemberEntity): Promise<TeamMemberEntity> {
-    const {
-      email,
-      jobTitle,
-      name,
-      createdAt,
-      phone,
-      status,
-      teamsOrder,
-      updatedAt,
-    } = member.data;
     const id = randomUUID();
-    this.members.set(id as string, member);
+
     const entity = TeamMemberEntity.toDTO({
-      email,
-      jobTitle,
-      name,
-      createdAt,
-      phone,
+      ...member.data,
       id,
-      status,
-      teamsOrder,
-      updatedAt,
-    }); 
+    });
+
+    this.members.set(id, entity);
+
     return entity;
   }
 
@@ -42,8 +28,14 @@ export class InMemoryTeamMemberRepository implements TeamMemberRepositoryInterfa
     id: string,
     member: TeamMemberEntity,
   ): Promise<TeamMemberEntity> {
-    this.members.set(member.data?.id as string, member);
-    return member;
+    const entity = TeamMemberEntity.toDTO({
+      ...member.data,
+      id,
+    });
+
+    this.members.set(id, entity);
+
+    return entity;
   }
 
   async findById(id: string): Promise<TeamMemberEntity | null> {

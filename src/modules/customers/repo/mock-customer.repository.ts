@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 
 import { CustomerEntity, CustomerWithOrders } from '../entity/customer.entity';
 import { CustomerRepositoryInterface, PaginatedCustomers } from './customer-repository.interface';
+import { randomUUID } from 'crypto';
 
 @Injectable()
 export class MockCustomerRepository implements CustomerRepositoryInterface {
@@ -31,13 +32,16 @@ export class MockCustomerRepository implements CustomerRepositoryInterface {
  
 
   async create(customer: CustomerEntity): Promise<CustomerEntity> {
-    this.customers.set(customer.id as string, customer);
-    return customer;
+    const id =  randomUUID();
+    const entity = CustomerEntity.toDTO({ ...customer.toJSON(), id });
+    this.customers.set(id as string, entity);
+    return entity;
   }
 
   async update(id:string, customer: CustomerEntity): Promise<CustomerEntity> {
-    this.customers.set(customer.id as string, customer);
-    return customer;
+    this.customers.set(id as string, customer);
+    const entity = CustomerEntity.toDTO({ ...customer.toJSON(), id });
+    return entity;
   }
 
   async findById(id: string): Promise<CustomerEntity | null> {

@@ -1,7 +1,6 @@
 import { Module } from '@nestjs/common';
 
 import { AdminTokenGuard } from '../../guards/admin-token.guard';
-import { MockTeamMemberRepository } from './repo/mock-team-member.repository';
 import { TeamMemberRepositoryInterface } from './repo/team-member.repository';
 import { TeamController } from './controllers';
 import { TeamService } from './team.service';
@@ -26,7 +25,6 @@ import { UserModule } from '../users/user.module';
     DeleteTeamMemberUseCase,
     PrismaService,
     AdminTokenGuard,
-    MockTeamMemberRepository,
     {
       provide: TeamMemberRepositoryInterface,
       useClass: TeamRepo,

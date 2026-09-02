@@ -2,12 +2,12 @@
 services:
   evolution:
     image: evoapicloud/evolution-api:latest
-    container_name: ${CLIENT_SLUG}-evolution
+    container_name: evolution
     restart: always
     ports:
       - "${PORT}:8080"
     volumes:
-      - evolution_instances:/evolution/instances
+      - D:/builds/evolution/instances:/evolution/instances
     networks:
       - internal
     environment:

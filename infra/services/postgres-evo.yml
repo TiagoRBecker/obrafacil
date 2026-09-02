@@ -2,14 +2,14 @@
 services:
   postgres_evo:
     image: postgres:16-alpine
-    container_name: ${CLIENT_SLUG}-postgres-evo
+    container_name: postgres-evo
     restart: always
     environment:
       POSTGRES_USER: evo
       POSTGRES_PASSWORD: evo123
       POSTGRES_DB: evolution
     volumes:
-      - postgres_evo_data:/var/lib/postgresql/data
+      - D:/builds/postgres/evolution:/var/lib/postgresql/data
     networks:
       - internal
     healthcheck:

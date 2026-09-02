@@ -28,6 +28,15 @@ export class InMemoryUserRepository implements UserRepositoryInterface {
   }
 
   async create(user: UserEntity): Promise<UserEntity> {
+    const dto: UserWithContextDto = {
+      id: user.id as string,
+      name: user.name,
+      email: user.email,
+      role: user.role,
+      permission: [],
+      passwordHash: user.passwordHash,
+    };
+    this.data.set(dto.email.toLowerCase(), dto);
     return user;
   }
 }

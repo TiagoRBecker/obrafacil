@@ -12,7 +12,7 @@ export interface SettingsEntityProps {
 }
 
 export class SettingsEntity {
-  private constructor(private readonly props: SettingsEntityProps) {}
+  private constructor(private readonly props: SettingsEntityProps) { }
 
   static create(props: SettingsEntityProps): SettingsEntity {
     return new SettingsEntity({
@@ -23,10 +23,21 @@ export class SettingsEntity {
       email: props.email,
       address: props.address,
       logoUrl: props.logoUrl
-   
+
     });
   }
+  static toDTO(props: SettingsEntityProps): SettingsEntity {
+    return new SettingsEntity({
+      id: props?.id as string,
+      name: props.name,
+      address: props.address,
+      phone: props.phone,
+      logoUrl: props.logoUrl,
+      email: props.email,
+      specialty: props.specialty
 
+    })
+  }
   get id(): string {
     return this.props.id;
   }

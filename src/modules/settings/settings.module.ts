@@ -1,7 +1,6 @@
 import { Module } from '@nestjs/common';
 
 import { AdminTokenGuard } from '../../guards/admin-token.guard';
-import { MockSettingsRepository } from './repo/mock-settings.repository';
 import { SettingsRepositoryInterface } from './repo/settings.repository';
 import { SettingsController } from './controllers';
 import { UpsertSettingsUseCase } from './usecase/upsert-settings.usecase';
@@ -18,7 +17,6 @@ import { CreatetSettingsUseCase } from './usecase/create-settings-usecase';
     UpsertSettingsUseCase,
     FindSettingsByIdUseCase,
     AdminTokenGuard,
-    MockSettingsRepository,
     CreatetSettingsUseCase,
     PrismaService,
     {

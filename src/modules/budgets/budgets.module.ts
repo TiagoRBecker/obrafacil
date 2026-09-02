@@ -3,7 +3,6 @@ import { Module } from '@nestjs/common';
 import { AdminTokenGuard } from '../../guards/admin-token.guard';
 
 import { BudgetsService } from './budgets.service';
-import { MockBudgetRepository } from './repo/mock-budget.repository';
 import { BudgetRepositoryInterface } from './repo/budget.repository.interface';
 import { CreateBudgetUseCase } from './usecase/create-budget.usecase';
 import { DeleteBudgetUseCase } from './usecase/delete-budget.usecase';
@@ -34,7 +33,6 @@ import { BudgetsController } from './controllers';
     FindAllBudgetsUseCase,
     DeleteBudgetUseCase,
     AdminTokenGuard,
-    MockBudgetRepository,
     UpdateOrderStatusUseCase,
   ],
 exports:[BudgetRepositoryInterface,UpdateOrderStatusUseCase]
